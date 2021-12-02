@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateApartmentSponsorshipTable extends Migration
+class CreateStatisticsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateApartmentSponsorshipTable extends Migration
      */
     public function up()
     {
-        Schema::create('apartment_sponsorship', function (Blueprint $table) {
+        Schema::create('statistics', function (Blueprint $table) {
             $table->id();
             $table->foreignId('apartment_id')->constrained()->onDelete('cascade');
-            $table->foreignId('sponsorship_id')->constrained()->onDelete('cascade');
-            // $table->foreign('sponsorship_id')->references('id')->on('sponsorships')->onDelete('cascade');
-            $table->dateTime('expiration');
+            $table->string('ip_address', 20)->default('unavailable');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateApartmentSponsorshipTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('apartment_sponsorship');
+        Schema::dropIfExists('statistics');
     }
 }
