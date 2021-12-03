@@ -19,4 +19,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Rotte area Admin non visibili se sloggati
+Route::middleware('auth')->namespace('Admin')->name('admin.')->prefix('admin')->group(function() {
+    Route::resource('/apartments', 'ApartmentController');
+    // Route::get('/', 'ApartmentController@index')->name('apartments.index');
+    //reindirizzo le rotte /post su /PostController
+    // Route::resource("posts","PostController");
+});
