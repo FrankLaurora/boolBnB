@@ -23,7 +23,7 @@ class ApartmentsTableSeeder extends Seeder
             $newApartment ->rooms = $faker->numberBetween(1, 20);
             $newApartment ->guests_number = $faker->numberBetween(1, 20);
             $newApartment ->bathrooms = $faker->numberBetween(1, 10);
-            $newApartment ->sqm = $faker->numberBetween(1, 10000);
+            $newApartment ->sqm = $faker->numberBetween(40, 1000);
             $newApartment ->region = "Italy";
             $newApartment ->city = "Rome";
             $newApartment ->address = $addresses[$i];
@@ -33,6 +33,7 @@ class ApartmentsTableSeeder extends Seeder
             $newApartment ->cover = "https://picsum.photos/600/400";
             $newApartment ->visibility = $faker->boolean();
             $newApartment ->slug =Str::of($newApartment->title)->slug('-');
+            $newApartment ->description = $faker->text(100);
             $newApartment -> save();
         }
 

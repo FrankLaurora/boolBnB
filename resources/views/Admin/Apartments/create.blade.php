@@ -89,10 +89,12 @@
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
             </div>
+            
+            {{-- input per l'immagine di copertina dell'appartamento --}}
             <div class="mb-3">
-                <label for="title" class="form-label">Titolo</label>
-                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" id="title" value="{{old('title')}}" placeholder="Inserisci il titolo">
-                @error('title')
+                <label for="cover" class="form-label">Cover</label>
+                <input type="file" name="cover" class="form-control @error('cover') is-invalid @enderror" id="cover" value="{{old('cover')}}" placeholder="Scegli un'immagine di copertina">
+                @error('cover')
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
             </div>
