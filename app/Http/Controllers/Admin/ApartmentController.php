@@ -8,8 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-
-
+use Illuminate\Support\Facades\Http;
 class ApartmentController extends Controller
 {
     /*validation rules*/
@@ -33,6 +32,37 @@ class ApartmentController extends Controller
      */
     public function index()
     {   
+        // $response = Http::get('https://api.tomtom.com/search/2/search/' . 'via roma 10 milano', [
+        //     'key' => 'lXA4qKasPyxqJxup4ikKlTFOL3Z89cp4',
+        //     'verify' => false
+        // ]);
+        $client = new Client();
+        // $client = new Client(['defaults' => [
+        //     'verify' => false
+        // ]]);
+
+        // $response = $client->get('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json');
+
+        // $response = Http::get('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json', ['verify' => false])->collect();
+        
+        $response = $client->request('GET', 'https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json', ['verify' => false]);
+        // $response = Http::acceptJson()->get('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json%27');
+        
+        // $response = $client->request('GET','https://api.tomtom.com/search/2/search/via broseta bergamo.json?key=jXiFCoqvlFBNjmqBX4SuU1ehhUX1JF7t', ['verify' => false])->getBody();
+        // $response = $client->request('GET', 'https://api.tomtom.com/search/2/search/', [
+        //     'form_params' => [
+        //         'verify' => 'false',
+        //         'key' => 'jXiFCoqvlFBNjmqBX4SuU1ehhUX1JF7t',
+        //         'query' => 'via%20broseta%20bergamo',
+        //     ]
+        // ]);
+        // $response = $client->request('GET', 'https://api.tomtom.com/search/2/search/via%20broseta%20bergamo&key=lXA4qKasPyxqJxup4ikKlTFOL3Z89cp4',
+        //     ['verify' => false]
+        //     // ['key' => 'lXA4qKasPyxqJxup4ikKlTFOL3Z89cp4'],
+        //     // ['query' => 'via%20broseta%20bergamo']
+        // );
+        dd($response);
+
         $user_id = Auth::user()->id;
 
         $apartments = Apartment::all()->where('user_id', $user_id);
@@ -59,13 +89,17 @@ class ApartmentController extends Controller
     public function store(Request $request)
     {
         $request->validate($this->validationRules);
-
+        // $response = Http::get('https://api.tomtom.com/search/2/search/' . $request->address . '%20' . $request->number . '%20' . $request->city, [
+        //     'key' => 'lXA4qKasPyxqJxup4ikKlTFOL3Z89cp4',
+        // ]);
+        // dd($response);
         $newApartment = new Apartment();
         $newApartment->fill($request->all());
         // slug, latitude, longitude, visibility, user_id
         $newApartment->slug = $this->getSlug($newApartment->title);
         $newApartment->visibility = true;
         $newApartment->user_id = Auth::user()->id;
+
         $newApartment->save();
     }
 
