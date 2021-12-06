@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 class ApartmentController extends Controller
 {
     /*validation rules*/
@@ -22,7 +23,7 @@ class ApartmentController extends Controller
         'city' => 'required|string|max:255|min:2',
         'address' => 'required|string|max:255|min:5',
         'number' => 'required|integer|min:1|max:5000',
-        'cover' => 'nullable|url|max:255',
+        'cover' => 'nullable|image|max:1024',
         'description' => 'nullable|string|max:10000'
     ];
     /**
@@ -32,37 +33,6 @@ class ApartmentController extends Controller
      */
     public function index()
     {   
-        // $response = Http::get('https://api.tomtom.com/search/2/search/' . 'via roma 10 milano', [
-        //     'key' => 'lXA4qKasPyxqJxup4ikKlTFOL3Z89cp4',
-        //     'verify' => false
-        // ]);
-        $client = new Client();
-        // $client = new Client(['defaults' => [
-        //     'verify' => false
-        // ]]);
-
-        // $response = $client->get('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json');
-
-        // $response = Http::get('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json', ['verify' => false])->collect();
-        
-        $response = $client->request('GET', 'https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json', ['verify' => false]);
-        // $response = Http::acceptJson()->get('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json%27');
-        
-        // $response = $client->request('GET','https://api.tomtom.com/search/2/search/via broseta bergamo.json?key=jXiFCoqvlFBNjmqBX4SuU1ehhUX1JF7t', ['verify' => false])->getBody();
-        // $response = $client->request('GET', 'https://api.tomtom.com/search/2/search/', [
-        //     'form_params' => [
-        //         'verify' => 'false',
-        //         'key' => 'jXiFCoqvlFBNjmqBX4SuU1ehhUX1JF7t',
-        //         'query' => 'via%20broseta%20bergamo',
-        //     ]
-        // ]);
-        // $response = $client->request('GET', 'https://api.tomtom.com/search/2/search/via%20broseta%20bergamo&key=lXA4qKasPyxqJxup4ikKlTFOL3Z89cp4',
-        //     ['verify' => false]
-        //     // ['key' => 'lXA4qKasPyxqJxup4ikKlTFOL3Z89cp4'],
-        //     // ['query' => 'via%20broseta%20bergamo']
-        // );
-        dd($response);
-
         $user_id = Auth::user()->id;
 
         $apartments = Apartment::all()->where('user_id', $user_id);
@@ -89,18 +59,33 @@ class ApartmentController extends Controller
     public function store(Request $request)
     {
         $request->validate($this->validationRules);
-        // $response = Http::get('https://api.tomtom.com/search/2/search/' . $request->address . '%20' . $request->number . '%20' . $request->city, [
-        //     'key' => 'lXA4qKasPyxqJxup4ikKlTFOL3Z89cp4',
-        // ]);
-        // dd($response);
         $newApartment = new Apartment();
         $newApartment->fill($request->all());
         // slug, latitude, longitude, visibility, user_id
+        $newApartment->cover = Storage::put('apartments_cover', $request->cover);
+
+        $client = new Client([ 'base_uri' => 'https://api.tomtom.com/search/2/search/', 'timeout'  => 2.0, 'verify' => false]); 
+        
+        $response = $client->get($request->address . ' ' . $request->city . ' ' . $request->region . '.json?key=lXA4qKasPyxqJxup4ikKlTFOL3Z89cp4');
+        
+        $results = json_decode($response->getBody());
+
+        $results = $results->results;
+        
+        for($i = 0; $i < count($results) && $newApartment->latitude == ''; $i++){
+            if($results[$i]->address->municipality == $request->city){
+                $newApartment->latitude = $results[$i]->position->lat;
+                $newApartment->longitude = $results[$i]->position->lon;
+            }
+        };
+
         $newApartment->slug = $this->getSlug($newApartment->title);
         $newApartment->visibility = true;
         $newApartment->user_id = Auth::user()->id;
 
         $newApartment->save();
+
+        return redirect()->route('admin.apartments.index');
     }
 
     /**
@@ -120,9 +105,9 @@ class ApartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Apartment $apartment)
     {
-        //
+        return view('admin.apartments.edit', compact('apartment'));
     }
 
     /**
@@ -132,9 +117,36 @@ class ApartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Apartment $apartment)
     {
-        //
+        $request->validate($this->validationRules);
+
+        $apartment->fill($request->all());
+        // slug, latitude, longitude, visibility, user_id
+        $apartment->cover = Storage::put('apartments_cover', $request->cover);
+
+        $client = new Client([ 'base_uri' => 'https://api.tomtom.com/search/2/search/', 'timeout'  => 2.0, 'verify' => false]); 
+        
+        $response = $client->get($request->address . ' ' . $request->city . ' ' . $request->region . '.json?key=lXA4qKasPyxqJxup4ikKlTFOL3Z89cp4');
+        
+        $results = json_decode($response->getBody());
+
+        $results = $results->results;
+        
+        for($i = 0; $i < count($results) && $apartment->latitude == ''; $i++){
+            if($results[$i]->address->municipality == $request->city){
+                $apartment->latitude = $results[$i]->position->lat;
+                $apartment->longitude = $results[$i]->position->lon;
+            }
+        };
+
+        $apartment->slug = $this->getSlug($apartment->title);
+        $apartment->visibility = true;
+        $apartment->user_id = Auth::user()->id;
+
+        $apartment->save();
+
+        return redirect()->route('admin.apartments.index')->with('success', 'Modifiche effettuate correttamente.');
     }
 
     /**
