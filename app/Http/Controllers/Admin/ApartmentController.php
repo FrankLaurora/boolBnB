@@ -73,14 +73,30 @@ class ApartmentController extends Controller
         $results = json_decode($response->getBody());
 
         $results = $results->results;
-        
         for($i = 0; $i < count($results) && $newApartment->latitude == ''; $i++){
             if(isset($results[$i]->address->municipality) && $results[$i]->address->municipality == $request->city){
                 $newApartment->latitude = $results[$i]->position->lat;
                 $newApartment->longitude = $results[$i]->position->lon;
             }
         };
+        if($newApartment->latitude==null){
+            $response = $client->get($request->city . ' ' . $request->region . '.json?key=lXA4qKasPyxqJxup4ikKlTFOL3Z89cp4');
 
+            $results = json_decode($response->getBody());
+
+            $results = $results->results;
+
+            for($i = 0; $i < count($results) && $newApartment->latitude == ''; $i++){
+                if(isset($results[$i]->address->municipality)&&$results[$i]->address->municipality == $request->city){
+                    $newApartment->latitude = $results[$i]->position->lat;
+                    $newApartment->longitude = $results[$i]->position->lon;
+                }
+            };
+        }
+        if($newApartment->latitude==null){
+            return redirect()->route('admin.apartments.index')->with('error', 'Errore, indirizzo o città inesistente');
+        }
+        dd($newApartment);
         $newApartment->slug = $this->getSlug($newApartment->title);
         $newApartment->visibility = true;
         $newApartment->user_id = Auth::user()->id;
