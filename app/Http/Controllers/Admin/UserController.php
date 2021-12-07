@@ -10,11 +10,11 @@ use App\User;
 class UserController extends Controller
 {
     // protected $validationDate = date('d/m') .'/'.(date('Y')-18);
-    // protected $validationRules = [
-    //     'first_name' => 'string|max:50',
-    //     'last_name' => 'string|max:50',
-    //     'date_of_birth' => "date_format:Y-m-d|after:01/01/1900|before:" . $validationDate,
-    // ];
+    protected $validationRules = [
+        'first_name' => 'string|max:50',
+        'last_name' => 'string|max:50',
+        // 'date_of_birth' => "date_format:Y-m-d|after:01/01/1900|before:" . $validationDate,
+    ];
     /**
      * Display a listing of the resource.
      *
