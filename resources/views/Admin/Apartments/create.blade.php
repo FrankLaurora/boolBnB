@@ -99,25 +99,16 @@
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
             </div>
-            {{-- <div class="mb-3">
-                <label for="content" class="form-label">Post</label>
-                <textarea name="content" id="content" class="form-control @error('content') is-invalid @enderror" cols="30" rows="10" placeholder="Inserisci il testo del tuo post... ">{{old('content')}}</textarea>
-                @error('content')
+            
+            {{-- input per la descrizione dell'appartamento --}}
+            <div class="mb-3">
+                <label for="description" class="form-label">Descrizione</label>
+                <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror" cols="30" rows="10" placeholder="Inserisci una descrizione. ">{{old('description') ?? $apartment->description}}</textarea>
+                @error('description')
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
             </div>
-            <div class="mb-3">
-                <label for="category" class="form-label">Categoria</label>
-                <select name="category_id" class="form-control @error('category_id') is-invalid @enderror" >
-                    <option value="">--seleziona una categoria--</option>
-                    @foreach ($categories as $category)
-                       <option {{ old("category_id") == $category['id'] ? 'selected' : null}} value="{{$category['id']}}">{{$category['name']}}</option> 
-                    @endforeach
-                </select>
-                @error('category_id')
-                    <div class="alert alert-danger">{{$message}}</div>
-                @enderror
-            </div> --}}
+
             <button type="submit" class="btn btn-dark">Pubblica</button>
         </form>
     </body>
