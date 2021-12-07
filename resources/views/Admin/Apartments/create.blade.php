@@ -123,5 +123,5 @@
             </div> --}}
             <button type="submit" class="btn btn-dark">Pubblica</button>
         </form>
-    </div>  
+    </div>
 @endsection

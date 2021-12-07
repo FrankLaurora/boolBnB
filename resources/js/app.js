@@ -5,6 +5,7 @@
  */
 
 require('./bootstrap');
+require('./autocomplete')
 
 window.Vue = require('vue');
 
