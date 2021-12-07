@@ -23,7 +23,7 @@ class ApartmentController extends Controller
         'city' => 'required|string|max:255|min:2',
         'address' => 'required|string|max:255|min:5',
         'number' => 'required|integer|min:1|max:5000',
-        'cover' => 'nullable|image|max:1024',
+        'cover' => 'nullable|mimes:jpeg,jpg,png|max:1024',
         'description' => 'nullable|string|max:10000'
     ];
     /**
@@ -60,11 +60,15 @@ class ApartmentController extends Controller
     {
         $request->validate($this->validationRules);
         $newApartment = new Apartment();
-        $newApartment->fill($request->all());
         // slug, latitude, longitude, visibility, user_id
         if($request->cover != null){
             $newApartment->cover = Storage::put('apartments_cover', $request->cover);
         }
+
+
+        // $autofill = $this->inputToLower($request->all());
+        
+        $newApartment->fill($request->all());
 
         $client = new Client([ 'base_uri' => 'https://api.tomtom.com/search/2/search/', 'timeout'  => 2.0, 'verify' => false]); 
         
@@ -74,7 +78,7 @@ class ApartmentController extends Controller
 
         $results = $results->results;
         for($i = 0; $i < count($results) && $newApartment->latitude == ''; $i++){
-            if(isset($results[$i]->address->municipality) && $results[$i]->address->municipality == $request->city){
+            if(isset($results[$i]->address->municipality) && strtolower($results[$i]->address->municipality) == strtolower($request->city)){
                 $newApartment->latitude = $results[$i]->position->lat;
                 $newApartment->longitude = $results[$i]->position->lon;
             }
@@ -87,7 +91,7 @@ class ApartmentController extends Controller
             $results = $results->results;
 
             for($i = 0; $i < count($results) && $newApartment->latitude == ''; $i++){
-                if(isset($results[$i]->address->municipality)&&$results[$i]->address->municipality == $request->city){
+                if(isset($results[$i]->address->municipality) && strtolower($results[$i]->address->municipality) == strtolower($request->city)){
                     $newApartment->latitude = $results[$i]->position->lat;
                     $newApartment->longitude = $results[$i]->position->lon;
                 }
@@ -96,7 +100,7 @@ class ApartmentController extends Controller
         if($newApartment->latitude==null){
             return redirect()->route('admin.apartments.index')->with('error', 'Errore, indirizzo o città inesistente');
         }
-        dd($newApartment);
+        
         $newApartment->slug = $this->getSlug($newApartment->title);
         $newApartment->visibility = true;
         $newApartment->user_id = Auth::user()->id;
@@ -139,9 +143,23 @@ class ApartmentController extends Controller
     {
         $request->validate($this->validationRules);
 
+        // if($request->cover != null){
+        //     $apartment->cover = Storage::put('apartments_cover', $request->cover);
+        // }
+
+        if(array_key_exists('cover', $request->all())){
+
+            if($apartment->cover){
+                Storage::delete($apartment->cover);
+            }
+
+            $apartment->cover = Storage::put('apartments_cover', $request->cover);
+        }
+
+        // $apartment->cover = Storage::put('apartments_cover', $request->cover);
+
         $apartment->fill($request->all());
         // slug, latitude, longitude, visibility, user_id
-        $apartment->cover = Storage::put('apartments_cover', $request->cover);
 
         $client = new Client([ 'base_uri' => 'https://api.tomtom.com/search/2/search/', 'timeout'  => 2.0, 'verify' => false]); 
         
@@ -199,4 +217,15 @@ class ApartmentController extends Controller
         // restituisco lo slug
         return $slug;
     }
+
+    // protected function inputToLower($array) {
+    //     foreach($array as $key=>$value){
+    //         if($key == "_token"){
+
+    //         }elseif(is_string($array->$key)){
+    //             strtolower($array->$key);
+    //         }
+    //     }
+    //     return $array;
+    // }
 }

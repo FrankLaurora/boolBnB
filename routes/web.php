@@ -23,6 +23,7 @@ Auth::routes();
 Route::middleware('auth')->namespace('Admin')->name('admin.')->prefix('admin')->group(function() {
     Route::get('/', 'HomeController@index');
     Route::resource('/apartments', 'ApartmentController');
+    Route::resource('/users', 'UserController');
     // Route::get('/', 'ApartmentController@index')->name('apartments.index');
     //reindirizzo le rotte /post su /PostController
     // Route::resource("posts","PostController");
