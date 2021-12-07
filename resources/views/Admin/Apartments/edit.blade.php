@@ -103,7 +103,7 @@
             {{-- input toogle per la visibilità --}}
             <div class="mb-3">
                 <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="visibility"  {{old('visibility')? 'cheched' : ($apartment->visibility?'checked':'')}}/>
+                    <input class="form-check-input" type="checkbox" role="switch" id="visibility" name="visibility" {{old('visibility')? 'cheched' : ($apartment->visibility?'checked':'')}}/>
                     <label class="form-check-label" for="visibility">Visibility
                         {{-- {{old('visibility')? 'old cheched' : ($apartment->visibility?'db checked':'no')}} --}}
                     </label>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Apartment;
+use App\Sponsorship;
 use GuzzleHttp\Client;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -164,6 +165,11 @@ class ApartmentController extends Controller
 
         $apartment->fill($request->all());
         // slug, latitude, longitude, visibility, user_id
+        if(array_key_exists('visibility', $request->all())&&$request->visibility=='on'){
+            $apartment->visibility=1;
+        }else{
+            $apartment->visibility=0;
+        }
 
         $client = new Client([ 'base_uri' => 'https://api.tomtom.com/search/2/search/', 'timeout'  => 2.0, 'verify' => false]); 
         
@@ -181,7 +187,6 @@ class ApartmentController extends Controller
         };
 
         $apartment->slug = $this->getSlug($apartment->title);
-        $apartment->visibility = true;
         $apartment->user_id = Auth::user()->id;
 
         $apartment->save();
