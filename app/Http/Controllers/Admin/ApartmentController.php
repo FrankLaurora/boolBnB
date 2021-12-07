@@ -237,7 +237,7 @@ class ApartmentController extends Controller
 
     protected function checkLoggedUser($apartment){
         if($apartment->user_id!=Auth::user()->id){
-            dd('errore');
+            abort(404);
             return redirect()->route('admin.apartments.index')->with('error', 'Errore, l\'appartamento selezionato non esiste');
         }
     }
