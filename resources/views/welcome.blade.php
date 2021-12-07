@@ -12,8 +12,8 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: rgb(63, 59, 59);
-                color: #636b6f;
+                background-color: rgb(139, 134, 134);
+                color: #2a2e30;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
@@ -46,11 +46,11 @@
 
             .title {
                 font-size: 87px;
-                color:white;
+                color:rgb(17, 16, 16);
             }
 
             .links > a {
-                color: #b1bcc2;
+                color: #202122;
                 padding: 0 25px;
                 font-size: 15px;
                 font-weight: 600;
