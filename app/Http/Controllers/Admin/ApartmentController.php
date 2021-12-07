@@ -129,6 +129,10 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
+        if($apartment->user_id!=Auth::user()->id){
+            dd('errore');
+            return redirect()->route('admin.apartments.index')->with('error', 'Errore, l\'appartamento selezionato non esiste');
+        }
         return view('admin.apartments.edit', compact('apartment'));
     }
 
