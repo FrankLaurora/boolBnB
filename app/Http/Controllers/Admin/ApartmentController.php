@@ -67,8 +67,7 @@ class ApartmentController extends Controller
         }
 
 
-        // $autofill = $this->inputToLower($request->all());
-        
+        // $newApartment->fill($this->inputToLower($request->all()));
         $newApartment->fill($request->all());
 
         $client = new Client([ 'base_uri' => 'https://api.tomtom.com/search/2/search/', 'timeout'  => 2.0, 'verify' => false]); 
@@ -163,7 +162,10 @@ class ApartmentController extends Controller
 
         // $apartment->cover = Storage::put('apartments_cover', $request->cover);
 
+        // $apartment->fill($this->inputToLower($request->all()));
         $apartment->fill($request->all());
+
+
         // slug, latitude, longitude, visibility, user_id
         if(array_key_exists('visibility', $request->all())&&$request->visibility=='on'){
             $apartment->visibility=1;
@@ -227,14 +229,12 @@ class ApartmentController extends Controller
         return $slug;
     }
 
-    // protected function inputToLower($array) {
-    //     foreach($array as $key=>$value){
-    //         if($key == "_token"){
-
-    //         }elseif(is_string($array->$key)){
-    //             strtolower($array->$key);
-    //         }
-    //     }
-    //     return $array;
-    // }
+    protected function inputToLower($array) {
+        foreach($array as $key=>$value){
+            if($key=="title"||$key=="region"||$key=="city"||$key=="address"){
+                $array[$key]=strtolower($value);
+            }
+        }
+        return $array;
+    }
 }
