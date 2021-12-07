@@ -99,11 +99,11 @@
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
             </div>
-            
+
             {{-- input per la descrizione dell'appartamento --}}
             <div class="mb-3">
                 <label for="description" class="form-label">Descrizione</label>
-                <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror" cols="30" rows="10" placeholder="Inserisci una descrizione. ">{{old('description') ?? $apartment->description}}</textarea>
+                <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror" cols="30" rows="10" placeholder="Inserisci una descrizione. ">{{old('description')}}</textarea>
                 @error('description')
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
