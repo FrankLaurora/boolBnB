@@ -94,7 +94,6 @@
             @endif
 
             {{-- input per l'immagine di copertina dell'appartamento --}}
-                @endif
             <div class="mb-3">
                 <label for="cover" class="form-label">Cover</label>
                 <input type="file" name="cover" class="form-control @error('cover') is-invalid @enderror" id="cover" value="{{old('cover') ?? $apartment->cover}}">
