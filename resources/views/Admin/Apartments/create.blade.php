@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>New Apartment</title>
-        <link rel="stylesheet" href="{{asset('css/app.css')}}">
-    </head>
-    <body>
+@extends('layouts.app')
+
+@section('content')
+
+<div class="container">
         <form action="{{route("admin.apartments.store")}}" method="POST" enctype="multipart/form-data">
             @csrf
             {{-- input per il titolo dell'appartamento --}}
@@ -94,7 +89,7 @@
             {{-- input per l'immagine di copertina dell'appartamento --}}
             <div class="mb-3">
                 <label for="cover" class="form-label">Cover</label>
-                <input type="file" name="cover" class="form-control @error('cover') is-invalid @enderror" id="cover" value="{{old('cover')}}" placeholder="Scegli un'immagine di copertina">
+                <input type="file" name="cover" class="form-control  @error('cover') is-invalid @enderror" id="cover" value="{{old('cover')}}" placeholder="Scegli un'immagine di copertina">
                 @error('cover')
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
@@ -120,5 +115,5 @@
             </div> --}}
             <button type="submit" class="btn btn-dark">Pubblica</button>
         </form>
-    </body>
-</html>
+    </div>  
+@endsection

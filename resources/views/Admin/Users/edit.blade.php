@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>New Apartment</title>
-        <link rel="stylesheet" href="{{asset('css/app.css')}}">
-    </head>
-    <body>
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
         <form action="{{route("admin.users.update", $user->id)}}" method="POST">
             @method('PUT')
             @csrf
@@ -31,15 +25,13 @@
             {{-- input per modificare il email --}}
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{old('email') ?? $user->email}}" disabled>
-                @error('email')
-                    <div class="alert alert-danger">{{$message}}</div>
-                @enderror
+                <input type="text" name="email" class="form-control" id="email" value="{{old('email') ?? $user->email}}" disabled>
+                
             </div>
 
             <div class="mb-3">
                 <label for="date_of_birth" class="form-label">Data di nascita</label>
-                <input type="date" name="date_of_birth" class="form-control @error('date_of_birth') is-invalid @enderror" id="date_of_birth" value="{{old('date_of_birth') ?? $user->date_of_birth}}" disabled>
+                <input type="date" name="date_of_birth" class="form-control @error('date_of_birth') is-invalid @enderror" id="date_of_birth" value="{{old('date_of_birth') ?? $user->date_of_birth}}">
                 @error('date_of_birth')
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
@@ -77,5 +69,6 @@
             </form>
         </div>
         <script src="{{asset('js/app.js')}}"></script>
-    </body>
-</html>
+    
+    </div>
+@endsection
