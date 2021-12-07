@@ -8,7 +8,13 @@
         <a href="{{route("admin.apartments.create")}}">
             <button type="button" class="btn btn-success">Crea annuncio</button>
         </a>
-    </table>    
+    </table> 
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>{{ $message }}</strong>
+        </div>
+    @endif   
         <table class="table">
             <thead>
                 <tr>

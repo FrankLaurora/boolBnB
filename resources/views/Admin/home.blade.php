@@ -19,7 +19,7 @@
                    
                 </div>
                 <div class="card-body">
-                    <a href="{{route("admin.apartments.index")}}">Visualizza tutti i annunci</a>
+                    <a href="{{route("admin.apartments.index")}}">Visualizza tutti gli annunci</a>
                 </div>
             </div>
         </div>

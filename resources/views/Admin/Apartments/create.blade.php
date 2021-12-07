@@ -94,6 +94,14 @@
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
             </div>
+            {{-- input per la descrizione dell'appartamento --}}
+            <div class="mb-3">
+                <label for="description" class="form-label">Descrizione</label>
+                <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror" cols="30" rows="10" placeholder="Inserisci una descrizione. "></textarea>
+                @error('description')
+                    <div class="alert alert-danger">{{$message}}</div>
+                @enderror
+            </div>
             {{-- <div class="mb-3">
                 <label for="content" class="form-label">Post</label>
                 <textarea name="content" id="content" class="form-control @error('content') is-invalid @enderror" cols="30" rows="10" placeholder="Inserisci il testo del tuo post... ">{{old('content')}}</textarea>

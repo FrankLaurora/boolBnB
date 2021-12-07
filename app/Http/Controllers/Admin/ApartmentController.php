@@ -107,7 +107,7 @@ class ApartmentController extends Controller
 
         $newApartment->save();
 
-        return redirect()->route('admin.apartments.index');
+        return redirect()->route('admin.apartments.index')->with('success','Aggiunto appartamento');
     }
 
     /**
