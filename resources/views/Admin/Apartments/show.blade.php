@@ -6,7 +6,7 @@
     <div class="col-12">
         
        <h3>{{$apartment->title}}</h3>
-       <img src="{{asset('storage/app/public/apartments_cover/' . $apartment->cover)}}" alt="">
+       <img src="{{asset('storage/' . $apartment->cover)}}" class="img-fluid col-4" alt="">
        <p>
             {{$apartment->description}}
        </p>
