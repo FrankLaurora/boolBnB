@@ -13,7 +13,7 @@ class UserController extends Controller
     protected $validationRules = [
         'first_name' => 'string|max:50',
         'last_name' => 'string|max:50',
-        // 'date_of_birth' => "date_format:Y-m-d|after:01/01/1900|before:" . $validationDate,
+        'date_of_birth' => "date_format:Y-m-d|after:01/01/1900|before:-18 years",
     ];
     /**
      * Display a listing of the resource.
