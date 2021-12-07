@@ -129,10 +129,7 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        if($apartment->user_id!=Auth::user()->id){
-            dd('errore');
-            return redirect()->route('admin.apartments.index')->with('error', 'Errore, l\'appartamento selezionato non esiste');
-        }
+        $this->checkLoggedUser($apartment);
         return view('admin.apartments.edit', compact('apartment'));
     }
 
@@ -236,5 +233,12 @@ class ApartmentController extends Controller
             }
         }
         return $array;
+    }
+
+    protected function checkLoggedUser($apartment){
+        if($apartment->user_id!=Auth::user()->id){
+            dd('errore');
+            return redirect()->route('admin.apartments.index')->with('error', 'Errore, l\'appartamento selezionato non esiste');
+        }
     }
 }
