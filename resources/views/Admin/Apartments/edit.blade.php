@@ -87,7 +87,14 @@
                 @enderror
             </div>
             
+            {{-- Old Cover --}}
+            @if ($apartment->cover)
+                <h6>Immagine di copertina</h6>
+                <img width="100px" src="{{asset('storage/' . $apartment->cover)}}" alt="{{$apartment->title}}">                                              
+            @endif
+
             {{-- input per l'immagine di copertina dell'appartamento --}}
+                @endif
             <div class="mb-3">
                 <label for="cover" class="form-label">Cover</label>
                 <input type="file" name="cover" class="form-control @error('cover') is-invalid @enderror" id="cover" value="{{old('cover') ?? $apartment->cover}}">
