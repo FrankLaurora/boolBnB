@@ -102,13 +102,26 @@
                 @enderror
             </div>
 
-            {{-- input per la descrizione dell'appartamento --}}
+            {{-- input per la descrizione dell'appartamento --}} 
             <div class="mb-3">
                 <label for="description" class="form-label">Descrizione</label>
                 <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror" cols="30" rows="10" placeholder="Inserisci una descrizione. ">{{old('description') ?? $apartment->description}}</textarea>
                 @error('description')
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
+            </div>
+            <div class="form-group">
+                <p>Servizi</p>
+                @foreach ($services as $service)
+                    <div class="custom-control custom-checkbox">
+                        @if ($errors->any())
+                        <input {{in_array($service['id'], old("services", [])) ? "checked" : null}} name="services[]" value="{{$service['id']}}" type="checkbox" class="custom-control-input" id="service-{{$service['id']}}">
+                        @else
+                        <input {{$apartment["services"]->contains($service["id"]) ? "checked" : null}} name="services[]" value="{{$service['id']}}" type="checkbox" class="custom-control-input" id="service-{{$service['id']}}">
+                        @endif
+                        <label class="custom-control-label" for="service-{{$service['id']}}">{{$service['name']}}</label>
+                    </div>
+                @endforeach
             </div>
             {{-- <div class="mb-3">
                 <label for="category" class="form-label">Categoria</label>

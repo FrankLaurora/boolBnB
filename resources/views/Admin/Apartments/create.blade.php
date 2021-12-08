@@ -102,6 +102,18 @@
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
             </div>
+            <div class="form-group">
+                <p>Servizi</p>
+                @foreach ($services as $service)
+                    <div class="custom-control custom-checkbox">
+                        <input {{in_array($service['id'], old("services", [])) ? "checked" : null}} name="services[]" value="{{$service['id']}}" type="checkbox" class="custom-control-input" id="service-{{$service['id']}}">
+                        <label class="custom-control-label" for="service-{{$service['id']}}">{{$service['name']}}</label>
+                    </div>
+                @endforeach
+                @error('services')
+                <div class="alert alert-danger">{{ $message }}</div>
+                  @enderror
+            </div>
             {{-- <div class="mb-3">
                 <label for="content" class="form-label">Post</label>
                 <textarea name="content" id="content" class="form-control @error('content') is-invalid @enderror" cols="30" rows="10" placeholder="Inserisci il testo del tuo post... ">{{old('content')}}</textarea>
