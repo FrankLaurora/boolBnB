@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Apartment;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\User;
+use App\Image;
+use Illuminate\Support\Facades\Storage;
 
-class UserController extends Controller
+class ImageController extends Controller
 {
-    // protected $validationDate = date('d/m') .'/'.(date('Y')-18);
     protected $validationRules = [
-        'first_name' => 'string|max:50',
-        'last_name' => 'string|max:50',
-        'date_of_birth' => "date_format:Y-m-d|after:01/01/1900|before:-18 years",
+        "url" => "required|mimes:jpeg,jpg,png|max:1024",
+        "apartment_id" => "nullable|exists:apartment,id"
     ];
     /**
      * Display a listing of the resource.
@@ -22,7 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view("admin.images.index");
     }
 
     /**
@@ -43,7 +42,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
+        // $apartment = Apartment::where("");
+        $newImage= new Image;
+        $newImage-> url = Storage::put("images_url",$request->url);
+        $newImage->save();
     }
 
     /**
@@ -63,13 +66,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($id)
     {
-        if($user->id != Auth::user()->id){
-            return redirect()->route('admin.apartments.index')->with('error', 'Non hai i permessi per accedere a questa pagina.');
-        }
-
-        return view('admin.users.edit', compact('user'));
+        //
     }
 
     /**
@@ -79,13 +78,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        $request->validate($this->validationRules);
-        $user->fill($request->all());
-        $user->update();
-
-        return redirect()->route('admin.apartments.index')->with('success', 'Modifiche effettuate correttamente.');
+        //
     }
 
     /**
@@ -94,10 +89,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        $user->delete();
-
-        return redirect('/');
+        //
     }
 }
+
