@@ -49775,6 +49775,8 @@ module.exports = function(module) {
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./autocomplete */ "./resources/js/autocomplete.js");
+
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /**
  * The following block of code may be used to automatically register your
@@ -49796,6 +49798,32 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 var app = new Vue({
   el: '#app'
 });
+
+/***/ }),
+
+/***/ "./resources/js/autocomplete.js":
+/*!**************************************!*\
+  !*** ./resources/js/autocomplete.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+var address = document.getElementById('address');
+address.addEventListener('click', function () {
+  // fetch('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json')
+  // .then(response => response.json());
+  console.log('ciaone');
+}); // 'https://api.tomtom.com/search/2/search/'
+// fetch('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json')
+// .then(response => response.json())
+// .then(dati => {
+//     let sorted = dati.reverse()
+//     let lastUpdated = sorted[0].data
+//     let lastUpdatedFormatted = lastUpdated.split("T")[0].split("-").reverse().join("/")
+//     console.log(lastUpdatedFormatted)
+// })
 
 /***/ }),
 
@@ -49931,8 +49959,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\aless\Desktop\CORSO BOOLEAN\progetto finale\boolBnB\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\aless\Desktop\CORSO BOOLEAN\progetto finale\boolBnB\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\User\wa\boolean\progetto_finale\boolBnB\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\User\wa\boolean\progetto_finale\boolBnB\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

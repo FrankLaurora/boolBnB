@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>New Apartment</title>
-        <link rel="stylesheet" href="{{asset('css/app.css')}}">
-    </head>
-    <body>
+@extends('layouts.app')
+
+@section('content')
+
+<div class="container">
         <form action="{{route("admin.apartments.update", $apartment->id)}}" method="POST" enctype="multipart/form-data">
             @method('PUT')
             @csrf
@@ -88,6 +83,12 @@
                 @enderror
             </div>
             
+            {{-- Old Cover --}}
+            @if ($apartment->cover)
+                <h6>Immagine di copertina</h6>
+                <img width="100px" src="{{asset('storage/' . $apartment->cover)}}" alt="{{$apartment->title}}">                                              
+            @endif
+
             {{-- input per l'immagine di copertina dell'appartamento --}}
             <div class="mb-3">
                 <label for="cover" class="form-label">Cover</label>
@@ -96,6 +97,7 @@
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
             </div>
+
 
             {{-- input toogle per la visibilità --}}
             <div class="mb-3">
@@ -107,7 +109,8 @@
                 </div>
             </div>
             
-            {{-- input per la descrizione dell'appartamento --}}
+
+            {{-- input per la descrizione dell'appartamento --}} 
             <div class="mb-3">
                 <label for="description" class="form-label">Descrizione</label>
                 <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror" cols="30" rows="10" placeholder="Inserisci una descrizione. ">{{old('description') ?? $apartment->description}}</textarea>
@@ -115,9 +118,23 @@
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
             </div>
-            
+
+            <div class="form-group">
+                <p>Servizi</p>
+                @foreach ($services as $service)
+                    <div class="custom-control custom-checkbox">
+                        @if ($errors->any())
+                        <input {{in_array($service['id'], old("services", [])) ? "checked" : null}} name="services[]" value="{{$service['id']}}" type="checkbox" class="custom-control-input" id="service-{{$service['id']}}">
+                        @else
+                        <input {{$apartment["services"]->contains($service["id"]) ? "checked" : null}} name="services[]" value="{{$service['id']}}" type="checkbox" class="custom-control-input" id="service-{{$service['id']}}">
+                        @endif
+                        <label class="custom-control-label" for="service-{{$service['id']}}">{{$service['name']}}</label>
+                    </div>
+                @endforeach
+            </div>
             <button type="submit" class="btn btn-dark">Pubblica</button>
-        </form>
-        <script src="{{asset('js/prova.js')}}"></script>
-    </body>
-</html>
+            </form>
+            <script src="{{asset('js/prova.js')}}"></script>
+</div>
+@endsection
+
