@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use App\Service;
 class ApartmentController extends Controller
 {
     /*validation rules*/
@@ -47,7 +48,10 @@ class ApartmentController extends Controller
      */
     public function create()
     {
-        return view('admin.apartments.create');
+        $services = Service::all();
+
+        
+        return view('admin.apartments.create',compact("services"));
     }
 
     /**
@@ -129,7 +133,9 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        return view('admin.apartments.edit', compact('apartment'));
+        $services = Service::all();
+        
+        return view('admin.apartments.edit', compact('apartment','services'));
     }
 
     /**

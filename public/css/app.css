@@ -10962,7 +10962,7 @@ a.text-dark:focus {
   }
 }
 
-body {
-  color: #1f1c1c;
+.navbar-light {
+  background-color: #b8adad;
 }
 
