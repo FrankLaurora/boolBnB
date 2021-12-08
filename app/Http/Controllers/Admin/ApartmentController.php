@@ -70,9 +70,9 @@ class ApartmentController extends Controller
         // $newApartment->fill($this->inputToLower($request->all()));
         $newApartment->fill($request->all());
 
-        $client = new Client([ 'base_uri' => 'https://api.tomtom.com/search/2/search/', 'timeout'  => 2.0, 'verify' => false]); 
+        $client = new Client([ 'base_uri' => 'https://api.tomtom.com/search/2/geocode/', 'timeout'  => 2.0, 'verify' => false]); 
         
-        $response = $client->get($request->address . ' ' . $request->city . ' ' . $request->region . '.json?key=lXA4qKasPyxqJxup4ikKlTFOL3Z89cp4');
+        $response = $client->get($request->address.'.json?key=lXA4qKasPyxqJxup4ikKlTFOL3Z89cp4');
         
         $results = json_decode($response->getBody());
 
