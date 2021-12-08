@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Image;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class ImageController extends Controller
 {
@@ -29,9 +30,15 @@ class ImageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $apartment = Apartment::all()->where('id', '=', $id)->first();
+
+        if($apartment->user_id != Auth::user()->id) {
+            abort(404);
+        }
+        
+        return view("admin.images.create", compact('apartment'));
     }
 
     /**
@@ -40,13 +47,20 @@ class ImageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        dd($request);
-        // $apartment = Apartment::where("");
+    public function store(Request $request, $id)
+    {   
+        $apartment = Apartment::all()->where('id', '=', $id)->first();
+
+        if($apartment->user_id != Auth::user()->id) {
+            abort(404);
+        }
+
         $newImage= new Image;
         $newImage-> url = Storage::put("images_url",$request->url);
+        $newImage-> apartment_id = $id;
         $newImage->save();
+
+        return redirect()->route("admin.images.create", $id)->with('success', "Immagine aggiunta all'album");
     }
 
     /**
@@ -57,7 +71,11 @@ class ImageController extends Controller
      */
     public function show($id)
     {
-        //
+        // $apartment = Apartment::all()->where('id', '=', $id);
+
+        // dd($apartment);
+
+        // return view('admin.images.show', compact('apartment'));
     }
 
     /**

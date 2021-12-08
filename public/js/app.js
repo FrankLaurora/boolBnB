@@ -49806,24 +49806,9 @@ var app = new Vue({
   !*** ./resources/js/autocomplete.js ***!
   \**************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-var address = document.getElementById('address');
-address.addEventListener('click', function () {
-  // fetch('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json')
-  // .then(response => response.json());
-  console.log('ciaone');
-}); // 'https://api.tomtom.com/search/2/search/'
-// fetch('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json')
-// .then(response => response.json())
-// .then(dati => {
-//     let sorted = dati.reverse()
-//     let lastUpdated = sorted[0].data
-//     let lastUpdatedFormatted = lastUpdated.split("T")[0].split("-").reverse().join("/")
-//     console.log(lastUpdatedFormatted)
-// })
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open 'C:\\MAMP\\htdocs\\php\\boolBnB\\resources\\js\\autocomplete.js'");
 
 /***/ }),
 
@@ -49959,8 +49944,13 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 __webpack_require__(/*! C:\Users\User\wa\boolean\progetto_finale\boolBnB\resources\js\app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! C:\Users\User\wa\boolean\progetto_finale\boolBnB\resources\sass\app.scss */"./resources/sass/app.scss");
+=======
+__webpack_require__(/*! C:\MAMP\htdocs\php\boolBnB\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\MAMP\htdocs\php\boolBnB\resources\sass\app.scss */"./resources/sass/app.scss");
+>>>>>>> valentina
 
 
 /***/ })

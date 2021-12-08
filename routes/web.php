@@ -24,7 +24,8 @@ Route::middleware('auth')->namespace('Admin')->name('admin.')->prefix('admin')->
     Route::get('/', 'HomeController@index');
     Route::resource('/apartments', 'ApartmentController');
     Route::resource('/users', 'UserController');
-    Route::resource('/images', 'ImageController');
+    Route::get('/images/create/{id}', 'ImageController@create')->name('images.create');
+    Route::post('/images/store/{id}', 'ImageController@store')->name('images.store');
     // Route::get('/', 'ApartmentController@index')->name('apartments.index');
     //reindirizzo le rotte /post su /PostController
     // Route::resource("posts","PostController");

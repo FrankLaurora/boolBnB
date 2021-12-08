@@ -43,6 +43,17 @@
        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
         Elimina annuncio
     </button>
+    <a href="{{route('admin.images.create', $apartment->id)}}">
+        <button type="button" class="btn btn-info">
+            Aggiungi immagini
+        </button>
+    </a>
+
+    <a href="{{route('admin.apartments.index')}}">
+        <button type="button" class="btn btn-info">
+            Torna indietro
+        </button>
+    </a>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="deleteModal">
