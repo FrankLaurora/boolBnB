@@ -64,21 +64,12 @@
                 @enderror
             </div>
 
-            {{-- input per la città dell'appartamento --}}
-            {{-- <div class="mb-3">
-                <label for="city" class="form-label">Città</label>
-                <input type="text" name="city" class="form-control @error('city') is-invalid @enderror" id="city" value="{{old('city')}}" placeholder="Inserisci la città">
-                @error('city')
-                    <div class="alert alert-danger">{{$message}}</div>
-                @enderror
-            </div> --}}
-
             {{-- input per l'indirizzo dell'appartamento --}}
             <div class="mb-3">
                 <label for="addressoptions" class="form-label">Indirizzo</label>
                 <input type="search" name="addressoptions" class="form-control @error('addressoptions') is-invalid @enderror" id="addressoptions" value="{{old('addressoptions')}}" placeholder="Inserisci l'indirizzo">
-                <select name="address" id="address">
-
+                <select name="address" id="address" style="display: none">
+                    <option>{{old('address')?old('address'):''}}</option>
                 </select>
                 @error('address')
                     <div class="alert alert-danger">{{$message}}</div>
@@ -86,13 +77,13 @@
             </div>
 
             {{-- input per il numero civico dell'appartamento --}}
-            {{-- <div class="mb-3">
+            <div class="mb-3">
                 <label for="number" class="form-label">Numero civico</label>
                 <input type="number" name="number" class="form-control @error('number') is-invalid @enderror" id="number" value="{{old('number')}}" placeholder="Numero civico">
                 @error('number')
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
-            </div> --}}
+            </div>
             
             {{-- input per l'immagine di copertina dell'appartamento --}}
             <div class="mb-3">
@@ -114,7 +105,7 @@
 
             <button type="submit" class="btn btn-dark">Pubblica</button>
         </form>
+        <script src="{{asset('js/prova.js')}}"></script>
     </body>
     {{-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> --}}
-    <script src="{{asset('js/prova.js')}}"></script>
 </html>

@@ -65,19 +65,15 @@
                 @enderror
             </div>
 
-            {{-- input per la città dell'appartamento --}}
-            <div class="mb-3">
-                <label for="city" class="form-label">Città</label>
-                <input type="text" name="city" class="form-control @error('city') is-invalid @enderror" id="city" value="{{old('city') ?? $apartment->city}}" placeholder="Inserisci la città">
-                @error('city')
-                    <div class="alert alert-danger">{{$message}}</div>
-                @enderror
-            </div>
-
             {{-- input per l'indirizzo dell'appartamento --}}
             <div class="mb-3">
-                <label for="address" class="form-label">Indirizzo</label>
-                <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" id="address" value="{{old('address') ?? $apartment->address}}" placeholder="Inserisci l'indirizzo">
+                <label for="addressoptions" class="form-label">Indirizzo</label>
+                <input type="search" name="addressoptions" class="form-control @error('addressoptions') is-invalid @enderror" id="addressoptions" value="{{old('addressoptions')}}" placeholder="Inserisci l'indirizzo">
+                <select name="address" id="address">
+                    <option>
+                        {{old('address') ?? $apartment->address}}
+                    </option>
+                </select>
                 @error('address')
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
@@ -122,5 +118,6 @@
             
             <button type="submit" class="btn btn-dark">Pubblica</button>
         </form>
+        <script src="{{asset('js/prova.js')}}"></script>
     </body>
 </html>
