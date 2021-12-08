@@ -63,7 +63,7 @@
             <div class="mb-3">
                 <label for="addressoptions" class="form-label">Indirizzo</label>
                 <input type="search" name="addressoptions" class="form-control @error('addressoptions') is-invalid @enderror" id="addressoptions" value="{{old('addressoptions')}}" placeholder="Inserisci l'indirizzo">
-                <select name="address" id="address" style="display: none">
+                <select name="address" id="address">
                     <option>{{old('address')?old('address'):''}}</option>
                 </select>
                 @error('address')

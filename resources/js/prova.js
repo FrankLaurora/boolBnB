@@ -1,4 +1,3 @@
-let chiamata='Roma Via Appia';
 document.getElementById('addressoptions').addEventListener('keyup',()=>{
   document.getElementById('address').style.display="block";
   chiamata=document.getElementById('addressoptions').value;
