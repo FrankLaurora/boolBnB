@@ -64,15 +64,6 @@
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
             </div>
-
-            {{-- input per il numero civico dell'appartamento --}}
-            {{-- <div class="mb-3">
-                <label for="number" class="form-label">Numero civico</label>
-                <input type="number" name="number" class="form-control @error('number') is-invalid @enderror" id="number" value="{{old('number') ?? $apartment->number}}" placeholder="Numero civico">
-                @error('number')
-                    <div class="alert alert-danger">{{$message}}</div>
-                @enderror
-            </div> --}}
             
             {{-- Old Cover --}}
             @if ($apartment->cover)
@@ -94,9 +85,7 @@
             <div class="mb-3">
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" role="switch" id="visibility" name="visibility" {{old('visibility')? 'cheched' : ($apartment->visibility?'checked':'')}}/>
-                    <label class="form-check-label" for="visibility">Visibility
-                        {{-- {{old('visibility')? 'old cheched' : ($apartment->visibility?'db checked':'no')}} --}}
-                    </label>
+                    <label class="form-check-label" for="visibility">Visibility</label>
                 </div>
             </div>
             

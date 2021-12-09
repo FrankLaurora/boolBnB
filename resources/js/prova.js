@@ -1,5 +1,5 @@
 document.getElementById('addressoptions').addEventListener('keyup',()=>{
-  document.getElementById('address').style.display="block";
+  // document.getElementById('address').style.display="block";
   chiamata=document.getElementById('addressoptions').value;
   fetch('https://api.tomtom.com/search/2/geocode/'+chiamata+'.json?key=jXiFCoqvlFBNjmqBX4SuU1ehhUX1JF7t&language=it-IT')
   .then(response => response.json())
@@ -11,4 +11,7 @@ document.getElementById('addressoptions').addEventListener('keyup',()=>{
       }
       console.log(document.getElementById('address').value);
     });
+});
+document.getElementById('address').addEventListener('change',()=>{
+  document.getElementById('addressoptions').value=document.getElementById('address').value;
 });

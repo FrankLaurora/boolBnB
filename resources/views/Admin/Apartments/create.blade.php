@@ -61,15 +61,6 @@
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
             </div>
-
-            {{-- input per il numero civico dell'appartamento --}}
-            {{-- <div class="mb-3">
-                <label for="number" class="form-label">Numero civico</label>
-                <input type="number" name="number" class="form-control @error('number') is-invalid @enderror" id="number" value="{{old('number')}}" placeholder="Numero civico">
-                @error('number')
-                    <div class="alert alert-danger">{{$message}}</div>
-                @enderror
-            </div> --}}
             
             {{-- input per l'immagine di copertina dell'appartamento --}}
             <div class="mb-3">
