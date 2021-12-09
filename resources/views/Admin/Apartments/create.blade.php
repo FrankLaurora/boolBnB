@@ -109,7 +109,12 @@
                 <div class="alert alert-danger">{{ $message }}</div>
                   @enderror
             </div>
-            <button type="submit" class="btn btn-dark">Pubblica</button>
+            <button type="submit" class="btn btn-dark">Crea appartamento</button>
+            <a href="{{route('admin.apartments.index')}}">
+                <button type="button" class="btn btn-success">
+                    Torna indietro
+                </button>
+            </a>
         </form>
 
        

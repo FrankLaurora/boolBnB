@@ -134,11 +134,16 @@
             </div>
 
             <a href="{{route('admin.images.create', $apartment->id)}}">
-                <button type="button" class="btn btn-info">
+                <button type="button" class="btn btn-light">
                     Aggiungi immagini
                 </button>
             </a>
-            <button type="submit" class="btn btn-dark">Pubblica</button>
+            <button type="submit" class="btn btn-dark">Pubblica modifiche</button>
+            <a href="{{route('admin.apartments.index')}}">
+                <button type="button" class="btn btn-success">
+                    Torna indietro
+                </button>
+            </a>
             </form>
             <script src="{{asset('js/prova.js')}}"></script>
 </div>
