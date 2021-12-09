@@ -23,7 +23,9 @@ Auth::routes();
 Route::middleware('auth')->namespace('Admin')->name('admin.')->prefix('admin')->group(function() {
     Route::get('/', 'HomeController@index');
     Route::resource('/apartments', 'ApartmentController');
-    Route::resource('/users', 'UserController');
+    Route::get('/users/edit', 'UserController@edit')->name('users.edit');
+    Route::put('/users/{user}', 'UserController@update')->name('users.update');
+    Route::delete('/users/{user}', 'UserController@destroy')->name('users.destroy');
     Route::get('/images/create/{id}', 'ImageController@create')->name('images.create');
     Route::post('/images/store/{id}', 'ImageController@store')->name('images.store');
     // Route::get('/', 'ApartmentController@index')->name('apartments.index');

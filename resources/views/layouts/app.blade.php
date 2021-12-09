@@ -68,7 +68,7 @@
                                         @csrf
                                     </form>
 
-                                    <a class="dropdown-item" href="{{ route("admin.users.edit", Auth::user()->id) }}">
+                                    <a class="dropdown-item" href="{{ route("admin.users.edit") }}">
                                         {{ __('Modifica profilo') }}
                                     </a>
                                 </div>

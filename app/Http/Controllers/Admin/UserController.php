@@ -63,11 +63,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit()
     {
-        if($user->id != Auth::user()->id){
-            return redirect()->route('admin.apartments.index')->with('error', 'Non hai i permessi per accedere a questa pagina.');
-        }
+        $user = Auth::user();
+        // if($user->id != Auth::user()->id){
+        //     return redirect()->route('admin.apartments.index')->with('error', 'Non hai i permessi per accedere a questa pagina.');
+        // }
 
         return view('admin.users.edit', compact('user'));
     }
@@ -81,6 +82,9 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        if($user->id != Auth::user()->id){
+            return redirect()->route('admin.apartments.index')->with('error', 'Non hai i permessi per accedere a questa pagina.');
+        }
         $request->validate($this->validationRules);
         $user->fill($request->all());
         $user->update();
