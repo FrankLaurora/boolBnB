@@ -40,40 +40,14 @@
           </tr>
         </tbody>
       </table>
-       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
-        Elimina annuncio
-    </button>
-
-    <a href="{{route('admin.apartments.index')}}">
-        <button type="button" class="btn btn-info">
-            Torna indietro
-        </button>
+       
+    
+    <a class="btn btn-info" href="{{route('admin.apartments.index')}}">
+        Torna a tutti gli appartamenti
     </a>
+    
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="deleteModal">
-        <form action="{{route('admin.apartments.destroy', $apartment->id)}}" method="POST">
-            @csrf
-            @method('DELETE')
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Conferma Cancellazione Annuncio</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Vuoi cancellare definitivamente il tuo profilo?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                        <button type="submit" class="btn btn-primary">Si</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
+    
     <script src="{{asset('js/app.js')}}"></script>
 
 
