@@ -83,13 +83,16 @@
             </div>
             <div class="form-group">
                 <p>Servizi</p>
+                    
                 @foreach ($services as $service)
                     <div class="custom-control custom-checkbox">
                         <input {{in_array($service['id'], old("services", [])) ? "checked" : null}} name="services[]" value="{{$service['id']}}" type="checkbox" class="custom-control-input" id="service-{{$service['id']}}">
                         <label class="custom-control-label" for="service-{{$service['id']}}">{{$service['name']}}</label>               
                     </div>
-                    <button type="submit" class="btn btn-dark">Crea appartamento</button>
-                    <a class="btn btn-secondary" href="{{route('admin.apartments.index')}}">Annulla</a>
+                @endforeach
+                <button type="submit" class="btn btn-dark">Crea appartamento</button>
+                <a class="btn btn-secondary" href="{{route('admin.apartments.index')}}">Annulla</a>
+
                 </form>
             </div>
 
