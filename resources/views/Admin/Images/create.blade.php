@@ -21,8 +21,10 @@
 
         <button type="submit" class="btn btn-dark">Aggiorna</button>
         
-        <a class="btn btn-info" href="{{route('admin.apartments.index')}}">
-            Torna a tutti gli appartamenti
+        <a href="{{route('admin.apartments.edit', $apartment->id)}}">
+            <button type="button" class="btn btn-info">
+                Torna indietro
+            </button>
         </a>
     </form>
 </div>
