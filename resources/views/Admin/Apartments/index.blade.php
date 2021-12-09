@@ -4,9 +4,9 @@
 
 <div class="container">
     <table class="table">
-        <h1>Your apartments</h1>
+        <h1>I tuoi appartamenti</h1>
         <a href="{{route("admin.apartments.create")}}">
-            <button type="button" class="btn btn-success">Crea annuncio</button>
+            <button type="button" class="btn btn-success">Aggiungi nuovo appartamento</button>
         </a>
     </table> 
     @if ($message = Session::get('success'))
@@ -24,11 +24,11 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Number</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Appartamento</th>
+                    <th scope="col">Titolo</th>
+                    <th scope="col">Indirizzo</th>
+                    <th scope="col">N° civico</th>
+                    <th scope="col">Cosa vuoi fare?</th>
                 </tr>
             </thead>
             <tbody>

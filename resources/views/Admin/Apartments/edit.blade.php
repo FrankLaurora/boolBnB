@@ -132,16 +132,12 @@
                                 @endforeach
                             </div>
                 
-                            <button type="submit" class="btn btn-dark">Pubblica</button>
+                            <button type="submit" class="btn btn-dark">Pubblica modifiche</button>
                         </form>
                 </div>
             </div>
         </div>
-        
-        
     </div>
-    
-        
 </div>
     
         <!-- Modal -->

@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                
 
                 <div class="card-body">
                     @if (session('status'))
@@ -15,11 +15,16 @@
                         </div>
                     @endif
 
-                   Benvenuto!
+                   <h2>Benvenut*  {{ Auth::user()->first_name }} !</h2>
                    
                 </div>
                 <div class="card-body">
-                    <a href="{{route("admin.apartments.index")}}">Visualizza tutti gli annunci</a>
+                    <a href="{{route("admin.apartments.index")}}">Visualizza i tuoi appartamenti</a>
+                    
+                </div>
+                <div class="card-body">
+                    
+                    <a href="{{ route("admin.users.edit") }}">Modifica il tuo profilo</a>
                 </div>
             </div>
         </div>
