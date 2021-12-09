@@ -51,19 +51,10 @@
                 @enderror
             </div>
 
-            {{-- input per la nazione dell'appartamento --}}
-            <div class="mb-3">
-                <label for="region" class="form-label">Stato</label>
-                <input type="text" name="region" class="form-control @error('region') is-invalid @enderror" id="region" value="{{old('region') ?? $apartment->region}}" placeholder="Inserisci lo stato">
-                @error('region')
-                    <div class="alert alert-danger">{{$message}}</div>
-                @enderror
-            </div>
-
             {{-- input per l'indirizzo dell'appartamento --}}
             <div class="mb-3">
                 <label for="addressoptions" class="form-label">Indirizzo</label>
-                <input type="search" name="addressoptions" class="form-control @error('addressoptions') is-invalid @enderror" id="addressoptions" value="{{old('addressoptions')}}" placeholder="Inserisci l'indirizzo">
+                <input type="search" name="addressoptions" class="form-control @error('addressoptions') is-invalid @enderror" id="addressoptions" value="{{old('addressoptions')}}" placeholder="Es: Milano, corso como 10">
                 <select name="address" id="address">
                     <option>
                         {{old('address') ?? $apartment->address}}
@@ -75,13 +66,13 @@
             </div>
 
             {{-- input per il numero civico dell'appartamento --}}
-            <div class="mb-3">
+            {{-- <div class="mb-3">
                 <label for="number" class="form-label">Numero civico</label>
                 <input type="number" name="number" class="form-control @error('number') is-invalid @enderror" id="number" value="{{old('number') ?? $apartment->number}}" placeholder="Numero civico">
                 @error('number')
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
-            </div>
+            </div> --}}
             
             {{-- Old Cover --}}
             @if ($apartment->cover)

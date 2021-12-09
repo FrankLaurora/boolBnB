@@ -21,10 +21,7 @@ class ApartmentController extends Controller
         'guests_number' => 'required|integer|min:1|max:255',
         'bathrooms' => 'required|integer|min:1|max:255',
         'sqm' => 'nullable|integer|min:1|max:1000',
-        'region' => 'required|string|max:255|min:4',
-        // 'city' => 'required|string|max:255|min:2',
         'address' => 'required|string|max:900|min:10',
-        'number' => 'required|integer|min:1|max:5000',
         'cover' => 'nullable|mimes:jpeg,jpg,png|max:1024',
         'description' => 'nullable|string|max:10000'
     ];
@@ -79,6 +76,9 @@ class ApartmentController extends Controller
         $results = $results->results;
 
         //assegnazione parametri ottenuti da guzzle
+        isset($results[0]->address->streetNumber) ? $newApartment->number = $results[0]->address->streetNumber:$newApartment->number =0;
+        //numero civico 0 significa indirizzo senza numero civico (SNC)
+        $newApartment->region = $results[0]->address->country;
         $newApartment->address = $results[0]->address->streetName;
         $newApartment->city = $results[0]->address->municipality;
         $newApartment->latitude = $results[0]->position->lat;
@@ -88,7 +88,7 @@ class ApartmentController extends Controller
         $newApartment->slug = $this->getSlug($newApartment->title);
         $newApartment->visibility = true;
         $newApartment->user_id = Auth::user()->id;
-
+        
         $newApartment->save();
 
         return redirect()->route('admin.apartments.index')->with('success','Aggiunto appartamento');
@@ -156,6 +156,9 @@ class ApartmentController extends Controller
         $results = $results->results;
         
         //assegnazione parametri ottenuti da guzzle
+        isset($results[0]->address->streetNumber) ? $apartment->number = $results[0]->address->streetNumber:$apartment->number =0;
+        //numero civico 0 significa indirizzo senza numero civico (SNC)
+        $apartment->region = $results[0]->address->country;
         $apartment->address = $results[0]->address->streetName;
         $apartment->city = $results[0]->address->municipality;
         $apartment->latitude = $results[0]->position->lat;
