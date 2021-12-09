@@ -3,6 +3,8 @@
 @section('content')
 
 <div class="container">
+    <div class="row">
+        <div class="col-8 offset-md-2">
         <form action="{{route("admin.apartments.store")}}" method="POST" enctype="multipart/form-data">
             @csrf
             {{-- input per il titolo dell'appartamento --}}
@@ -84,15 +86,13 @@
                 @foreach ($services as $service)
                     <div class="custom-control custom-checkbox">
                         <input {{in_array($service['id'], old("services", [])) ? "checked" : null}} name="services[]" value="{{$service['id']}}" type="checkbox" class="custom-control-input" id="service-{{$service['id']}}">
-                        <label class="custom-control-label" for="service-{{$service['id']}}">{{$service['name']}}</label>
+                        <label class="custom-control-label" for="service-{{$service['id']}}">{{$service['name']}}</label>               
                     </div>
-                @endforeach
-                @error('services')
-                <div class="alert alert-danger">{{ $message }}</div>
-                  @enderror
+                    <button type="submit" class="btn btn-dark">Pubblica</button>
+                    <a class="btn btn-secondary" href="{{route('admin.apartments.index')}}">Annulla</a>
+                </form>
             </div>
-            <button type="submit" class="btn btn-dark">Pubblica</button>
-        </form>
+        </div>
 
        
 

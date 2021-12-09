@@ -90,6 +90,8 @@ class ApartmentController extends Controller
         $newApartment->user_id = Auth::user()->id;
         
         $newApartment->save();
+         
+        $newApartment->services()->attach($request["services"]);
 
         return redirect()->route('admin.apartments.index')->with('success','Aggiunto appartamento');
     }
@@ -169,6 +171,7 @@ class ApartmentController extends Controller
         $apartment->user_id = Auth::user()->id;
 
         $apartment->save();
+        $apartment->services()->sync($request->services);
 
         return redirect()->route('admin.apartments.index')->with('success', 'Modifiche effettuate correttamente.');
     }
