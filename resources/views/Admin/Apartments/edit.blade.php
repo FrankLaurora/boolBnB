@@ -112,6 +112,12 @@
                     </div>
                 @endforeach
             </div>
+
+            <a href="{{route('admin.images.create', $apartment->id)}}">
+                <button type="button" class="btn btn-info">
+                    Aggiungi immagini
+                </button>
+            </a>
             <button type="submit" class="btn btn-dark">Pubblica</button>
             </form>
             <script src="{{asset('js/prova.js')}}"></script>
