@@ -39,10 +39,13 @@
 
            
             <button type="submit" class="btn btn-dark">Pubblica</button>
-
+            <a class="btn btn-primary" href="{{ url('/admin/apartments') }}">
+                Annulla
+            </a>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
                 Elimina profilo
             </button>
+            
         </form>
         <!-- Modal -->
         <div class="modal fade" id="deleteModal">
