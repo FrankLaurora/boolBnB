@@ -13,9 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// rotte pubbliche
+Route::get('/{any}', 'PageController@index')->where('any', '.*');
+// Route::get('/guest', 'PageController@index')->name('guest.index');
 
 Auth::routes();
 

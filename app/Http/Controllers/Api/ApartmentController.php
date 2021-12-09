@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use DateTime;
+use App\Service;
 use App\Apartment;
 use Dotenv\Result\Success;
-use App\Service;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 
 class ApartmentController extends Controller
 {
@@ -14,6 +16,23 @@ class ApartmentController extends Controller
     {
         $apartments = Apartment::all();
 
+        $today=new DateTime('now');
+
+        foreach($apartments as $apartment){
+            $apartment->premium=false;
+
+            foreach($apartment->sponsorships()->get() as $sponsor){
+                $hoursdiff=false;
+
+                $subscription_date=new DateTime($sponsor->pivot->created_at);
+
+                $hoursdiff=($today->diff($subscription_date)->h)+($today->diff($subscription_date)->d)*24 + ($today->diff($subscription_date)->y)*365;
+                
+                if($hoursdiff<=$sponsor->duration){
+                    $apartment->premium=true;
+                }
+            }
+        }
         
         foreach($apartments as $apartment) {
             $services = [];
@@ -34,20 +53,6 @@ class ApartmentController extends Controller
 
             $apartment->images = $images;
         };
-
-        // die();
-
-        
-        // foreach($apartments as $apartment) {
-        //     $sponsorships = [];
-
-        //     foreach($apartment->sponsorships()->get() as $apartment_sponsorship){
-        //         if($apartment_sponsorship->created_at )
-        //         $sponsorships[] = $apartment_sponsorship->created_at;
-        //     }
-
-        //     $apartment->sponsorships = $sponsorships;
-        // };
 
         return response()->json([           
             'success' => true,
