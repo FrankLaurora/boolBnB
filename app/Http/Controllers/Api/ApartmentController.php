@@ -66,16 +66,16 @@ class ApartmentController extends Controller
 
 
     /*api/apartments/search/
-1)&lat=41.846020
-2)&lon=13.535800
-3)&range=20
-4)&rooms=[5-10]
-5)&bathrooms=[1-2]
-6)&guests=[1-6]
-7)&sqm=[40-120]
-8)&address=via roma 47
-*/
-// /api/apartments/search/&lat=41.846020&lon=12.535800&dist=25
+    ok 1)&lat=41.846020
+    ok 2)&lon=13.535800
+    ok 3)&dist=20
+    4)&rooms=[5-10]
+    5)&bathrooms=[1-2]
+    6)&guests=[1-6]
+    7)&sqm=[40-120]
+    8)&address=via roma 47
+    */
+    // /api/apartments/search/&lat=41.846020&lon=12.535800&dist=25
     public function search($query){
         $response = Apartment::all();
         $apartments=[];
