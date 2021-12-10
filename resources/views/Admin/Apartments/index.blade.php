@@ -29,9 +29,7 @@
                     <th scope="col">Indirizzo</th>
                     <th scope="col">N° civico</th>
                     <th scope="col">Cosa vuoi fare?</th>
-                    <th>
-
-                    </th>
+                    <th>Visibilità</th>
                 </tr>
             </thead>
             <tbody>
