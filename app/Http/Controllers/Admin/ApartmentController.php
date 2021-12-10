@@ -78,9 +78,9 @@ class ApartmentController extends Controller
         //assegnazione parametri ottenuti da guzzle
         isset($results[0]->address->streetNumber) ? $newApartment->number = $results[0]->address->streetNumber:$newApartment->number =0;
         //numero civico 0 significa indirizzo senza numero civico (SNC)
-        $newApartment->region = $results[0]->address->country;
-        $newApartment->address = $results[0]->address->streetName;
-        $newApartment->city = $results[0]->address->municipality;
+        $newApartment->region = strtolower($results[0]->address->country);
+        $newApartment->address = strtolower($results[0]->address->streetName);
+        $newApartment->city = strtolower($results[0]->address->municipality);
         $newApartment->latitude = $results[0]->position->lat;
         $newApartment->longitude = $results[0]->position->lon;
         
@@ -160,9 +160,9 @@ class ApartmentController extends Controller
         //assegnazione parametri ottenuti da guzzle
         isset($results[0]->address->streetNumber) ? $apartment->number = $results[0]->address->streetNumber:$apartment->number =0;
         //numero civico 0 significa indirizzo senza numero civico (SNC)
-        $apartment->region = $results[0]->address->country;
-        $apartment->address = $results[0]->address->streetName;
-        $apartment->city = $results[0]->address->municipality;
+        $apartment->region = strtolower($results[0]->address->country);
+        $apartment->address = strtolower($results[0]->address->streetName);
+        $apartment->city = strtolower($results[0]->address->municipality);
         $apartment->latitude = $results[0]->position->lat;
         $apartment->longitude = $results[0]->position->lon;
 

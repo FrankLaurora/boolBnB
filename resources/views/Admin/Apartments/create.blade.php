@@ -55,7 +55,7 @@
             {{-- input per l'indirizzo dell'appartamento --}}
             <div class="mb-3">
                 <label for="addressoptions" class="form-label"><strong> Indirizzo</strong></label>
-                <input type="search" name="addressoptions" class="form-control @error('addressoptions') is-invalid @enderror" id="addressoptions" value="{{old('addressoptions')}}" placeholder="Es: Milano, corso como 10">
+                <input type="text" name="addressoptions" class="form-control @error('addressoptions') is-invalid @enderror" id="addressoptions" value="{{old('addressoptions')}}" placeholder="Es: Milano, corso como 10">
                 <select name="address" id="address">
                     <option>{{old('address')?old('address'):''}}</option>
                 </select>
