@@ -17,9 +17,6 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-// rotte pubbliche
-Route::get('/{any}', 'PageController@index')->where('any', '.*');
-// Route::get('/guest', 'PageController@index')->name('guest.index');
 
 Auth::routes();
 
@@ -36,3 +33,7 @@ Route::middleware('auth')->namespace('Admin')->name('admin.')->prefix('admin')->
     //reindirizzo le rotte /post su /PostController
     // Route::resource("posts","PostController");
 });
+
+// rotte pubbliche
+Route::get('/{any}', 'PageController@index')->where('any', '.*');
+// Route::get('/guest', 'PageController@index')->name('guest.index');
