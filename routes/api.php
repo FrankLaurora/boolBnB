@@ -19,3 +19,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/apartments', 'Api\ApartmentController@index')->name('api.index');
+Route::get('/apartments/{slug}', 'Api\ApartmentController@show')->name('api.apartment_show');
+// Route::get('/apartments/search/{$query}', 'Api\ApartmentController@search')->name('api.apartment_search');
+Route::get('/services', 'Api\ServiceController@index')->name('api.services');
+Route::get('/services/{id}', 'Api\ServiceController@getService')->name('api.get_service');
+Route::get('/pics/{id}', 'Api\PictureController@getApartmentImages')->name('api.get_images');

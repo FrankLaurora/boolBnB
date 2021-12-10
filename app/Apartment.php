@@ -26,6 +26,7 @@ class Apartment extends Model
     }
     public function images()
     {
+        // return 'stocazzo';
         return $this->hasMany('App\Image');
     }
     public function statistics()

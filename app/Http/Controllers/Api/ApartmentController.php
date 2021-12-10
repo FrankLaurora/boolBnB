@@ -8,10 +8,25 @@ use App\Apartment;
 use Dotenv\Result\Success;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 
 class ApartmentController extends Controller
 {
+    /**
+     * Given an apartment @param slug returns @return apartment service
+     */
+    public function show($slug){
+        $apartment=Apartment::where('slug',$slug)->first();
+        return response()->json([           
+            'success' => true,
+            'data' => $apartment
+        ]);
+    }
+    
+    /**
+     * @return all apartments avaible 
+     */
     public function index()
     {
         $apartments = Apartment::all();
