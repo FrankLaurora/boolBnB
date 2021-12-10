@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="ms_container">
 
         <h1>Vue funziona</h1>
         <!-- <Home/> -->
@@ -21,3 +21,7 @@ export default {
     // } 
 }
 </script>
+
+<style>
+
+</style>
