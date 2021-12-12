@@ -5,8 +5,11 @@
              <div v-for="(apartment, index) in apartments" :key="index" class="ms_col-12 ms_col-md-6 ms_col-lg-3">
                  <a class="card-href" href="#">
                     <div class="card">
-                        <div class="header">
+                        <div v-if="apartment.cover" class="header">
                             <img :src="`./storage/${apartment.cover}`" alt="">
+                        </div>
+                        <div v-else class="header">
+                            <img src="../images/image_not_found.jpg" alt="">
                         </div>
                         <div class="body">
                             <div class="title">
