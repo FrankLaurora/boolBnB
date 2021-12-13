@@ -4,14 +4,13 @@
         <h2>Questa è l'homepage</h2>
 
         <div class="search_bar">
-            <input type="text" v-model="search" @keyup="fetchResults(search)" @keyup.enter.prevent="fetchApartments(query)" placeholder="Cerca una città">
-            <button @click="fetchApartments(query)">Cerca</button>
+            <input list="addresses" name="search" v-model="search" @keyup="fetchResults(search)" @keyup.enter.prevent="fetchApartments(search)" placeholder="Cerca una città">
+            <button @click="fetchApartments(search)">Cerca</button>
+            <datalist id="addresses">
+                <option v-for="(element, index) in searchResults[0]" :key="index" :value="element.address.freeformAddress"></option>
+            </datalist>
         </div>
-        <div>
-            <select name="search" id="search" v-model="query">
-                <option v-for="(element, index) in searchResults[0]" :key="index" :value="element.position">{{element.address.freeformAddress}}</option>
-            </select>
-        </div>
+        
 
         <Card :apartments="apartments"/>
         <!-- <h2>Tutti gli appartamenti</h2>
@@ -58,16 +57,22 @@ export default {
             }
         },
     
-        fetchApartments(query) {
-            axios.get(`http://localhost:8000/api/apartments/search/&lat=${query.lat}&lon=${query.lon}&dist=25`)
-            .then(response => {
-                this.apartments = [];
-                this.apartments = response.data.data;
-                this.lastPage = response.data.lastPage;
-            })
-            .catch(error => {
-                console.log(error)
-            })
+        fetchApartments(search) {
+            fetch('https://api.tomtom.com/search/2/geocode/'+ search +'.json?key=jXiFCoqvlFBNjmqBX4SuU1ehhUX1JF7t&language=it-IT')
+            .then(response => response.json())
+            .then(data=>{
+                let lat=data.results[0].position.lat;
+                let lon=data.results[0].position.lon;
+                axios.get(`http://localhost:8000/api/apartments/search/&lat=${lat}&lon=${lon}&dist=25`)
+                .then(response => {
+                    this.apartments = [];
+                    this.apartments = response.data.data;
+                    this.lastPage = response.data.lastPage;
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            });
         },
 
         getPage(index) {
@@ -102,6 +107,13 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+    .search_bar{
+        display: flex;
+        margin: 1.25rem 0;
+        input{
+            width: 100%;
+            max-width: 25rem;
+        }
+    }
 </style>
