@@ -1,11 +1,9 @@
 <template>
-    <div class="ms_+container">
+    <div class="ms_container">
         <h2>{{apartment.title}}</h2>
         <div><strong> {{apartment.city}}</strong> {{apartment.address}} {{apartment.number}}</div> 
         <div  class="coverimg">
-            <div class="big_img">
-                <img :src="`./storage/${apartment.cover}`" alt="">
-            </div>
+            <img :src="`http://localhost:8000/storage/${apartment.cover}`" alt="">
         </div>
         <div class="services" >
             <h3> lista dei servizi disponibili:</h3>
@@ -58,28 +56,26 @@ export default {
 <style lang="scss" scoped>
 
 @import '../../../sass/partials/common';
-.container{
-    width:80%;
-    margin: 0 auto;
+.ms_container{
     margin-top:50px;
+
     h2{
         padding: 15px 0;
     }
     .coverimg{
-        height: 450px;
-        margin: 30px 0 70px 0;
-        display:flex;
-        .big_img{
-            width:65%;
-            // background-color: lightseagreen;
-            border-radius: 7px;
-            overflow: hidden;
+        width: 40vw;
+        height: 30vw;
+        max-width: 400px;
+        max-height: 300px;
+        border-radius: 25px;
+        overflow: hidden;
+        margin-block: 1rem;
+
             img{
                 width:100%;
-                height:100%;
-                object-fit: contain;    
+                height: 100%;
+                object-fit: cover;    
             }
-        }
         
     }
     .description{

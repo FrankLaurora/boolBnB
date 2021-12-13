@@ -143,7 +143,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            Vuoi cancellare definitivamente questo?
+                            Vuoi cancellare definitivamente questo annuncio?
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>

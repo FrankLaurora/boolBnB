@@ -115,7 +115,6 @@ div{
                 padding: 0;
                 li{
                     margin-bottom: 10px;
-                    
                 }
             }
             a{
