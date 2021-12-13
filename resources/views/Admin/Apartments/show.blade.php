@@ -4,27 +4,32 @@
 
 <div class="container">
     <div class="col-12 pt-4">
-       <h2 class="pb-4">Il tuo appartamento</h2> 
-       <h3>{{$apartment->title}}</h3>
-       <img src="{{asset('storage/' . $apartment->cover)}}" class="img-fluid col-4" alt="">
-       <p>
+      <h2 class="pb-4">Il tuo appartamento</h2> 
+      <h3>{{$apartment->title}}</h3>
+      <img src="{{asset('storage/' . $apartment->cover)}}" class="img-fluid col-4 pt-4" alt="">
+      <p class="pt-4">
             {{$apartment->description}}
-       </p>
-       <ul class="nav flex-column pb-4">
-           <li class="nav-item"> <strong>Indirizzo:</strong>  {{$apartment->address}} {{$apartment->number}} {{$apartment->city}}</li>
-           <li class="nav-item"> <strong> Numero Stanze:</strong> {{$apartment->rooms}}</li>
-           <li class="nav-item"> <strong> Numero Ospiti:</strong> {{$apartment->guests_number}}</li> 
-           <li class="nav-item"> <strong>Mq:</strong>  {{$apartment->sql}}</li>
-           
-       </ul>
-       <div class="pb-2">Sponsorizza</div>
-       <div class="pb-5">
-           <button type="button" class="btn btn-secondary">Silver</button>
-           <button type="button" class="btn btn-warning">Gold</button>
-           <button type="button" class="btn btn-light">Platinum</button>
-        </div>
-       <div class="pb-2">Messaggi ricevuti</div>
-       <table class="table ">
+      </p>
+      <ul class="nav flex-column pb-4">
+          <li class="nav-item"> <strong> Indirizzo: </strong> {{$apartment->address}} {{$apartment->number}} {{$apartment->city}}</li>
+          <li class="nav-item"> <strong> Numero Stanze: </strong> {{$apartment->rooms}}</li>
+          <li class="nav-item"> <strong> Numero Ospiti: </strong> {{$apartment->guests_number}}</li> 
+          <li class="nav-item"> <strong> Mq: </strong> {{$apartment->sql}}</li>
+      </ul>
+      <ul class="nav flex-column pb-4">
+        <h3>Servizi disponibili</h3>
+          @foreach ($apartment->services as $service)
+            <li>{{$service->name}}</li>
+          @endforeach
+      </ul>
+      <h3 class="pb-2">Sponsorizza</h3>
+      <div class="pb-5">
+        <button type="button" class="btn btn-secondary">Silver</button>
+        <button type="button" class="btn btn-warning">Gold</button>
+        <button type="button" class="btn btn-light">Platinum</button>
+      </div>
+      <h3 class="pb-2">Messaggi ricevuti</h3>
+      <table class="table ">
         <thead>
           <tr>
             <th scope="col">Mittente</th>
