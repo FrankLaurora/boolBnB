@@ -1,7 +1,6 @@
 <template>
     <div class="ms_container">
 
-        <h1>Vue funziona</h1>
         <!-- <Home/> -->
         <main>
             <router-view></router-view>
