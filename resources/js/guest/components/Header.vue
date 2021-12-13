@@ -20,9 +20,11 @@ export default {
 
 <style lang="scss" scoped>
     .container-header{
-        margin-top: 10px;
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
+        padding-inline: 2rem;
+        align-items: center;
+        flex-grow: 1;
         #logo{
         width: 70%;
         }

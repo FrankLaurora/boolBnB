@@ -6,6 +6,11 @@
             </div>
 
             <div class="image_box">
+                <div class="text_box">
+                    <h2>{{sponsored[photoIndex].title}}</h2>
+                    <h3>{{sponsored[photoIndex].city}}</h3>
+                </div>
+
                 
                 <img :src="`./storage/${sponsored[photoIndex].cover}`" alt="">
                 
@@ -82,10 +87,15 @@ export default {
 <style lang="scss" scoped>
 .flex_container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 
+    .prev_photo, .next_photo {
+        margin-inline: 2rem;
+    }
+
     .image_box {
+        position: relative;
         width: 500px;
         height: 250px;
 
@@ -95,22 +105,30 @@ export default {
             width: 100%;
             height: 100%;
         }
+
+        .text_box {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+        }
+
         .bullet_box {
             position: absolute;
             display: flex;
             bottom: 20px;
             left: 50%;
             transform: translate(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
-            color: rgb(105, 224, 224);
-            padding: 15px;
+            background-color: #343a4088;
+            color: #343a40;
+            text-shadow: 0px 0px 10px #fff;
+            padding: 0.5rem;
             border-radius: 15px;
-            box-shadow: 0px 0px 20px rgb(105, 224, 224) inset;
-            border: 2px solid rgb(219, 255, 255);
+            border: 1px solid #000;
             }
 
         .bullet {
             margin: 0px 10px;
+            font-size: 0.8rem;
         }
     }
 }

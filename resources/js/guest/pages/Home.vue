@@ -127,5 +127,22 @@ export default {
             width: 70px;
             height: 30px;
         }
+    }
+
+    ul {
+        display: flex;
+        list-style: none;
+        width: 25%;
+        margin: 1.5rem auto;
+        justify-content: center;
+
+        li {
+            font-size: 1rem;
+            padding: 0.8rem;
+            &:hover {
+                cursor: pointer;
+                transform: scale(1.2);
+            }
         }
+    }
 </style>
