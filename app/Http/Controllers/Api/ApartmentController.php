@@ -56,7 +56,7 @@ class ApartmentController extends Controller
         $response = Apartment::paginate(12);
         $apartments=[];
         foreach($response as $apartment){
-            $apartments[]=$this->completeApartment($apartment)->paginate(10);
+            $apartments[]=$this->completeApartment($apartment);
         }
         return response()->json([           
             'success' => true,

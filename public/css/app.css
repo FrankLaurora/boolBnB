@@ -10966,3 +10966,8 @@ a.text-dark:focus {
   background-color: #b8adad;
 }
 
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
