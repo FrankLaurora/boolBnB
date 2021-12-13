@@ -13,6 +13,8 @@
             </select>
         </div>
 
+        <Hero :sponsored="sponsored" />
+
         <Card :apartments="apartments"/>
         <!-- <h2>Tutti gli appartamenti</h2>
         <ul>
@@ -27,12 +29,14 @@
 <script>
 
 import Card from '../components/Card.vue';
+import Hero from '../components/Hero.vue';
 
 export default {
     name: 'Home',
 
     components: {
-        Card
+        Card,
+        Hero
     },
 
     data() {
@@ -42,7 +46,8 @@ export default {
             search: "",
             query: {},
             page: 1,
-            lastPage: null
+            lastPage: null,
+            sponsored: []
         }
     },
 
@@ -72,13 +77,11 @@ export default {
 
         getPage(index) {
             this.page = index;
-            console.log(this.page)
         },
 
         changePage() {
                 axios.get(`http://localhost:8000/api/apartments/?page=${this.page}`)
             .then(response => {
-                console.log(response);
                 this.apartments = response.data.data;
             })
             .catch(error => {
@@ -91,9 +94,11 @@ export default {
     mounted () {
         axios.get(`http://localhost:8000/api/apartments/?page=${this.page}`)
         .then(response => {
-            console.log(response);
             this.lastPage = response.data.lastPage;
             this.apartments = response.data.data;
+            for (let index = 6; index < 9; index++) {
+                this.sponsored.push(this.apartments[index])
+            }
         })
         .catch(error => {
             console.log(error)

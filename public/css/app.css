@@ -10027,3 +10027,7 @@ h3 {
   width: 80%;
   margin: 0 auto;
 }
+
+.ms_pb_4 {
+  padding-bottom: 2.2rem !important;
+}
