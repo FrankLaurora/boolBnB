@@ -69,24 +69,30 @@
             {{-- Old Cover --}}
             @if ($apartment->cover)
                 <h6>Immagine di copertina</h6>
-                <img width="100px" src="{{asset('storage/' . $apartment->cover)}}" alt="{{$apartment->title}}">                                              
+                <img width="100px" src="{{asset('storage/' . $apartment->cover)}}" alt="{{$apartment->title}}" class="mb-2 mt-2">                                              
             @endif
 
             {{-- input per l'immagine di copertina dell'appartamento --}}
             <div class="mb-3">
                 <label for="cover" class="form-label">Cover</label>
-                <input type="file" name="cover" class="form-control @error('cover') is-invalid @enderror" id="cover" value="{{old('cover') ?? $apartment->cover}}">
+                <input type="file" name="cover" class="form-control  @error('cover') is-invalid @enderror" id="cover" value="{{old('cover') ?? $apartment->cover}}">
                 @error('cover')
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
             </div>
+            {{-- immagini aggiuntive --}}
+            <a href="{{route('admin.images.create', $apartment->id)}}">
+                <button type="button" class="btn btn-info mb-4">
+                    Aggiungi altre immagini
+                </button>
+            </a>
 
 
             {{-- input toogle per la visibilità --}}
             <div class="mb-3">
                 <div class="custom-control custom-switch">
                     <input class="custom-control-input" type="checkbox" id="visibility" name="visibility" {{old('visibility')? 'cheched' : ($apartment->visibility?'checked':'')}}/>
-                    <label class="custom-control-label" for="visibility">Visibility</label>
+                    <label class="custom-control-label" for="visibility">Visibilità annuncio</label>
                 </div>
             </div>
                 
@@ -115,11 +121,7 @@
             </div>
 
             <button type="submit" class="btn btn-dark">Pubblica modifiche</button>
-            <a href="{{route('admin.images.create', $apartment->id)}}">
-                <button type="button" class="btn btn-info">
-                    Aggiungi immagini
-                </button>
-            </a>
+           
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
                 Elimina annuncio
             </button>

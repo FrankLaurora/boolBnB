@@ -6,8 +6,8 @@
     <div class="col-12 pt-4">
       <h2 class="pb-4">Il tuo appartamento</h2> 
       <h3>{{$apartment->title}}</h3>
-      <img src="{{asset('storage/' . $apartment->cover)}}" class="img-fluid col-4" alt="">
-      <p>
+      <img src="{{asset('storage/' . $apartment->cover)}}" class="img-fluid col-4 pt-4" alt="">
+      <p class="pt-4">
             {{$apartment->description}}
       </p>
       <ul class="nav flex-column pb-4">
