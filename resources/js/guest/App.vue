@@ -32,21 +32,19 @@ export default {
 
 <style lang="scss">
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
-    
+div{
+    overflow: hidden;
     header{
     background-color: #292c30;
     height: 10vh;
-    overflow: hidden;
+    }
+    main{
+        height: 70vh;
+        overflow: auto;
+    }
+    footer{
+        height: 20vh;
+        width: 100%;
+    }
 }
-main{
-    height: 70vh;
-    overflow: auto;
-    margin-top: 20px;
-}
-footer{
-    height: 20vh;
-    width: 100%;
-}
-
-
 </style>
