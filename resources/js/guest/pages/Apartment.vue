@@ -1,17 +1,17 @@
 <template>
     <div class="container">
         <h2>{{apartment.title}}</h2>
-        <h4> {{apartment.city}} {{apartment.address}} {{apartment.number}}</h4>
+        <div><strong> {{apartment.city}}</strong> {{apartment.address}} {{apartment.number}}</div> 
         <div  class="coverimg">
             <div class="big_img">
                 <img :src="`./storage/${apartment.cover}`" alt="">
             </div>
-            <div class="small_img">
+            <!-- <div class="small_img">
                 <img src="" alt="">
                 <img src="" alt="">
                 <img src="" alt="">
                 <img src="" alt="">
-            </div>
+            </div> -->
             
         </div>
         <div class="services" >
@@ -67,22 +67,23 @@ export default {
 .container{
     width:80%;
     margin: 0 auto;
-    margin-top:40px;
-    
+    margin-top:50px;
+    h2{
+        padding: 15px 0;
+    }
     .coverimg{
         height: 450px;
         margin: 30px 0 70px 0;
         display:flex;
         .big_img{
-            width:55%;
+            width:65%;
             background-color: lightseagreen;
             border-radius: 7px;
             margin-right:20px;
             overflow: hidden;
             img{
-                max-width:100%;
-                height:100%; 
-                object-fit: cover;    
+                width:100%;
+                object-fit: contain;    
             }
         }
         .small_img{
