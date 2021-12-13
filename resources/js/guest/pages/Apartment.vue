@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="ms_+container">
         <h2>{{apartment.title}}</h2>
         <div><strong> {{apartment.city}}</strong> {{apartment.address}} {{apartment.number}}</div> 
         <div  class="coverimg">
