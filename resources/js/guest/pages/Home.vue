@@ -47,6 +47,7 @@ export default {
                 .then(data =>{
                     this.searchResults = [];
                     this.searchResults.push(data.results);
+                    console.log(this.query)
                 })
             }
         },
@@ -54,7 +55,8 @@ export default {
         fetchApartments(query) {
             axios.get(`http://localhost:8000/api/apartments/search/&lat=${query.lat}&lon=${query.lon}&dist=25`)
             .then(response => {
-                console.log(response.data)
+                this.apartments = [];
+                this.apartments = response.data.data;
             })
             .catch(error => {
                 console.log(error)
@@ -66,6 +68,7 @@ export default {
     mounted () {
         axios.get('http://localhost:8000/api/apartments')
         .then(response => {
+            console.log(response.data);
             this.apartments = response.data.data;
         })
         .catch(error => {
