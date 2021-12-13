@@ -143,7 +143,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            Vuoi cancellare definitivamente il tuo profilo?
+                            Vuoi cancellare definitivamente questo?
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>

@@ -6,16 +6,9 @@
             <div class="big_img">
                 <img :src="`./storage/${apartment.cover}`" alt="">
             </div>
-            <!-- <div class="small_img">
-                <img src="" alt="">
-                <img src="" alt="">
-                <img src="" alt="">
-                <img src="" alt="">
-            </div> -->
-            
         </div>
         <div class="services" >
-            lista dei servizi disponibili:
+            <h3> lista dei servizi disponibili:</h3>
             <ul>
                 <li v-for="(element,index) in services" :key="index">{{element}}</li>
             </ul>
@@ -78,21 +71,16 @@ export default {
         display:flex;
         .big_img{
             width:65%;
-            background-color: lightseagreen;
+            // background-color: lightseagreen;
             border-radius: 7px;
-            margin-right:20px;
             overflow: hidden;
             img{
                 width:100%;
+                height:100%;
                 object-fit: contain;    
             }
         }
-        .small_img{
-            width:35%;
-            background-color: lightslategrey;
-            border-radius: 7px;
-            overflow: hidden;
-        }
+        
     }
     .description{
             margin: 60px 0;

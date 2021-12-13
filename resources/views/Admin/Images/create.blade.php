@@ -27,7 +27,7 @@
             @endif
         </div>
 
-        <button type="submit" class="btn btn-dark">Aggiorna</button>
+        <button type="submit" class="btn btn-dark">Aggiungi altre foto</button>
         
         <a href="{{route('admin.apartments.edit', $apartment->id)}}">
             <button type="button" class="btn btn-info">
