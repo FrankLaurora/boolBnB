@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div class="ms_container">
 
         <h2>Questa è l'homepage</h2>
-        <Card/>
+
         <div class="search_bar">
             <input type="text" v-model="search" @keyup="fetchResults(search)" @keyup.enter.prevent="fetchApartments(query)" placeholder="Cerca una città">
             <button @click="fetchApartments(query)">Cerca</button>
@@ -12,9 +12,14 @@
                 <option v-for="(element, index) in searchResults[0]" :key="index" :value="element.position">{{element.address.freeformAddress}}</option>
             </select>
         </div>
-        <h2>Tutti gli appartamenti</h2>
+
+        <Card :apartments="apartments"/>
+        <!-- <h2>Tutti gli appartamenti</h2>
         <ul>
             <li v-for="(apartment, index) in apartments" :key="index"><strong>{{apartment.title}}</strong> | {{apartment.address}}</li>
+        </ul> -->
+        <ul>
+            <li v-for="index in lastPage" :key="index" @click="getPage(index), changePage()">{{index}}</li>
         </ul>
     </div>
 </template>
@@ -36,6 +41,8 @@ export default {
             searchResults: [],
             search: "",
             query: {},
+            page: 1,
+            lastPage: null
         }
     },
 
@@ -47,7 +54,6 @@ export default {
                 .then(data =>{
                     this.searchResults = [];
                     this.searchResults.push(data.results);
-                    console.log(this.query)
                 })
             }
         },
@@ -56,6 +62,23 @@ export default {
             axios.get(`http://localhost:8000/api/apartments/search/&lat=${query.lat}&lon=${query.lon}&dist=25`)
             .then(response => {
                 this.apartments = [];
+                this.apartments = response.data.data;
+                this.lastPage = response.data.lastPage;
+            })
+            .catch(error => {
+                console.log(error)
+            })
+        },
+
+        getPage(index) {
+            this.page = index;
+            console.log(this.page)
+        },
+
+        changePage() {
+                axios.get(`http://localhost:8000/api/apartments/?page=${this.page}`)
+            .then(response => {
+                console.log(response);
                 this.apartments = response.data.data;
             })
             .catch(error => {
@@ -66,9 +89,10 @@ export default {
         
 
     mounted () {
-        axios.get('http://localhost:8000/api/apartments')
+        axios.get(`http://localhost:8000/api/apartments/?page=${this.page}`)
         .then(response => {
-            console.log(response.data);
+            console.log(response);
+            this.lastPage = response.data.lastPage;
             this.apartments = response.data.data;
         })
         .catch(error => {

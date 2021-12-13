@@ -4,9 +4,9 @@
         <h4> {{apartment.city}} {{apartment.address}} {{apartment.number}}</h4>
         <div  class="coverimg">
             <div class="big_img">
-                <img :src="apartment.cover" alt="">
+                <img :src="`./storage/${apartment.cover}`" alt="">
             </div>
-            <div class="small_img" v-if="" >
+            <div class="small_img">
                 <img src="" alt="">
                 <img src="" alt="">
                 <img src="" alt="">
@@ -41,16 +41,21 @@ export default {
     name: 'Apartment',
     data() {
 		return {
-			apartment:null
+			apartment: []
 		}
     },
     mounted(){
-            axios.get('/api/apartments')
-            .then(response => {
-                this.apartment = response.data.data[0];
-            })
-            .catch(error => {
-                console.log(error)
+            // axios.get('/api/apartments')
+            // .then(response => {
+            //     this.apartment = response.data.data[0];
+            // })
+            // .catch(error => {
+            //     console.log(error)
+            // })
+            axios.get(`/api/apartments/${this.$route.params.slug}`)
+            .then(response=>{
+                this.apartment = response.data.data;
+                console.log(apartment)
             })
     }
 }
@@ -58,7 +63,7 @@ export default {
 
 <style lang="scss" scoped>
 
-// @import '../../../sass/partials/common';
+@import '../../../sass/partials/common';
 .container{
     width:80%;
     margin: 0 auto;

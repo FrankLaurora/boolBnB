@@ -1,12 +1,11 @@
 <template>
-    <div class="ms_container">
+    <div>
         <Header/>
-
-        <!-- <Home/> -->
 
         <main>
             <router-view></router-view>
         </main>
+
         <footer>
             <FooterTop/>
             <Footer-Bottom/>
