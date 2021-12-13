@@ -1,12 +1,6 @@
 <template>
-<<<<<<< HEAD
-    <div class="ms_container">
-
-        <h1>Vue funziona</h1>
-=======
     <div>
         <Header/>
->>>>>>> andrea2
         <!-- <Home/> -->
         <main>
             <router-view></router-view>
@@ -32,16 +26,8 @@ export default {
   },
     name: 'App'
 }
-<<<<<<< HEAD
 </script>
 
 <style>
 
-=======
-
-</script>
-
-<style lang="scss">
-// @import "./assets/sass/common.scss";
->>>>>>> andrea2
 </style>
