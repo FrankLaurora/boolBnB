@@ -56,14 +56,13 @@ class ApartmentController extends Controller
         $response = Apartment::all();
         $apartments=[];
         foreach($response as $apartment){
-            $apartments[]=$this->completeApartment($apartment);
+            $apartments[]=$this->completeApartment($apartment)->paginate(10);
         }
         return response()->json([           
             'success' => true,
             'data' => $apartments
         ]);
     }
-
 
     /*api/apartments/search/
     ok 1)&lat=41.846020
