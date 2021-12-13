@@ -14,7 +14,7 @@
           <li class="nav-item"> <strong> Indirizzo: </strong> {{$apartment->address}} {{$apartment->number}} {{$apartment->city}}</li>
           <li class="nav-item"> <strong> Numero Stanze: </strong> {{$apartment->rooms}}</li>
           <li class="nav-item"> <strong> Numero Ospiti: </strong> {{$apartment->guests_number}}</li> 
-          <li class="nav-item"> <strong> Mq: </strong> {{$apartment->sql}}</li>
+          <li class="nav-item"> <strong> Mq: </strong> {{$apartment->sqm}}</li>
       </ul>
       <ul class="nav flex-column pb-4">
         <h3>Servizi disponibili</h3>
@@ -22,6 +22,14 @@
             <li>{{$service->name}}</li>
           @endforeach
       </ul>
+      <div class="mb-3">
+        <h3>Immagini aggiuntive</h3>
+        @if ($apartment->images != [])
+            @foreach ($apartment->images as $image)
+                <img width="100px" src="{{asset('./storage/' . $image->url)}}" alt="{{$apartment->title}}" class="mb-2 mt-2">                                              
+            @endforeach
+        @endif
+    </div>
       <h3 class="pb-2">Sponsorizza</h3>
       <div class="pb-5">
         <button type="button" class="btn btn-secondary">Silver</button>
@@ -50,8 +58,8 @@
         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
             Elimina annuncio
         </button>
-        <a href="{{route("admin.apartments.edit",$apartment['id'])}}">
-          <button type="button" class="btn btn-dark">Modifica</button>
+        <a class="btn btn-dark" href="{{route("admin.apartments.edit",$apartment['id'])}}">
+          Modifica
         </a>
         <a href="{{route('admin.apartments.index')}}">
             <button type="button" class="btn btn-primary">
