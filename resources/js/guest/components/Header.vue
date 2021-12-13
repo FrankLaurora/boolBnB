@@ -29,7 +29,9 @@ export default {
         #logo{
             width: 70%;
         }
-        .button {
+        ul{
+            list-style-type: none;
+            .button {
             background-color: #0d6efd;
             border-radius: 10px;
             color: white;
@@ -38,7 +40,7 @@ export default {
             text-decoration: none;
             display: inline-block;
             font-size: 16px;
+            }
         }
-
     }
 </style>

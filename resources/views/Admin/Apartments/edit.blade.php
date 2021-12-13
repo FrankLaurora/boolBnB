@@ -120,7 +120,7 @@
                 @endforeach
             </div>
 
-            <button type="submit" class="btn btn-dark">Pubblica modifiche</button>
+            <button type="submit" class="btn btn-success">Pubblica modifiche</button>
            
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
                 Elimina annuncio
