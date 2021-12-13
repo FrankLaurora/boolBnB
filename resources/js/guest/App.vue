@@ -1,6 +1,9 @@
 <template>
     <div class="ms_container">
         <Header/>
+
+        <!-- <Home/> -->
+
         <main>
             <router-view></router-view>
         </main>
@@ -26,6 +29,7 @@ export default {
     }
 }
 </script>
+
 
 <style lang="scss">
 // @import "./assets/sass/common.scss";
