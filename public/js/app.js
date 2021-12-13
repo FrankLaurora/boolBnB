@@ -37353,6 +37353,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 __webpack_require__(/*! C:\Users\aless\Desktop\CORSO BOOLEAN\progetto finale\boolBnB\resources\js\app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! C:\Users\aless\Desktop\CORSO BOOLEAN\progetto finale\boolBnB\resources\sass\app.scss */"./resources/sass/app.scss");
 =======
@@ -37364,6 +37365,10 @@ module.exports = __webpack_require__(/*! C:\Users\User\wa\boolean\progetto_final
 __webpack_require__(/*! C:\Users\User\wa\boolean\progetto_finale\boolBnB\resources\js\app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! C:\Users\User\wa\boolean\progetto_finale\boolBnB\resources\sass\app.scss */"./resources/sass/app.scss");
 >>>>>>> leob
+=======
+__webpack_require__(/*! C:\Users\FIORE\Desktop\BOOLEAN\BOOLBNB\boolBnB\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\FIORE\Desktop\BOOLEAN\BOOLBNB\boolBnB\resources\sass\app.scss */"./resources/sass/app.scss");
+>>>>>>> andrea2
 
 
 /***/ })

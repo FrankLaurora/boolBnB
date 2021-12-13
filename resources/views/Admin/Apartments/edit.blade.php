@@ -91,8 +91,8 @@
             {{-- input toogle per la visibilità --}}
             <div class="mb-3">
                 <div class="custom-control custom-switch">
-                    <input class="custom-control-input" type="checkbox" id="visibility" name="visibility" {{old('visibility')? 'cheched' : ($apartment->visibility?'checked':'')}}/>
-                    <label class="custom-control-label" for="visibility">Visibilità annuncio</label>
+                    <input class="custom-control-input" type="checkbox" id="visibility" name="visibility" {{old('visibility') ? 'checked' : ($apartment->visibility ? 'checked':'')}}/>
+                    <label class="custom-control-label" for="visibility">Visibilità</label>
                 </div>
             </div>
                 
@@ -120,7 +120,7 @@
                 @endforeach
             </div>
 
-            <button type="submit" class="btn btn-dark">Pubblica modifiche</button>
+            <button type="submit" class="btn btn-success">Pubblica modifiche</button>
            
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
                 Elimina annuncio

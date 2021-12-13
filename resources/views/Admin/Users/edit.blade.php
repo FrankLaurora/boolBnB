@@ -38,8 +38,8 @@
             </div>
 
            
-            <button type="submit" class="btn btn-dark">Pubblica</button>
-            <a class="btn btn-primary" href="{{ url('/admin/apartments') }}">
+            <button type="submit" class="btn btn-success">Pubblica</button>
+            <a class="btn btn-warning" href="{{ url('/admin/apartments') }}">
                 Annulla
             </a>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
