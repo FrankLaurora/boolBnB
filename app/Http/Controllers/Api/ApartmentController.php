@@ -53,7 +53,7 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        $response = Apartment::all();
+        $response = Apartment::paginate(12);
         $apartments=[];
         foreach($response as $apartment){
             $apartments[]=$this->completeApartment($apartment)->paginate(10);
