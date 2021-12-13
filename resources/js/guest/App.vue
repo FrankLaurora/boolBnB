@@ -1,7 +1,7 @@
 <template>
     <div>
-        <Header/>
-
+        <header><Header/></header>
+        
         <main>
             <router-view></router-view>
         </main>
@@ -31,6 +31,22 @@ export default {
 
 
 <style lang="scss">
-// @import "./assets/sass/common.scss";
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+    
+    header{
+    background-color: #292c30;
+    height: 10vh;
+    overflow: hidden;
+}
+main{
+    height: 70vh;
+    overflow: auto;
+    margin-top: 20px;
+}
+footer{
+    height: 20vh;
+    width: 100%;
+}
+
 
 </style>

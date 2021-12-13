@@ -1,10 +1,7 @@
 <template>
     <div class="ms_container">
-
-        <h2>Questa è l'homepage</h2>
-
         <div class="search_bar">
-            <input type="text" v-model="search" @keyup="fetchResults(search)" @keyup.enter.prevent="fetchApartments(query)" placeholder="Cerca una città">
+            <input class="input-bar" type="text" v-model="search" @keyup="fetchResults(search)" @keyup.enter.prevent="fetchApartments(query)" placeholder="Cerca una città">
             <button @click="fetchApartments(query)">Cerca</button>
         </div>
         <div>
@@ -12,7 +9,6 @@
                 <option v-for="(element, index) in searchResults[0]" :key="index" :value="element.position">{{element.address.freeformAddress}}</option>
             </select>
         </div>
-
         <Card :apartments="apartments"/>
         <!-- <h2>Tutti gli appartamenti</h2>
         <ul>
@@ -102,6 +98,24 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+    .search_bar{
+        .input-bar{
+            border-radius: 10px;
+            width: 400px;
+            height: 35px;
+             font-size: 16px;
+            text-align: center;
+        }
+        button{
+            background-color: #343a40;
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 12px;
+            width: 70px;
+            height: 30px;
+        }
+    }
 </style>
