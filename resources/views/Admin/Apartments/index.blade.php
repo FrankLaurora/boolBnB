@@ -44,7 +44,7 @@
                                 <button type="button" class="btn btn-dark">Visualizza</button>
                             </a>
                             <a href="{{route("admin.apartments.edit",$apartment['id'])}}">
-                                <button type="button" class="btn btn-success">Modifica</button>
+                                <button type="button" class="btn btn-dark">Modifica</button>
                             </a>
                         </td>
                         <td>

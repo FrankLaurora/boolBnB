@@ -50,9 +50,11 @@
         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
             Elimina annuncio
         </button>
-    
+        <a href="{{route("admin.apartments.edit",$apartment['id'])}}">
+          <button type="button" class="btn btn-dark">Modifica</button>
+        </a>
         <a href="{{route('admin.apartments.index')}}">
-            <button type="button" class="btn btn-success">
+            <button type="button" class="btn btn-primary">
                 Torna indietro
             </button>
         </a>
