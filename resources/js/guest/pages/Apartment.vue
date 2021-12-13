@@ -15,14 +15,13 @@
             
         </div>
         <div class="services" >
-            lista dei servizi disponibili: 
+            lista dei servizi disponibili:
+            <ul>
+                <li v-for="(element,index) in services" :key="index">{{element}}</li>
+            </ul>
         </div>
         <div class="description">
             {{apartment.description}}
-            descrizione Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est, similique excepturi nobis neque impedit 
-            laboriosam adipisci dolorum quaerat corporis quos deleniti pariatur, temporibus accusamus, culpa velit. Perferendis mollitia amet dolorum!
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt aliquam magnam facilis! Esse deserunt architecto illum maxime,
-            consectetur provident veniam est magnam repellendus voluptatem molestias sed libero asperiores, impedit animi!
         </div>
         <div class="message">
             <h3>Scrivi a questo host</h3>
@@ -41,21 +40,23 @@ export default {
     name: 'Apartment',
     data() {
 		return {
-			apartment: []
+			apartment: [],
+            services: []
 		}
     },
+
     mounted(){
-            // axios.get('/api/apartments')
-            // .then(response => {
-            //     this.apartment = response.data.data[0];
-            // })
-            // .catch(error => {
-            //     console.log(error)
-            // })
             axios.get(`/api/apartments/${this.$route.params.slug}`)
             .then(response=>{
                 this.apartment = response.data.data;
-                console.log(apartment)
+                console.log(this.apartment);
+                this.apartment.services.forEach(id => {
+                    axios.get(`/api/services/${id}`)
+                    .then(response =>{
+                    console.log(response.data);
+                    this.services.push(response.data.data.name);
+                    })
+                });
             })
     }
 }
