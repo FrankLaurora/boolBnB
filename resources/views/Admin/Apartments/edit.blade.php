@@ -91,8 +91,13 @@
             {{-- input toogle per la visibilità --}}
             <div class="mb-3">
                 <div class="custom-control custom-switch">
+<<<<<<< HEAD
                     <input class="custom-control-input" type="checkbox" id="visibility" name="visibility" {{old('visibility')? 'cheched' : ($apartment->visibility?'checked':'')}}/>
                     <label class="custom-control-label" for="visibility">Visibilità annuncio</label>
+=======
+                    <input class="custom-control-input" type="checkbox" id="visibility" name="visibility" {{old('visibility') ? 'checked' : ($apartment->visibility ? 'checked':'')}}/>
+                    <label class="custom-control-label" for="visibility">Visibilità</label>
+>>>>>>> andrea2
                 </div>
             </div>
                 

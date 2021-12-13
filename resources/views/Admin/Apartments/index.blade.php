@@ -29,6 +29,7 @@
                     <th scope="col">Indirizzo</th>
                     <th scope="col">N° civico</th>
                     <th scope="col">Cosa vuoi fare?</th>
+                    <th>Visibilità</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,13 +40,22 @@
                         <td>{{$apartment->address}}</td>
                         <td>{{$apartment->number}}</td>
                         <td>
-                            <a href="{{route("admin.apartments.show",$apartment['id'])}}">
+                            <a href="{{route("admin.apartments.update", $apartment['id'])}}">
                                 <button type="button" class="btn btn-dark">Visualizza</button>
                             </a>
                             <a href="{{route("admin.apartments.edit",$apartment['id'])}}">
                                 <button type="button" class="btn btn-success">Modifica</button>
                             </a>
-                            
+                        </td>
+                        <td>
+                            <form action="{{route("admin.apartments.update", $apartment->id)}}" method="POST" enctype="multipart/form-data">
+                                @method('PUT')
+                                @csrf
+                                <div class="custom-control custom-switch">
+                                    <input class="custom-control-input" type="checkbox" id="visibility" name="visibility" {{old('visibility') ? 'checked' : ($apartment->visibility ? 'checked':'')}} disabled/>
+                                    <label class="custom-control-label" for="visibility"></label>
+                                </div>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
