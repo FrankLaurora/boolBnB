@@ -1,8 +1,5 @@
 <template>
     <div class="ms_container">
-
-        <h2>Questa è l'homepage</h2>
-
         <div class="search_bar">
             <input list="addresses" name="search" v-model="search" @keyup="fetchResults(search)" @keyup.enter.prevent="fetchApartments(search)" placeholder="Cerca una città">
             <button @click="fetchApartments(search)">Cerca</button>
@@ -120,5 +117,15 @@ export default {
             width: 100%;
             max-width: 25rem;
         }
-    }
+        button{
+            background-color: #343a40;
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 12px;
+            width: 70px;
+            height: 30px;
+        }
+        }
 </style>

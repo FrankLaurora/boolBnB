@@ -15,7 +15,7 @@ export default {
 
 <style lang="scss" scoped>
     .container{
-        color:rgba(0,0,0,0.80);;
+        color:rgba(0,0,0,0.80);
         display: flex;
         justify-content: center;
     }

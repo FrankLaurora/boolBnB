@@ -1,5 +1,4 @@
 <template> 
-     
      <div class="ms_container">
          <div class="ms_row">
              <div v-for="(apartment, index) in apartments" :key="index" class="ms_col-12 ms_col-md-6 ms_col-lg-3">
@@ -36,7 +35,6 @@
              </div>
          </div>
      </div>    
-    
 </template>
 
 <script>
@@ -75,7 +73,7 @@ export default {
     .ms_container {
         border: 1px solid black;
         max-width: 992px;
-        margin: 0 auto;
+        margin: 30px auto;
     }
 
     .ms_row {
@@ -107,6 +105,7 @@ export default {
 
     .card {
         background-color: white;
+        height: 300px;
         transition: 0.5s;
         font-family: Arial, Helvetica, sans-serif;
         overflow: hidden;
