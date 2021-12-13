@@ -21,6 +21,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    nav{
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+    }
+
     .container-header{
         display: flex;
         justify-content: space-between;
