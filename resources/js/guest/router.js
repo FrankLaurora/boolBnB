@@ -13,7 +13,7 @@ const router = new VueRouter({
 
     routes: [
         {
-            path: '/home',
+            path: '/',
             name: 'home',
             component: Home
         },
