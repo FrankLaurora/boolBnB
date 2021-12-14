@@ -67,7 +67,7 @@
             {{-- input per l'immagine di copertina dell'appartamento --}}
             <div class="mb-3">
                 <label for="cover" class="form-label"><strong> Immagine di copertina</strong></label>
-                <input type="file" name="cover" class="form-control  @error('cover') is-invalid @enderror" id="cover" value="{{old('cover')}}" placeholder="Scegli un'immagine di copertina">
+                <input type="file" name="cover" class="form-control ms_pb_4 @error('cover') is-invalid @enderror" id="cover" value="{{old('cover')}}" placeholder="Scegli un'immagine di copertina">
                 @error('cover')
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror

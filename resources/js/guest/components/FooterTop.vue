@@ -59,28 +59,28 @@ export default{
             icons:[
                 {
                     text:"Facebook",
-                    src:"img/footer-facebook.png",
-                    url:"www.facebook.com"
+                    src:"images/footer-facebook.png",
+                    url:"https://facebook.com"
                 },
                 {
                     text:"Twitter",
-                    src:"img/footer-twitter.png",
-                    url:"www.twitter.com"
+                    src:"images/footer-twitter.png",
+                    url:"https://twitter.com"
                 },
                 {
                     text:"Youtube",
-                    src:"img/footer-youtube.png",
-                    url:"www.youtube.com"
+                    src:"images/footer-youtube.png",
+                    url:"https://youtube.com"
                 },
                     {
                     text:"Pinterest",
-                    src:"img/footer-pinterest.png",
-                    url:"www.twitter.com"
+                    src:"images/footer-pinterest.png",
+                    url:"https://pinterest.com"
                 },
                 {
                     text:"Periscope",
-                    src:"img/footer-periscope.png",
-                    url:"www.periscope.com"
+                    src:"images/footer-periscope.png",
+                    url:"https://periscope.com"
                 },
                    
             ]
@@ -93,7 +93,7 @@ export default{
 div{
     background-color: #171819;
     .container{
-        padding-bottom: 20px;
+        padding-bottom: 10px;
         width: 70%;
         margin: auto;
         display: flex;
@@ -115,7 +115,6 @@ div{
                 padding: 0;
                 li{
                     margin-bottom: 10px;
-                    
                 }
             }
             a{
@@ -131,7 +130,7 @@ div{
             justify-content: center;
             flex-direction: column;
             h3{
-                margin-right: 5px ;
+                margin-bottom: 15px;
                 color: #0d6efd;
                 font-weight: bold;
             } 

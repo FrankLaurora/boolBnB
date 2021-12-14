@@ -75,7 +75,7 @@
             {{-- input per l'immagine di copertina dell'appartamento --}}
             <div class="mb-3">
                 <label for="cover" class="form-label">Cover</label>
-                <input type="file" name="cover" class="form-control  @error('cover') is-invalid @enderror" id="cover" value="{{old('cover') ?? $apartment->cover}}">
+                <input type="file" name="cover" class="form-control ms_pb_4 @error('cover') is-invalid @enderror" id="cover" value="{{old('cover') ?? $apartment->cover}}">
                 @error('cover')
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
@@ -143,7 +143,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            Vuoi cancellare definitivamente il tuo profilo?
+                            Vuoi cancellare definitivamente questo annuncio?
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>

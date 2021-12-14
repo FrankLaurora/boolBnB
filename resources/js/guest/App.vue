@@ -1,12 +1,11 @@
 <template>
-    <div class="ms_container">
-        <Header/>
-
-        <!-- <Home/> -->
-
+    <div>
+        <header><Header/></header>
+        
         <main>
             <router-view></router-view>
         </main>
+
         <footer>
             <FooterTop/>
             <Footer-Bottom/>
@@ -32,6 +31,25 @@ export default {
 
 
 <style lang="scss">
-// @import "./assets/sass/common.scss";
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+div{
+    overflow: hidden;
+    header{
+    background-color: #292c30;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    }
+
+    main{
+        // height: 70vh;
+        // overflow: auto;
+        padding-top: 20px;
+        min-height: 800px;
+    }
+    footer{
+        width: 100%;
+    }
+}
 
 </style>

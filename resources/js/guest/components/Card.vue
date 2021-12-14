@@ -1,9 +1,8 @@
 <template> 
-     
      <div class="ms_container">
          <div class="ms_row">
              <div v-for="(apartment, index) in apartments" :key="index" class="ms_col-12 ms_col-md-6 ms_col-lg-3">
-                 <a class="card-href" href="#">
+                <router-link :to="{ name: 'apartment', params: { slug: apartment.slug } }">
                     <div class="card">
                         <div v-if="apartment.cover" class="header">
                             <img :src="`./storage/${apartment.cover}`" alt="">
@@ -32,28 +31,31 @@
                             </div>
                         </div>
                     </div>
-                </a>
+                </router-link>
              </div>
          </div>
      </div>    
-    
 </template>
 
 <script>
 
 export default {
   name: 'Card',
-  data() {
-      return {
-          apartments: [],
-      }
-  },
-  created(){
-      axios.get('http://localhost:8000/api/apartments')
-      .then((response)=> {
-        this.apartments = response.data.data;
-      });
+
+  props: {
+      apartments: Array
   }
+//   data() {
+//       return {
+//           apartments: [],
+//       }
+//   },
+//   created(){
+//       axios.get('http://localhost:8000/api/apartments')
+//       .then((response)=> {
+//         this.apartments = response.data.data;
+//       });
+//   }
 }
 </script>
 
@@ -71,7 +73,7 @@ export default {
     .ms_container {
         border: 1px solid black;
         max-width: 992px;
-        margin: 0 auto;
+        margin: 30px auto;
     }
 
     .ms_row {
@@ -103,6 +105,7 @@ export default {
 
     .card {
         background-color: white;
+        height: 300px;
         transition: 0.5s;
         font-family: Arial, Helvetica, sans-serif;
         overflow: hidden;

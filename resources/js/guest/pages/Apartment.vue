@@ -1,28 +1,18 @@
 <template>
-    <div class="container">
+    <div class="ms_container">
         <h2>{{apartment.title}}</h2>
-        <h4> {{apartment.city}} {{apartment.address}} {{apartment.number}}</h4>
+        <div><strong> {{apartment.city}}</strong> {{apartment.address}} {{apartment.number}}</div> 
         <div  class="coverimg">
-            <div class="big_img">
-                <img :src="apartment.cover" alt="">
-            </div>
-            <div class="small_img" v-if="" >
-                <img src="" alt="">
-                <img src="" alt="">
-                <img src="" alt="">
-                <img src="" alt="">
-            </div>
-            
+            <img :src="`http://localhost:8000/storage/${apartment.cover}`" alt="">
         </div>
         <div class="services" >
-            lista dei servizi disponibili: 
+            <h3> lista dei servizi disponibili:</h3>
+            <ul>
+                <li v-for="(element,index) in services" :key="index">{{element}}</li>
+            </ul>
         </div>
         <div class="description">
             {{apartment.description}}
-            descrizione Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est, similique excepturi nobis neque impedit 
-            laboriosam adipisci dolorum quaerat corporis quos deleniti pariatur, temporibus accusamus, culpa velit. Perferendis mollitia amet dolorum!
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt aliquam magnam facilis! Esse deserunt architecto illum maxime,
-            consectetur provident veniam est magnam repellendus voluptatem molestias sed libero asperiores, impedit animi!
         </div>
         <div class="message">
             <h3>Scrivi a questo host</h3>
@@ -41,16 +31,23 @@ export default {
     name: 'Apartment',
     data() {
 		return {
-			apartment:null
+			apartment: [],
+            services: []
 		}
     },
+
     mounted(){
-            axios.get('/api/apartments')
-            .then(response => {
-                this.apartment = response.data.data[0];
-            })
-            .catch(error => {
-                console.log(error)
+            axios.get(`/api/apartments/${this.$route.params.slug}`)
+            .then(response=>{
+                this.apartment = response.data.data;
+                console.log(this.apartment);
+                this.apartment.services.forEach(id => {
+                    axios.get(`/api/services/${id}`)
+                    .then(response =>{
+                    console.log(response.data);
+                    this.services.push(response.data.data.name);
+                    })
+                });
             })
     }
 }
@@ -58,34 +55,28 @@ export default {
 
 <style lang="scss" scoped>
 
-// @import '../../../sass/partials/common';
-.container{
-    width:80%;
-    margin: 0 auto;
-    margin-top:40px;
-    
+@import '../../../sass/partials/common';
+.ms_container{
+    margin-top:50px;
+
+    h2{
+        padding: 15px 0;
+    }
     .coverimg{
-        height: 450px;
-        margin: 30px 0 70px 0;
-        display:flex;
-        .big_img{
-            width:55%;
-            background-color: lightseagreen;
-            border-radius: 7px;
-            margin-right:20px;
-            overflow: hidden;
+        width: 40vw;
+        height: 30vw;
+        max-width: 400px;
+        max-height: 300px;
+        border-radius: 25px;
+        overflow: hidden;
+        margin-block: 1rem;
+
             img{
-                max-width:100%;
-                height:100%; 
+                width:100%;
+                height: 100%;
                 object-fit: cover;    
             }
-        }
-        .small_img{
-            width:35%;
-            background-color: lightslategrey;
-            border-radius: 7px;
-            overflow: hidden;
-        }
+        
     }
     .description{
             margin: 60px 0;

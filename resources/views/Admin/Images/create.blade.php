@@ -13,13 +13,21 @@
         @csrf
         <div class="mb-3">
             <label for="url" class="form-label">Immagini appartamento</label>
-            <input type="file" name="url" class="form-control @error('url') is-invalid @enderror" id="url" value="{{old('url')}}">
+            <input type="file" name="url" class="form-control ms_pb_4 @error('url') is-invalid @enderror" id="url" value="{{old('url')}}">
             @error('url')
                 <div class="alert alert-danger">{{$message}}</div>
             @enderror
         </div>
+            
+        <div class="mb-3">
+            @if ($apartment->images != [])
+                @foreach ($apartment->images as $image)
+                    <img width="100px" src="{{asset('./storage/' . $image->url)}}" alt="{{$apartment->title}}" class="mb-2 mt-2">                                              
+                @endforeach
+            @endif
+        </div>
 
-        <button type="submit" class="btn btn-dark">Aggiorna</button>
+        <button type="submit" class="btn btn-dark">Aggiungi altre foto</button>
         
         <a href="{{route('admin.apartments.edit', $apartment->id)}}">
             <button type="button" class="btn btn-info">
