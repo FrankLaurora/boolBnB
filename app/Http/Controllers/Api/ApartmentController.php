@@ -68,38 +68,114 @@ class ApartmentController extends Controller
     }
 
     /*api/apartments/search/
-    ok 1)&lat=41.846020
-    ok 2)&lon=13.535800
-    ok 3)&dist=20
-    4)&rooms=[5-10]
-    5)&bathrooms=[1-2]
-    6)&guests=[1-6]
-    7)&sqm=[40-120]
-    8)&address=via roma 47
+    1)&lat=41.846020
+    2)&lon=13.535800
+    3)&dist=20
+    4)&rooms=5
+    5)&bathrooms=2
+    6)&guests=3
+    7)&sqm=60
+    8)&services=1-2-3
     */
     // /api/apartments/search/&lat=41.846020&lon=12.535800&dist=25
     public function search($query){
-        $response = Apartment::all();
+        // $response = Apartment::all();
         $apartments=[];
         $distanceRadius=20;//km
         $lat=null;
         $lon=null;
+        $rooms=1;
+        $bathrooms=0;
+        $guests=0;
+        $sqm=1;
+        $paramscheck=true;
+        $services=[];
         $pieces = explode("&", $query);
         foreach($pieces as $piece){
             $piece=explode("=",$piece);
             if($piece[0]=='lat'){
+                $paramscheck=$this->paramCheck('lat',$piece[1]);
                 $lat=$piece[1];
             }
             if($piece[0]=='lon'){
+                $paramscheck=$this->paramCheck('lon',$piece[1]);
                 $lon=$piece[1];
             }
             if($piece[0]=='dist'){
+                $paramscheck=$this->paramCheck('dist',$piece[1]);
                 $distanceRadius=floatval($piece[1]);
             }
+            if($piece[0]=='rooms'){
+                $paramscheck=$this->paramCheck('rooms',$piece[1]);
+                $rooms=$piece[1];
+            }
+            if($piece[0]=='bathrooms'){
+                $paramscheck=$this->paramCheck('bathrooms',$piece[1]);
+                $bathrooms=$piece[1];
+            }
+            if($piece[0]=='guests'){
+                $paramscheck=$this->paramCheck('guests',$piece[1]);
+                $guests=$piece[1];
+            }
+            if($piece[0]=='sqm'){
+                $paramscheck=$this->paramCheck('sqm',$piece[1]);
+                $sqm=$piece[1];
+            }
+            if($piece[0]=='services'){
+                $explodedServices=explode("-", $piece[1]);
+                foreach($explodedServices as $singleService){
+                    if($this->paramCheck('service',$singleService)==false){
+                        return response()->json([           
+                            'success' => false,
+                            'data' => 'parameters invalid'
+                        ]);
+                    }
+                    $services[]=$singleService;
+                }
+                $sqm=$piece[1];
+            }
+            if($paramscheck==false){
+                return response()->json([           
+                    'success' => false,
+                    'data' => 'parameters invalid'
+                ]);
+            }
         }
+        $services_number=count($services);
+        $services=implode(',', $services);
+        dump($services);
+
+        $response = DB::select( DB::raw("SELECT 
+        apartment_id,rooms,bathrooms,guests_number,sqm,visibility,user_id,title,region,city,address,number,latitude,longitude,cover,slug,description, COUNT(*) servicesNumber 
+        FROM apartments 
+        JOIN apartment_service ON apartments.id=apartment_service.apartment_id
+        WHERE rooms>$rooms AND
+        bathrooms>$bathrooms AND
+        guests_number>$guests AND
+        sqm>$sqm AND
+        visibility=1 AND
+        service_id IN ($services) GROUP BY apartment_id
+        HAVING COUNT(*)>=$services_number"));
+        // $response = Apartment::join('apartment_service', 'apartments.id', '=', 'apartment_service.apartment_id')
+        //     ->where('rooms' ,'>', $rooms )
+        //     ->where('bathrooms','>',$bathrooms)
+        //     ->where('guests_number','>',$guests)
+        //     ->where('sqm','>',$sqm)
+        //     ->where('visibility','=',1)
+        //     ->select(DB::raw('count(service_id) as service_id'))
+        //     ->whereIn('service_id',$services)
+        //     ->groupBy('apartment_id')
+        // ->get();
+        // $users = DB::table('users')
+        //              ->select(DB::raw('count(*) as user_count, status'))
+        //              ->where('status', '<>', 1)
+        //              ->groupBy('status')
+        //              ->get();
+        // dd($response);
         if($lat!=null&&$lon!=null){
             foreach($response as $apartment){
                 if($this->calcDistance($lat,$lon,$apartment->latitude,$apartment->longitude)<=$distanceRadius){
+                    dd($apartment);
                     $apartments[]=$this->completeApartment($apartment);
                 }
             }
@@ -108,6 +184,50 @@ class ApartmentController extends Controller
             'success' => true,
             'data' => $apartments
         ]);
+    }
+
+    public function paramCheck($name,$value){
+        if(!is_numeric($value)){
+            return false;
+        }
+        switch ($name) {
+            case 'lat':
+                if($value>90 || $value<-90){
+                    return false;
+                }
+                break;
+            case 'lon':
+                if($value>180 || $value<-180){
+                    return false;
+                }
+                break;
+            case 'dist':
+                if($value>999 || $value<=0){
+                    return false;
+                }
+                break;
+            case 'rooms':
+                if($value>254 || $value<=0){
+                    return false;
+                }
+                break;
+            case 'bathrooms':
+                if($value>254 || $value<0){
+                    return false;
+                }
+                break;
+            case 'guests':
+                if($value>254 || $value<=0){
+                    return false;
+                }
+                break;
+            case 'sqm':
+                if($value>32767 || $value<=0){
+                    return false;
+                }
+                break;
+        }
+        return true;
     }
 
     /**
