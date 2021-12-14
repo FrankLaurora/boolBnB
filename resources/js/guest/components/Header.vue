@@ -1,7 +1,7 @@
 <template>
     <nav>
         <div class="container-header">
-            <a href="/home"><img src="https://fontmeme.com/permalink/211210/174b446b3d087f6e1ae24dd717a52eb2.png" alt="" id="logo"></a>
+            <a href="/"><img src="https://fontmeme.com/permalink/211210/174b446b3d087f6e1ae24dd717a52eb2.png" alt="" id="logo"></a>
             <div>
                 <ul>
                     <li>
