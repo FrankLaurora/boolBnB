@@ -78,9 +78,9 @@ div{
         margin-top: 100px;
         min-height: 800px;
     }
-    footer{
-        width: 100%;
-    }
+    // footer{
+    //     width: 100%;
+    // }
 }
 
 </style>
