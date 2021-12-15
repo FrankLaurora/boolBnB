@@ -59,15 +59,15 @@ export default {
                         transition: 0.3s;
                         font-size: 24px;
                         &:hover {
-                            color: black;
+                            color: rgba(255, 255, 255, 0.836);
                         }
                     }
                     .register {
                         transition: 0.3s;
                         color: white;
-                        font-weight: bold;
                         &:hover {
-                            color: black;
+                            font-weight: 600;
+                            color: rgba(255, 255, 255, 0.836);
                         }
                     }
                 }
