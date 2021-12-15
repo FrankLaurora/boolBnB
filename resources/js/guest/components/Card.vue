@@ -2,7 +2,7 @@
      <div class="ms_container">
          <div class="ms_row">
              <div v-for="(apartment, index) in apartments" :key="index" class="ms_col-12 ms_col-md-6 ms_col-lg-3">
-                <router-link :to="{ name: 'apartment', params: { slug: apartment.slug } }">
+                <router-link class="card-href" :to="{ name: 'apartment', params: { slug: apartment.slug } }">
                     <div class="card">
                         <div v-if="apartment.cover" class="header">
                             <img :src="`./storage/${apartment.cover}`" alt="">

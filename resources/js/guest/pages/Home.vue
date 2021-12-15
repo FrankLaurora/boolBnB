@@ -1,21 +1,20 @@
 <template>
     <div class="ms_container">
         <div class="search_bar">
-            <input list="addresses" name="search" v-model="search" @keyup="fetchResults(search)" @keyup.enter.prevent="fetchApartments(search)" placeholder="Cerca una città">
-            <button @click="fetchApartments(search)">Cerca</button>
+            <!-- <input list="addresses" name="search" v-model="search" @keyup="fetchResults(search)" @keyup.enter.prevent="fetchApartments(search)" placeholder="Cerca una città"> -->
+            <input list="addresses" name="search" v-model="search" @keyup="fetchResults(search)" @keyup.enter.prevent="$emit('advancedSearch', search)" placeholder="Cerca una città">
+            <!-- <button @click="fetchApartments(search)">Cerca</button> -->
+            <router-link :to="{ name: 'search', params: { slug: search } }">
+                <button>Cerca</button>
+            </router-link>
             <datalist id="addresses">
                 <option v-for="(element, index) in searchResults[0]" :key="index" :value="element.address.freeformAddress"></option>
             </datalist>
         </div>
         
-
         <Hero :sponsored="sponsored" />
-
         <Card :apartments="apartments"/>
-        <!-- <h2>Tutti gli appartamenti</h2>
-        <ul>
-            <li v-for="(apartment, index) in apartments" :key="index"><strong>{{apartment.title}}</strong> | {{apartment.address}}</li>
-        </ul> -->
+
         <ul>
             <li v-for="index in lastPage" :key="index" @click="getPage(index), changePage()">{{index}}</li>
         </ul>

@@ -8,6 +8,7 @@ import NotFound from './pages/NotFound';
 // import About from './pages/About';
 // import Contacts from './pages/Contacts';
 // import Error_404 from './pages/Error_404';
+import AdvancedSearch from './pages/AdvancedSearch';
 
 const router = new VueRouter({
     mode: 'history',
@@ -23,11 +24,11 @@ const router = new VueRouter({
             name: 'apartment',
             component: Apartment
         },
-        // {
-        //     path: '/about',
-        //     name: 'about',
-        //     component: About
-        // },
+        {
+            path: '/search/:slug',
+            name: 'search',
+            component: AdvancedSearch
+        },
         // {
         //     path: '/contacts',
         //     name: 'contacts',

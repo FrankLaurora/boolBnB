@@ -25,7 +25,26 @@ export default {
         Header,
         FooterTop,
         FooterBottom
-    }
+    },
+
+    data() {
+        return {
+            search: null,
+            user: null
+        }
+    },
+
+    methods: {
+        advancedSearch(search) {
+            this.search = search;
+        }
+    },
+
+    created() {
+        if (window.Laravel.isLoggedin) {
+            this.user = window.Laravel.user
+        }
+    },
 }
 </script>
 
