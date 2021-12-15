@@ -28,6 +28,9 @@
         <div class="description">
             {{apartment.description}}
         </div>
+        <div class="ms_map_container">
+            <div id="map" style="width: 100%; height: 100%;"></div>
+        </div>
         <div class="message">
             <h3>Scrivi a questo host</h3>
             <form action="">
@@ -41,13 +44,24 @@
 </template> 
 
 <script>
+import tt from '@tomtom-international/web-sdk-maps';
+// import Map from '../components/Map.vue'
 export default {
     name: 'Apartment',
+
+    // components: {
+    //     Map
+    // },
+
     data() {
 		return {
 			apartment: [],
             services: [],
-            pics:[]
+            pics: [],
+            lat: null,
+            lon: null,
+            map: null,
+            marker: null
 		}
     },
     mounted(){
@@ -55,6 +69,23 @@ export default {
             .then(response=>{
                 this.apartment = response.data.data;
                 console.log(this.apartment);
+                this.lat = this.apartment.latitude;
+                this.lon = this.apartment.longitude;
+                console.log(this.lat, this.lon);
+    
+                this.map = tt.map({
+                        key: 'lXA4qKasPyxqJxup4ikKlTFOL3Z89cp4',
+                        container: 'map',
+                        zoom: 16,
+                        center: [this.lon, this.lat]
+                    });
+                this.map.addControl(new tt.NavigationControl);
+                this.marker = new tt.Marker({
+                    color: '#cc1199',
+                    width: '40',
+                    height: '50'
+                }).setLngLat([this.lon, this.lat]).addTo(this.map);
+                console.log(this.marker);
                 this.apartment.services.forEach(id => {
                     axios.get(`/api/services/${id}`)
                     .then(response =>{
@@ -176,6 +207,10 @@ export default {
             box-shadow: 1px 1px 2px rgba(150, 147, 147, 0.603);
             cursor: pointer;
         }
+    }
+    .ms_map_container {
+        width: 400px;
+        height: 400px;
     }
 }
 </style>
