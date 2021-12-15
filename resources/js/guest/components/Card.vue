@@ -71,7 +71,7 @@ export default {
    }
 
     .ms_container {
-        border: 1px solid black;
+        
         max-width: 992px;
         margin: 30px auto;
     }
@@ -114,10 +114,10 @@ export default {
         margin: 5px;
         &:hover {
             transform: scale(1.025);
-            border: 2px solid orange;
-            .footer {
-                border-top: 2px solid orange;
-            }
+            // border: 2px solid orange;
+            // .footer {
+            //     border-top: 2px solid orange;
+            // }
         }
         .header {
             img {

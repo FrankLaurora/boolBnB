@@ -96,8 +96,10 @@ export default {
 
     .image_box {
         position: relative;
-        width: 500px;
-        height: 250px;
+        width: 600px;
+        height: 350px;
+        border-radius:10px;
+        overflow:hidden;
 
         img {
             display: block;
@@ -110,6 +112,8 @@ export default {
             position: absolute;
             top: 2rem;
             left: 2rem;
+            text-shadow: 0 0 4px white;
+            text-transform: capitalize;
         }
 
         .bullet_box {
