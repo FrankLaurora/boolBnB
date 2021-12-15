@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Sponsorship;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 class ApartmentController extends Controller
 {
@@ -155,12 +156,12 @@ class ApartmentController extends Controller
             apartment_id AS id ,rooms,bathrooms,guests_number,sqm,visibility,user_id,title,region,city,address,number,latitude,longitude,cover,slug,description, apartments.created_at, apartments.updated_at, COUNT(*) AS servicesNumber 
             FROM apartments 
             JOIN apartment_service ON apartments.id=apartment_service.apartment_id
-            WHERE rooms>$rooms AND
+            WHERE rooms>=$rooms AND
             longitude BETWEEN ($lon-$deltaLon) AND ($lon+$deltaLon) AND
             latitude BETWEEN ($lat-$deltaLat) AND ($lat+$deltaLat) AND
-            bathrooms>$bathrooms AND
-            guests_number>$guests AND
-            sqm>$sqm AND
+            bathrooms>=$bathrooms AND
+            guests_number>=$guests AND
+            sqm>=$sqm AND
             visibility=1 AND
             service_id IN ($services) GROUP BY apartment_id
             HAVING COUNT(*)>=$services_number"));
@@ -195,16 +196,15 @@ class ApartmentController extends Controller
             }
         }
         //paginate here
+        $items = $response instanceof Collection ? $response : Collection::make($response);
+        $page=null;
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
         // The total number of items. If the `$items` has all the data, you can do something like this:
         $total = count($response);
         // How many items do you want to display.
-        $perPage = 2;
-        // The index page.
-        $currentPage = 1;
+        $perPage = 12;
         //pagination magic!
-        $paginator = new LengthAwarePaginator($response, $total, $perPage, $currentPage);
-        // dd($response);
-        // dd($paginator);
+        $paginator= new LengthAwarePaginator($items->forPage($page, $perPage), $total, $perPage, $page);
         return response()->json([           
             'success' => true,
             'data' => $paginator
