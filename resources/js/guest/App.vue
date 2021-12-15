@@ -52,18 +52,25 @@ export default {
 <style lang="scss">
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 div{
-    overflow: hidden;
+    
     header{
-    background-color: #292c30;
+    background: rgba(97, 92, 82, 0.808);
+    background: linear-gradient(180deg, rgba(95, 89, 78, 0.301) 45%, rgba(222,138,11,0) 99%);
+    // background-color: #685443a4;
     height: 80px;
     display: flex;
     align-items: center;
+    position:fixed;
+    width: 100%;
+    top:0;
+    left:0;
+    z-index: 2;
     }
 
     main{
         // height: 70vh;
         // overflow: auto;
-        padding-top: 20px;
+        margin-top: 100px;
         min-height: 800px;
     }
     footer{
