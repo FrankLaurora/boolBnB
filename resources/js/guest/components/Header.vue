@@ -59,6 +59,7 @@ export default {
                         transition: 0.3s;
                         font-size: 24px;
                         &:hover {
+                            font-size: 25px;
                             color: rgba(255, 255, 255, 0.836);
                         }
                     }
