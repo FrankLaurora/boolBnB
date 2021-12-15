@@ -2,10 +2,10 @@
     <div class="ms_container">
         <div class="search_bar">
             <!-- <input list="addresses" name="search" v-model="search" @keyup="fetchResults(search)" @keyup.enter.prevent="fetchApartments(search)" placeholder="Cerca una città"> -->
-            <input list="addresses" name="search" v-model="search" @keyup="fetchResults(search)" @keyup.enter.prevent="$emit('advancedSearch', search)" placeholder="Cerca una città">
+            <input list="addresses" name="search" v-model="search" @keyup="fetchResults(search)" @keyup.enter.prevent="$emit('advancedSearch', search)" placeholder="Dove vuoi andare?">
             <!-- <button @click="fetchApartments(search)">Cerca</button> -->
             <router-link :to="{ name: 'search', params: { slug: search } }">
-                <button>Cerca</button>
+                <button class="ms_btn">Cerca <i class="far fa-paper-plane"></i></button>
             </router-link>
             <datalist id="addresses">
                 <option v-for="(element, index) in searchResults[0]" :key="index" :value="element.address.freeformAddress"></option>
@@ -111,21 +111,36 @@ export default {
 <style lang="scss" scoped>
     .search_bar{
         display: flex;
-        margin: 1.25rem 0;
+        margin: 1.7rem 0;
+        justify-content: center;
         input{
             width: 100%;
             max-width: 25rem;
-        }
-        button{
-            background-color: #343a40;
-            border-radius: 10px;
-            color: white;
+            border: none;
+            border-radius:20px;
+            padding: 10px 20px;
+            margin-right:10px;
+            font-family: 'Raleway', sans-serif;
+            font-size: 17px;
             text-align: center;
-            text-decoration: none;
-            font-size: 12px;
-            width: 70px;
-            height: 30px;
         }
+        .ms_btn{
+            font-family: 'Raleway', sans-serif;
+            font-size: 17px;
+            .far{
+                margin-left:5px;
+            }
+        }
+        // button{
+        //     background-color: #343a40;
+        //     border-radius: 10px;
+        //     color: white;
+        //     text-align: center;
+        //     text-decoration: none;
+        //     font-size: 12px;
+        //     width: 70px;
+        //     height: 30px;
+        // }
     }
 
     ul {

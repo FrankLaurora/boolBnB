@@ -57,7 +57,7 @@ div{
     background: rgba(97, 92, 82, 0.808);
     background: linear-gradient(180deg, rgba(95, 89, 78, 0.301) 45%, rgba(222,138,11,0) 99%);
     // background-color: #685443a4;
-    height: 80px;
+    height: 75px;
     display: flex;
     align-items: center;
     position:fixed;
