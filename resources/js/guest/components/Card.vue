@@ -1,6 +1,6 @@
 <template> 
-     <div class="ms_container">
-         <div class="ms_row">
+     <div class="container-cards ms_container">
+         <div class="ms_row ms_align-items-center">
              <div v-for="(apartment, index) in apartments" :key="index" class="ms_col-12 ms_col-md-6 ms_col-lg-3">
                 <router-link class="card-href" :to="{ name: 'apartment', params: { slug: apartment.slug } }">
                     <div class="card">
@@ -63,40 +63,9 @@ export default {
 <style scoped lang="scss">
     
     @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
-   
-   * {
-       padding: 0px;
-       margin: 0px;
-       box-sizing: border-card;
-   }
 
-    .ms_container {
-        
-        max-width: 992px;
-        margin: 30px auto;
-    }
-
-    .ms_row {
-        display: flex;  
-        flex-wrap: wrap;
-        // in sospeso
-        align-items: center;
-    }
-
-    .ms_col-12 {
-        flex-basis: 100%;   
-    }
-
-    @media screen and (min-width: 768px) {
-        .ms_col-md-6 {
-            flex-basis: calc((100% / 12) * 6);
-        }
-    }
-
-    @media screen and (min-width: 992px) {
-        .ms_col-lg-3 {
-            flex-basis: calc((100% / 12) * 3);
-        }
+    .container-cards {
+        padding: 25px 0px 0px 0px;
     }
 
     .card-href {
@@ -105,7 +74,6 @@ export default {
 
     .card {
         background-color: white;
-        height: 300px;
         transition: 0.5s;
         font-family: Arial, Helvetica, sans-serif;
         overflow: hidden;

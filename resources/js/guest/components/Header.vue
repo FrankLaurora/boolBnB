@@ -1,8 +1,12 @@
 <template>
-    <nav>
-        <div class="container-header">
-            <a href="/"><img src="https://fontmeme.com/permalink/211210/174b446b3d087f6e1ae24dd717a52eb2.png" alt="" id="logo"></a>
-            <div>
+    <header>
+        <div class="header ms_container-fluid">
+            <div class="left">
+                <a href="/">
+                    <img src="https://fontmeme.com/permalink/211210/174b446b3d087f6e1ae24dd717a52eb2.png" alt="">
+                </a>
+            </div>
+            <nav class="right">
                 <ul>
                     <li>
                         <a  class="register" href="/register">Diventa host</a>
@@ -11,62 +15,64 @@
                         <a class="user" href="/login"><i class="fas fa-user-circle"></i></a>
                     </li>
                 </ul>
-            </div>
+            </nav>
         </div>
-    </nav>
+    </header>
 </template>
 
 <script>
 export default {
-	name: "Header",
+	name: "HeaderLeo",
 }
 </script>
 
 <style lang="scss" scoped>
-    nav{
+    .header {
+        position: fixed;
+        width: 100%;
+        background-color: white;
+        left: 0px;
+        top: 0px;
+        z-index: 10;
+        border-bottom: 1px solid black;
+        padding: 10px 20px;
         display: flex;
         align-items: center;
-        flex-grow: 1;
+        .left, .right {
+            width: 50%;
+        }
+        .left {
+            img {
+                width: 150px;
+            }
+        }
+        .right {
+            ul {
+                display: flex;
+                justify-content: right;
+                align-items: center;
+                list-style: none;
+                li {
+                    margin-left: 15px;
+                    .user {
+                        color: gray;
+                        transition: 0.3s;
+                        font-size: 24px;
+                        &:hover {
+                            color: black;
+                        }
+                    }
+                    .register {
+                        transition: 0.3s;
+                        color: gray;
+                        font-weight: bold;
+                        &:hover {
+                            color: black;
+                        }
+                    }
+                }
+            }
+        }
     }
 
-    .container-header{
-        display: flex;
-        justify-content: space-between;
-        padding-inline: 2rem;
-        align-items: center;
-        flex-grow: 1;
-        
-        #logo{
-            width: 70%;
-        }
-        ul{
-            list-style-type: none;
-            display:flex;
-            line-height:80px;
-            li{
-               margin-left:18px; 
-            }
-            .fas{
-                color: white;
-                font-size: 30px;
-                margin-top: 25px;
-                &:hover{
-                    transform:scale(1.07);
-                    cursor: pointer;
-                    color: rgba(255, 255, 255, 0.836);
-                    transition: 0.3s;
-                }
-            }
-            .register{
-                color:white;
-                &:hover{
-                    font-weight: 600;
-                    cursor: pointer;
-                    color: rgba(255, 255, 255, 0.836);
-                    transition: 0.3s;
-                    
-                }
-            }
-        }
-    }
 </style>

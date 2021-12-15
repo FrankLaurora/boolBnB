@@ -49,6 +49,7 @@ class ImageController extends Controller
      */
     public function store(Request $request, $id)
     {   
+        $request->validate($this->validationRules);
         $apartment = Apartment::all()->where('id', '=', $id)->first();
 
         if($apartment->user_id != Auth::user()->id) {
@@ -109,7 +110,12 @@ class ImageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $image = Image::find($id);
+        $image->delete();
+
+        $apartment = Apartment::all()->where('id', '=', $image->apartment_id)->first();
+
+        return redirect("admin/images/create/{$apartment->id}")->with('success','Immagine Eliminata');
     }
 }
 
