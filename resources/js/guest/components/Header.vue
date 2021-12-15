@@ -30,11 +30,11 @@ export default {
     .header {
         position: fixed;
         width: 100%;
-        background-color: white;
+         background: rgba(97, 92, 82, 0.808);
+        background: linear-gradient(180deg, rgba(95, 89, 78, 0.301) 45%, rgba(222,138,11,0) 99%);
         left: 0px;
         top: 0px;
         z-index: 10;
-        border-bottom: 1px solid black;
         padding: 10px 20px;
         display: flex;
         align-items: center;
@@ -55,7 +55,7 @@ export default {
                 li {
                     margin-left: 15px;
                     .user {
-                        color: gray;
+                        color: white;
                         transition: 0.3s;
                         font-size: 24px;
                         &:hover {
@@ -64,7 +64,7 @@ export default {
                     }
                     .register {
                         transition: 0.3s;
-                        color: gray;
+                        color: white;
                         font-weight: bold;
                         &:hover {
                             color: black;
