@@ -16,7 +16,7 @@ class PictureController extends Controller
     public function getApartmentImages($slug)
     {
         $apartment=Apartment::where('slug',$slug)->first();
-        $pics = DB::table('images')->where('id', $apartment->id)->paginate(10);
+        $pics = DB::table('images')->where('apartment_id', $apartment->id)->get()->all();
         return response()->json([           
             'success' => true,
             'data' => $pics

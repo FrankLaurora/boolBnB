@@ -8,7 +8,10 @@ use App\Apartment;
 use Dotenv\Result\Success;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Sponsorship;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 class ApartmentController extends Controller
 {
     /**
@@ -80,7 +83,7 @@ class ApartmentController extends Controller
     // /api/apartments/search/&lat=41.846020&lon=12.535800&dist=25
     public function search($query){
         // $response = Apartment::all();
-        $apartments=[];
+        // $apartments=[];
         $distanceRadius=20;//km
         $lat=null;
         $lon=null;
@@ -141,48 +144,70 @@ class ApartmentController extends Controller
                 ]);
             }
         }
+        
+        $deltaLon=$this->calcDistance($lat,$distanceRadius);
+        $deltaLat=$distanceRadius/110.7;
         $services_number=count($services);
+        $servicesArray=$services;
         $services=implode(',', $services);
-        dump($services);
-
-        $response = DB::select( DB::raw("SELECT 
-        apartment_id,rooms,bathrooms,guests_number,sqm,visibility,user_id,title,region,city,address,number,latitude,longitude,cover,slug,description, COUNT(*) servicesNumber 
-        FROM apartments 
-        JOIN apartment_service ON apartments.id=apartment_service.apartment_id
-        WHERE rooms>$rooms AND
-        bathrooms>$bathrooms AND
-        guests_number>$guests AND
-        sqm>$sqm AND
-        visibility=1 AND
-        service_id IN ($services) GROUP BY apartment_id
-        HAVING COUNT(*)>=$services_number"));
-        // $response = Apartment::join('apartment_service', 'apartments.id', '=', 'apartment_service.apartment_id')
-        //     ->where('rooms' ,'>', $rooms )
-        //     ->where('bathrooms','>',$bathrooms)
-        //     ->where('guests_number','>',$guests)
-        //     ->where('sqm','>',$sqm)
-        //     ->where('visibility','=',1)
-        //     ->select(DB::raw('count(service_id) as service_id'))
-        //     ->whereIn('service_id',$services)
-        //     ->groupBy('apartment_id')
-        // ->get();
-        // $users = DB::table('users')
-        //              ->select(DB::raw('count(*) as user_count, status'))
-        //              ->where('status', '<>', 1)
-        //              ->groupBy('status')
-        //              ->get();
-        // dd($response);
-        if($lat!=null&&$lon!=null){
-            foreach($response as $apartment){
-                if($this->calcDistance($lat,$lon,$apartment->latitude,$apartment->longitude)<=$distanceRadius){
-                    dd($apartment);
-                    $apartments[]=$this->completeApartment($apartment);
+        if($services_number>0){
+            $response = DB::select( DB::raw("SELECT 
+            apartment_id AS id ,rooms,bathrooms,guests_number,sqm,visibility,user_id,title,region,city,address,number,latitude,longitude,cover,slug,description, apartments.created_at, apartments.updated_at, COUNT(*) AS servicesNumber 
+            FROM apartments 
+            JOIN apartment_service ON apartments.id=apartment_service.apartment_id
+            WHERE rooms>$rooms AND
+            longitude BETWEEN ($lon-$deltaLon) AND ($lon+$deltaLon) AND
+            latitude BETWEEN ($lat-$deltaLat) AND ($lat+$deltaLat) AND
+            bathrooms>$bathrooms AND
+            guests_number>$guests AND
+            sqm>$sqm AND
+            visibility=1 AND
+            service_id IN ($services) GROUP BY apartment_id
+            HAVING COUNT(*)>=$services_number"));
+        }else{
+            $response = DB::select(DB::raw("SELECT 
+            id ,rooms,bathrooms,guests_number,sqm,visibility,user_id,title,region,city,address,number,latitude,longitude,cover,slug,description, created_at, updated_at
+            FROM apartments 
+            WHERE rooms>$rooms AND
+            longitude BETWEEN ($lon-$deltaLon) AND ($lon+$deltaLon) AND
+            latitude BETWEEN ($lat-$deltaLat) AND ($lat+$deltaLat) AND
+            bathrooms>$bathrooms AND
+            guests_number>$guests AND
+            sqm>$sqm AND
+            visibility=1"));
+        }
+        //checking time of sponsorship for premium true/false
+        $today=new DateTime('now');
+        foreach($response as $element){
+            $element->services=$servicesArray;
+            $sponsorResponse = DB::table('sponsorships')
+                ->join('apartment_sponsorship', 'sponsorships.id', '=', 'apartment_sponsorship.sponsorship_id')
+                ->where('apartment_id' ,'=', $element->id )
+            ->get();
+            $element->premium=false;
+            foreach($sponsorResponse as $sponsor){
+                $hoursdiff=false;
+                $subscription_date=new DateTime($sponsor->created_at);
+                $hoursdiff=($today->diff($subscription_date)->h)+($today->diff($subscription_date)->d)*24 + ($today->diff($subscription_date)->y)*365;
+                if($hoursdiff<=$sponsor->duration){
+                    $element->premium=true;
                 }
             }
         }
+        //paginate here
+        // The total number of items. If the `$items` has all the data, you can do something like this:
+        $total = count($response);
+        // How many items do you want to display.
+        $perPage = 2;
+        // The index page.
+        $currentPage = 1;
+        //pagination magic!
+        $paginator = new LengthAwarePaginator($response, $total, $perPage, $currentPage);
+        // dd($response);
+        // dd($paginator);
         return response()->json([           
             'success' => true,
-            'data' => $apartments
+            'data' => $paginator
         ]);
     }
 
@@ -234,17 +259,25 @@ class ApartmentController extends Controller
     * passing two cordinates as @param lat1,lon1,lat2,lon2 @return the distance between those two points
     * for test 41.846020,13.535800,40.846020,12.535800
      */
-    public function calcDistance($lat1,$lon1,$lat2,$lon2)
+    // public function calcDistance($lat1,$lon1,$lat2,$lon2)
+    // {
+    //     $earthRay=6371;
+    //     $radius1=pi()*$lat2/180;
+    //     $radius2=pi()*$lat1/180;
+    //     $distanceLat=($lat1-$lat2)*pi()/180;
+    //     $distanceLon=($lon1-$lon2)*pi()/180;
+    //     $a=sin($distanceLat/2)*sin($distanceLat/2)+cos($radius1)*cos($radius2)*sin($distanceLon/2)*sin($distanceLon/2);
+    //     $c=2*atan2(sqrt($a),sqrt(1-$a));
+    //     $distance = $earthRay*$c;
+    //     return $distance;
+    // }
+
+    // given the latitude, returns the longitude difference (Delta Longitude) corresponding the given distance
+    public function calcDistance($lat,$dist)
     {
         $earthRay=6371;
-        $radius1=pi()*$lat2/180;
-        $radius2=pi()*$lat1/180;
-        $distanceLat=($lat1-$lat2)*pi()/180;
-        $distanceLon=($lon1-$lon2)*pi()/180;
-        $a=sin($distanceLat/2)*sin($distanceLat/2)+cos($radius1)*cos($radius2)*sin($distanceLon/2)*sin($distanceLon/2);
-        $c=2*atan2(sqrt($a),sqrt(1-$a));
-        $distance = $earthRay*$c;
-        return $distance;
+        $radius1=pi()*$lat/180;
+        return (($dist*180)/(pi()*$earthRay*cos($radius1)));
     }
     
 }
