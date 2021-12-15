@@ -93,11 +93,18 @@ export default {
     .prev_photo, .next_photo {
         margin-inline: 2rem;
     }
+    .fa-chevron-left, .fa-chevron-right{
+        font-size:19px;
+        }
+    .fas:hover{
+        cursor: pointer;
+        transform: scale(1.1);
+    }    
 
     .image_box {
         position: relative;
-        width: 600px;
-        height: 350px;
+        width: 650px;
+        height: 400px;
         border-radius:10px;
         overflow:hidden;
 
@@ -115,6 +122,8 @@ export default {
             text-shadow: 0 0 4px white;
             text-transform: capitalize;
         }
+
+        
 
         .bullet_box {
             position: absolute;
