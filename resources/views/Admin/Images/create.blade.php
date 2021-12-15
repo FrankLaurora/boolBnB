@@ -35,13 +35,14 @@
             
         @if ($apartment->images != [])
             @foreach ($apartment->images as $image)
-                <img width="100px" src="{{asset('./storage/' . $image->url)}}" alt="{{$apartment->title}}" class="mb-2 mt-2">
-          
-                <form action="{{route('admin.images.destroy', $image->id)}}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-primary">Cancella</button>
-                </form>                                              
+                <div class="image">
+                    <img width="100px" src="{{asset('./storage/' . $image->url)}}" alt="{{$apartment->title}}" class="mb-2 mt-2">
+                    <form action="{{route('admin.images.destroy', $image->id)}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Cancella</button>
+                    </form>  
+                </div>                                            
             @endforeach
         @endif
     </div>
