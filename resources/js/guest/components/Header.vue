@@ -5,8 +5,10 @@
             <div>
                 <ul>
                     <li>
-                        <a class="button" href="/login">Accedi</a>
-                        <a  class="button" href="/register">Registrati</a>
+                        <a  class="register" href="/register">Diventa host</a>
+                    </li>
+                    <li>
+                        <a class="user" href="/login"><i class="fas fa-user-circle"></i></a>
                     </li>
                 </ul>
             </div>
@@ -33,20 +35,37 @@ export default {
         padding-inline: 2rem;
         align-items: center;
         flex-grow: 1;
+        
         #logo{
             width: 70%;
         }
         ul{
             list-style-type: none;
-            .button {
-            background-color: #0d6efd;
-            border-radius: 10px;
-            color: white;
-            padding: 10px 22px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
+            display:flex;
+            line-height:80px;
+            li{
+               margin-left:18px; 
+            }
+            .fas{
+                color: white;
+                font-size: 30px;
+                margin-top: 25px;
+                &:hover{
+                    transform:scale(1.07);
+                    cursor: pointer;
+                    color: rgba(255, 255, 255, 0.836);
+                    transition: 0.3s;
+                }
+            }
+            .register{
+                color:white;
+                &:hover{
+                    font-weight: 600;
+                    cursor: pointer;
+                    color: rgba(255, 255, 255, 0.836);
+                    transition: 0.3s;
+                    
+                }
             }
         }
     }

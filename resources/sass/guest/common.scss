@@ -23,4 +23,22 @@
 // Font
 body {
     font-family: 'Raleway', sans-serif;
+    background-color: rgb(240, 232, 228);
+}
+
+//button
+.ms_btn{
+    padding:13px 20px;
+    border-radius: 20px;
+    border: none;
+    background-color: white;
+    &:hover{
+        box-shadow: 1px 1px 2px rgba(150, 147, 147, 0.603);
+        cursor: pointer;
+        transform:scale(1.02);
+    }
+}
+a{
+    text-decoration: none;
+    color:black;
 }
