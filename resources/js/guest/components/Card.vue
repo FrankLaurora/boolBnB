@@ -1,40 +1,36 @@
 <template> 
-     <div class="ms_container">
-         <div class="ms_row">
-             <div v-for="(apartment, index) in apartments" :key="index" class="ms_col-12 ms_col-md-6 ms_col-lg-3">
-                <router-link class="card-href" :to="{ name: 'apartment', params: { slug: apartment.slug } }">
-                    <div class="card">
-                        <div v-if="apartment.cover" class="header">
-                            <img :src="`./storage/${apartment.cover}`" alt="">
-                        </div>
-                        <div v-else class="header">
-                            <img src="../images/image_not_found.jpg" alt="">
-                        </div>
-                        <div class="body">
-                            <div class="title">
-                                {{apartment.title}}
-                            </div>
-                            <div class="city">
-                                {{apartment.city}}
-                            </div>
-                        </div>
-                        <div class="footer">
-                            <div class="guests_number">
-                                <i class="fas fa-bed"></i>
-                                <span>{{apartment.guests_number}}</span> 
-                                Bedrooms
-                            </div>
-                            <div class="bathrooms">
-                                <i class="fas fa-bath"></i>
-                                <span>{{apartment.bathrooms}}</span> 
-                                Bathrooms
-                            </div>
-                        </div>
+    <div class="ms_col-12 ms_col-md-6 ms_col-lg-3">
+        <router-link :to="{ name: 'apartment', params: { slug: apartment.slug } }">
+            <div class="card">
+                <div v-if="apartment.cover" class="header">
+                    <img :src="`./storage/${apartment.cover}`" alt="">
+                </div>
+                <div v-else class="header">
+                    <img src="../images/image_not_found.jpg" alt="">
+                </div>
+                <div class="body">
+                    <div class="title">
+                        {{apartment.title}}
                     </div>
-                </router-link>
-             </div>
-         </div>
-     </div>    
+                    <div class="city">
+                        {{apartment.city}}
+                    </div>
+                </div>
+                <div class="footer">
+                    <div class="guests_number">
+                        <i class="fas fa-bed"></i>
+                        <span>{{apartment.guests_number}}</span> 
+                        Bedrooms
+                    </div>
+                    <div class="bathrooms">
+                        <i class="fas fa-bath"></i>
+                        <span>{{apartment.bathrooms}}</span> 
+                        Bathrooms
+                    </div>
+                </div>
+            </div>
+        </router-link>
+    </div>
 </template>
 
 <script>
@@ -43,8 +39,8 @@ export default {
   name: 'Card',
 
   props: {
-      apartments: Array
-  }
+      apartment: Object
+  },
 //   data() {
 //       return {
 //           apartments: [],
@@ -56,6 +52,10 @@ export default {
 //         this.apartments = response.data.data;
 //       });
 //   }
+
+ mounted() {
+     console.log(this.apartment)
+ }
 }
 </script>
 
