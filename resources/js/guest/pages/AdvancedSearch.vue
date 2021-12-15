@@ -1,19 +1,24 @@
 <template>
     <div>
         <div class="searchbar">
-            <label for="rooms">Stanze</label>
-            <input type="number" min="1" max="255" placeholder="1" v-model.number="rooms" id="rooms">
+            <div class="input_bar">
+                <label for="rooms"></label>
+                <input type="number" min="1" max="255" placeholder="Stanze" v-model.number="rooms" id="rooms">
 
-            <label for="guests">Posti Letto</label>
-            <input type="number" min="1" max="255" placeholder="1" v-model.number="guests" id="guests">
+                <label for="guests"></label>
+                <input type="number" min="1" max="255" placeholder="Ospiti" v-model.number="guests" id="guests">
 
-            <label for="distance">Distanza</label>
-            <input type="number" min="0" placeholder="20" v-model.number="distance" id="distance">
-
-            <div class="services_container" v-for="(service, index) in services" :key="index">
-                <button class="ms_btn_services" @click="addService(service.id)" :class="serviceFilter.includes(service.id) ? 'active' : ''">{{service.name}}</button>
+                <label for="distance"></label>
+                <input type="number" min="0" placeholder="Distanza km" v-model.number="distance" id="distance">
             </div>
-            <button @click="advancedSearch()">Filtra</button>
+            
+            <div class="service_row">
+                <div class="services_container" v-for="(service, index) in services" :key="index">
+                    <button class="ms_btn_services" @click="addService(service.id)" :class="serviceFilter.includes(service.id) ? 'active' : ''">{{service.name}}</button>
+                </div>
+                <button @click="advancedSearch()" class="ms_btn_advance">Mostra appartamenti </button>
+            </div>
+            
         </div>
         <div class="ms_container">
             <Card :apartments="apartments"/>
@@ -115,35 +120,88 @@ export default {
 <style lang="scss" scoped>
 
 .searchbar {
-    display: flex;
+    // display: flex;
     justify-content: center;
     align-items: center;
-    height: 70px;
+    height: 120px;
+    font-size: 15px;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(150, 147, 147, 0.253) ;
+    width: 80%;
+    margin:0 auto;
+    .input_bar{
+        display:flex;
+        width:100%;
+        justify-content: center;
+        flex-wrap: nowrap;
+        margin-bottom: 0.9rem;
+    }
 
     input {
-        width: 70px;
-        padding: 0.5rem;
+        width: 125px;
+        padding: 0.5rem ;
+        text-align: center;
         border: none;
-        border-radius: 0.5rem;
+        border-radius: 1rem;
+        font-family: 'Raleway', sans-serif;
+        margin: 0.5rem 0.2rem;
+        font-size: 15px;
+        &:focus{
+                outline:none;
+            }
     }
 }
-
+.service_row{
+    display: flex;
+    width:80%;
+    margin:0 auto;
+    justify-content: center;
+    align-items: center;
+}
 .services_container {
-
+    width:100%;
     .ms_btn_services {
-        min-width: 70px;
-        padding: 0.5rem;
-        margin: 0.5rem 1rem;
-        background-color: cadetblue;
-        color: cornsilk;
+        min-width: 120px;
+        padding: 0.5rem 0.3rem;
+        margin: 0.5rem 0.2rem;
+        background-color: rgb(153, 149, 149);
+        color: white;
         border: none;
-        border-radius: 0.5rem;
-        
+        border-radius: 1rem;
+        font-family: 'Raleway', sans-serif;
+        &:hover{
+            cursor:pointer;
+            background-color: rgba(59, 153, 133, 0.349);
+            color:white;
+            
+        }
         &.active {
-            background-color: darkgoldenrod;
+            background-color: rgb(59, 153, 133);
             font-weight: bold;
+            color:white;
+            box-shadow: 1px 1px 2px rgba(150, 147, 147, 0.603);
         }
     }
 }
+.ms_btn_advance{
+        min-width: 190px;
+        padding: 0.4rem 1.2rem;
+        border-radius: 1rem;
+        background-color: rgb(26, 21, 21);
+        color: white;
+        font-family: 'Raleway', sans-serif;
+        border: none;
+        margin-left:1.5rem;
+        justify-content: center;
+        align-items: center;
+        font-size: 15px;
+        &:hover{
+            cursor:pointer;
+            background-color: white;
+            color:black;
+            box-shadow: 1px 1px 2px rgba(150, 147, 147, 0.603);
+            transform:scale(1.02);
+        }
+    }
 
 </style>

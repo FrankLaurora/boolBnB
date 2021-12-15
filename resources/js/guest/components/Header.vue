@@ -50,6 +50,8 @@ export default {
                 color: white;
                 font-size: 30px;
                 margin-top: 25px;
+
+
                 &:hover{
                     transform:scale(1.07);
                     cursor: pointer;
@@ -59,6 +61,8 @@ export default {
             }
             .register{
                 color:white;
+                font-weight: 600;
+                text-shadow: 1px 1px 2px rgba(150, 147, 147, 0.603);
                 &:hover{
                     font-weight: 600;
                     cursor: pointer;

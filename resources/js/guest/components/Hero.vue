@@ -123,8 +123,6 @@ export default {
             text-transform: capitalize;
         }
 
-        
-
         .bullet_box {
             position: absolute;
             display: flex;
@@ -133,15 +131,15 @@ export default {
             transform: translate(-50%);
             background-color: #343a4088;
             color: #343a40;
-            text-shadow: 0px 0px 10px #fff;
-            padding: 0.5rem;
+            text-shadow: 0px 0px 4px #fff;
+            padding: 0.4rem;
             border-radius: 15px;
-            border: 1px solid #000;
+            border: 2px solid #343a40;
             }
 
         .bullet {
-            margin: 0px 10px;
-            font-size: 0.8rem;
+            margin: 0px 8px;
+            font-size: 0.7rem;
         }
     }
 }
