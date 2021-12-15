@@ -13,7 +13,11 @@
         </div>
         
         <Hero :sponsored="sponsored" />
-        <Card :apartments="apartments"/>
+        <div class="ms_container">
+            <div class="ms_row">
+                <Card v-for="(apartment, index) in apartments" :key="index" :apartment="apartment"/>
+            </div>
+        </div>
 
         <ul>
             <li v-for="index in lastPage" :key="index" @click="getPage(index), changePage()">{{index}}</li>

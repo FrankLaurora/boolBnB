@@ -35,7 +35,7 @@
             <h3>Scrivi a questo host</h3>
             <form action="">
                 <input type="text" placeholder="Scrivi il tuo nome">
-                <input type="text" placeholder="Inserisci la tua mail">
+                <input type="email" :value="email != null ? email : ''" placeholder="Inserisci la tua mail">
                 <textarea name="" id="" cols="30" rows="10" placeholder="Scrivi il messaggio"></textarea>
                 <button type="submit" class="ms_btn"> <a href=""> Invia messaggio</a></button>
             </form>
@@ -45,13 +45,9 @@
 
 <script>
 import tt from '@tomtom-international/web-sdk-maps';
-// import Map from '../components/Map.vue'
+
 export default {
     name: 'Apartment',
-
-    // components: {
-    //     Map
-    // },
 
     data() {
 		return {
@@ -61,17 +57,17 @@ export default {
             lat: null,
             lon: null,
             map: null,
-            marker: null
+            marker: null,
+            email: null
 		}
     },
+
     mounted(){
             axios.get(`/api/apartments/${this.$route.params.slug}`)
             .then(response=>{
                 this.apartment = response.data.data;
-                console.log(this.apartment);
                 this.lat = this.apartment.latitude;
                 this.lon = this.apartment.longitude;
-                console.log(this.lat, this.lon);
     
                 this.map = tt.map({
                         key: 'lXA4qKasPyxqJxup4ikKlTFOL3Z89cp4',
@@ -100,6 +96,10 @@ export default {
                     })
             
             })
+
+        if(window.Laravel.isLoggedin) {
+        this.email = window.Laravel.user.email;
+        }
     }
 }
 </script>
@@ -185,6 +185,9 @@ export default {
             border:none;
             background-color:white;
             font-family: 'Raleway', sans-serif;
+            &:focus {
+                outline: none;
+            }
         }
         textarea{
             width:100%;
@@ -194,6 +197,9 @@ export default {
             background-color: white;
             resize: none;
             font-family: 'Raleway', sans-serif;
+            &:focus {
+                outline: none;
+            }
         }
     }
     .ms_btn{

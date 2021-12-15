@@ -21,7 +21,9 @@
             
         </div>
         <div class="ms_container">
-            <Card :apartments="apartments"/>
+            <div class="ms_row">
+                <Card v-for="(apartment, index) in apartments" :key="index" :apartment="apartment"/>
+            </div>
         </div>
     </div>
 </template>
@@ -55,16 +57,12 @@ export default {
 
     methods: {
         advancedSearch() {
-            console.log(this.serviceFilter);
             let servicesId = this.serviceFilter.join('-');
-            console.log(servicesId);
             axios.get(`http://localhost:8000/api/apartments/search/&lat=${this.geo.lat}&lon=${this.geo.lon}${this.distance ? '&dist=' + this.distance : ''}${this.rooms ? '&rooms=' + this.rooms : ''}${this.guests ? '&guests=' + this.guests : ''}${servicesId != "" ? '&services=' + servicesId : ''}`)
                 .then(response => {
                     this.apartments = [];
-                    this.apartments = response.data.data;
-                    console.log(this.apartments);
+                    this.apartments = response.data.data.data;
                     this.lastPage = response.data.lastPage;
-                    console.log(this.lastPage);
                 })
                 .catch(error => {
                     console.log(error)
@@ -95,10 +93,8 @@ export default {
                 axios.get(`http://localhost:8000/api/apartments/search/&lat=${this.geo.lat}&lon=${this.geo.lon}&dist=25`)
                 .then(response => {
                     this.apartments = [];
-                    this.apartments = response.data.data;
-                    console.log(this.apartments);
+                    this.apartments = response.data.data.data;
                     this.lastPage = response.data.lastPage;
-                    console.log(this.lastPage);
                 })
                 .catch(error => {
                     console.log(error)
