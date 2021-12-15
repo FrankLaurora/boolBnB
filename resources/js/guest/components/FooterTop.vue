@@ -1,52 +1,52 @@
 <template>
-    <div>
-        <div class="container">
-            <div class="left">
-                <div class="col">
+    <div class="bg-custom ms_container-fluid">
+        
+            <div class="ms_row">
+                <div class="links ms_col-12 ms_col-md-3">
                     <p>BoolBnb</p>
                     <ul>
                         <li v-for="(link,index) in menu1" :key="index"><a :href="link.url">{{link.text}}</a></li>
                     </ul>
                 </div>
-                <div class="col">
+                <div class="info ms_col-12 ms_col-md-3">
                     <p>Info</p>
-                <ul>
-                    <li v-for="(link,index) in menu2" :key="index"><a :href="link.url">{{link.text}}</a></li>
-                </ul>
+                    <ul>
+                        <li v-for="(link,index) in menu2" :key="index"><a :href="link.url">{{link.text}}</a></li>
+                    </ul>
+                </div>
+                <div class="social ms_col-12 ms_col-md-6">
+                    <h3>Seguici sui nostri social</h3>
+                    <ul>
+                        <li :key="index" v-for="(icon,index) in icons">
+                            <a :href="icon.url"><img :src="icon.src" :key="index" alt=""></a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="right">
-                <h3>Seguici sui nostri social</h3>
-                <ul>
-                    <li :key="index" v-for="(icon,index) in icons">
-                        <a :href="icon.url"><img :src="icon.src" :key="index" alt=""></a>
-                    </li>
-                </ul>
-            </div>
-        </div>    
+   
     </div>
 </template>
 
 <script>
-export default{
-    name:"FooterTop",
-    data(){
+export default {
+        name: "FooterLeo",
+        data(){
         return{
-            menu1:[
-                {
-                    text:"Home",
-                    url:"/home"
-                },
-                {
-                    text:"Accedi",
-                    url:"/login"
-                },
-                {
-                    text:"Registrati",
-                    url:"/register"
-                },
-            ],
-            menu2:[
+                menu1:[
+                    {
+                        text:"Home",
+                        url:"/home"
+                    },
+                    {
+                        text:"Accedi",
+                        url:"/login"
+                    },
+                    {
+                        text:"Registrati",
+                        url:"/register"
+                    },
+                ],
+                menu2:[
                 {
                     text:"Termini di utilizzo",
                     url:"https://policies.google.com/terms?hl=it"
@@ -84,69 +84,64 @@ export default{
                 },
                    
             ]
+            }
         }
-    }
 }
 </script>
 
 <style lang="scss" scoped>
-div{
+
+.bg-custom {
     background-color: #171819;
-    .container{
-        padding-bottom: 10px;
-        width: 70%;
-        margin: auto;
-        display: flex;
-        justify-content: center;
-        .left{
-            width: 50%;
-            display: flex;
-            flex-direction: row;
-            padding-top: 25px;
-            justify-content: space-around;
-            .col{
-                p{
-                color: white;
-                font-size: 16px;
-                margin: 15px 0 15px 0;
-            }
-            ul{
-                list-style: none;
-                padding: 0;
-                li{
-                    margin-bottom: 10px;
-                }
-            }
-            a{
-                text-decoration: none;
-                color: #69687a;
-            }
+    padding: 50px 0px;
+    color: white;
+    text-align: center;
+    .links, .info, .social {
+        margin: 10px 0px;
+    }
+    .links {
+        p {
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        ul {
+            list-style: none;
+            li a {
+                color: grey;
+                display: inline-block;
+                margin-bottom: 5px;
             }
         }
-        .right{
-            width: 50%;
+    }
+    .info {
+        p {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        ul {
+            list-style: none;
+            li a {
+                color: grey;
+                display: inline-block;
+                margin-bottom: 5px;
+            }
+        }
+    }
+    .social {
+        h3 {
+            margin-bottom: 15px;
+            color: #0d6efd;
+        }
+        ul {
             display: flex;
-            align-items: center;
             justify-content: center;
-            flex-direction: column;
-            h3{
-                margin-bottom: 15px;
-                color: #0d6efd;
-                font-weight: bold;
-            } 
-            ul{
-                display: flex;
-                flex-direction: row;
-                list-style: none;
-                li{
-                    padding: 0 15px;
-                    a{
-                        text-decoration: none;
-                        color: black;  
-                    }
-                }
+            list-style: none;
+            li {
+                padding: 0px 15px;
             }
         }
     }
 }
+
+
 </style>

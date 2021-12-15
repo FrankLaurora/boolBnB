@@ -20,8 +20,8 @@
             </div>
             
         </div>
-        <div class="ms_container">
-            <div class="ms_row">
+        <div class="container-cards ms_container">
+            <div class="ms_row ms_align-items-center">
                 <Card v-for="(apartment, index) in apartments" :key="index" :apartment="apartment"/>
             </div>
         </div>
@@ -179,6 +179,11 @@ export default {
         }
     }
 }
+
+.container-cards {
+        padding: 25px 0px 0px 0px;
+    }
+
 .ms_btn_advance{
         min-width: 190px;
         padding: 0.4rem 1.2rem;

@@ -13,8 +13,8 @@
         </div>
         
         <Hero :sponsored="sponsored" />
-        <div class="ms_container">
-            <div class="ms_row">
+        <div class="ms_container container-cards">
+            <div class="ms_row ms_align-items-center">
                 <Card v-for="(apartment, index) in apartments" :key="index" :apartment="apartment"/>
             </div>
         </div>
@@ -137,6 +137,10 @@ export default {
             .far{
                 margin-left:5px;
             }
+        }
+
+        .container-cards {
+        padding: 25px 0px 0px 0px;
         }
         // button{
         //     background-color: #343a40;

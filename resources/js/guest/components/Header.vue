@@ -1,8 +1,12 @@
 <template>
-    <nav>
-        <div class="container-header">
-            <a href="/"><img src="https://fontmeme.com/permalink/211210/174b446b3d087f6e1ae24dd717a52eb2.png" alt="" id="logo"></a>
-            <div>
+    <header>
+        <div class="header ms_container-fluid">
+            <div class="left">
+                <a href="/">
+                    <img src="https://fontmeme.com/permalink/211210/174b446b3d087f6e1ae24dd717a52eb2.png" alt="">
+                </a>
+            </div>
+            <nav class="right">
                 <ul>
                     <li>
                         <a  class="register" href="/register">Diventa host</a>
@@ -11,66 +15,66 @@
                         <a class="user" href="/login"><i class="fas fa-user-circle"></i></a>
                     </li>
                 </ul>
-            </div>
+            </nav>
         </div>
-    </nav>
+    </header>
 </template>
 
 <script>
 export default {
-	name: "Header",
+	name: "HeaderLeo",
 }
 </script>
 
 <style lang="scss" scoped>
-    nav{
+    .header {
+        position: fixed;
+        width: 100%;
+         background: rgba(97, 92, 82, 0.808);
+        background: linear-gradient(180deg, rgba(95, 89, 78, 0.301) 45%, rgba(222,138,11,0) 99%);
+        left: 0px;
+        top: 0px;
+        z-index: 10;
+        padding: 10px 20px;
         display: flex;
         align-items: center;
-        flex-grow: 1;
-    }
-
-    .container-header{
-        display: flex;
-        justify-content: space-between;
-        padding-inline: 2rem;
-        align-items: center;
-        flex-grow: 1;
-        
-        #logo{
-            width: 70%;
+        .left, .right {
+            width: 50%;
         }
-        ul{
-            list-style-type: none;
-            display:flex;
-            line-height:80px;
-            li{
-               margin-left:18px; 
-            }
-            .fas{
-                color: white;
-                font-size: 30px;
-                margin-top: 25px;
 
-
-                &:hover{
-                    transform:scale(1.07);
-                    cursor: pointer;
-                    color: rgba(255, 255, 255, 0.836);
-                    transition: 0.3s;
-                }
+        .left {
+            img {
+                width: 150px;
             }
-            .register{
-                color:white;
-                font-weight: 600;
-                text-shadow: 1px 1px 2px rgba(150, 147, 147, 0.603);
-                &:hover{
-                    font-weight: 600;
-                    cursor: pointer;
-                    color: rgba(255, 255, 255, 0.836);
-                    transition: 0.3s;
-                    
+        }
+        .right {
+            ul {
+                display: flex;
+                justify-content: right;
+                align-items: center;
+                list-style: none;
+                li {
+                    margin-left: 15px;
+                    .user {
+                        color: white;
+                        transition: 0.3s;
+                        font-size: 24px;
+                        &:hover {
+                            font-size: 25px;
+                            color: rgba(255, 255, 255, 0.836);
+                        }
+                    }
+                    .register {
+                        transition: 0.3s;
+                        color: white;
+                        &:hover {
+                            font-weight: 600;
+                            color: rgba(255, 255, 255, 0.836);
+                        }
+                    }
                 }
             }
         }
     }
+
 </style>
