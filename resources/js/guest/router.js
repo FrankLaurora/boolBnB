@@ -3,10 +3,8 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import Home from './pages/Home';
-import Apartment from './pages/Apartment'
-// import About from './pages/About';
-// import Contacts from './pages/Contacts';
-// import Error_404 from './pages/Error_404';
+import Apartment from './pages/Apartment';
+import AdvancedSearch from './pages/AdvancedSearch';
 
 const router = new VueRouter({
     mode: 'history',
@@ -21,12 +19,12 @@ const router = new VueRouter({
             path: '/apartment/:slug',
             name: 'apartment',
             component: Apartment
-        }
-        // {
-        //     path: '/about',
-        //     name: 'about',
-        //     component: About
-        // },
+        },
+        {
+            path: '/search/:slug',
+            name: 'search',
+            component: AdvancedSearch
+        },
         // {
         //     path: '/contacts',
         //     name: 'contacts',
