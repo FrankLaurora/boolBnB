@@ -114,7 +114,8 @@ export default {
                 margin-right: 20px;
                 border-radius: 7px;
                 &:hover{
-                    transform:scale(1.8);
+                    transform: scale(1.8);
+                    
                 }
             }
         }
