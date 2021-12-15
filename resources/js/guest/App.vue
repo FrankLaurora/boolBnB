@@ -54,9 +54,8 @@ export default {
 div{
     
     header{
-    background: rgba(97, 92, 82, 0.808);
-    background: linear-gradient(180deg, rgba(95, 89, 78, 0.301) 45%, rgba(222,138,11,0) 99%);
-    // background-color: #685443a4;
+    background: rgba(99, 93, 81, 0.753);
+    background: linear-gradient(180deg, rgba(95, 89, 78, 0.301) 40%, rgba(222,138,11,0) 99%);
     height: 75px;
     display: flex;
     align-items: center;
@@ -70,7 +69,7 @@ div{
     main{
         // height: 70vh;
         // overflow: auto;
-        margin-top: 100px;
+        margin-top: 80px;
         min-height: 800px;
     }
     footer{

@@ -123,6 +123,9 @@ export default {
             font-family: 'Raleway', sans-serif;
             font-size: 17px;
             text-align: center;
+            &:focus{
+                outline:none;
+            }
         }
         .ms_btn{
             font-family: 'Raleway', sans-serif;

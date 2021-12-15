@@ -118,7 +118,6 @@ export default {
     .address{
         text-transform: capitalize;
     }
-    
     .coverimg{
         width: 55vw;
         height: 35vw;
@@ -127,7 +126,6 @@ export default {
         border-radius: 7px;
         overflow: hidden;
         margin-block: 1.9rem;
-        
             img{
                 width:100%;
                 height: 100%;
@@ -146,7 +144,6 @@ export default {
                 border-radius: 7px;
                 &:hover{
                     transform: scale(1.8);
-                    
                 }
             }
         }
