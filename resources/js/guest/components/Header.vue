@@ -3,7 +3,7 @@
         <div class="header ms_container-fluid">
             <div class="left">
                 <a href="/">
-                    <img src="https://fontmeme.com/permalink/211210/174b446b3d087f6e1ae24dd717a52eb2.png" alt="">
+                    <img src="images/logo_small.png" alt="">
                 </a>
             </div>
             <nav class="right">

@@ -58,6 +58,18 @@ export default {
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 div{
     
+    header{
+    background: rgba(99, 93, 81, 0.753);
+    background: linear-gradient(180deg, rgba(95, 89, 78, 0.301) 35%, rgba(222,138,11,0) 99%);
+    height: 80px;
+    display: flex;
+    align-items: center;
+    position:fixed;
+    width: 100%;
+    top:0;
+    left:0;
+    z-index: 2;
+    }
 
     // header{
     // background: rgba(97, 92, 82, 0.808);
