@@ -35,7 +35,7 @@ export default {
                 menu1:[
                     {
                         text:"Home",
-                        url:"/home"
+                        url:"/"
                     },
                     {
                         text:"Accedi",
