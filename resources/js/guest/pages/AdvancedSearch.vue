@@ -2,6 +2,10 @@
     <div>
         <div class="searchbar">
             <div class="input_bar">
+                <input list="addresses" id="addressInput" style="width:500px" name="search" v-model="search" @keyup="fetchResults(search)" @keyup.enter.prevent="$emit('advancedSearch', search)" placeholder="Dove vuoi andare?">
+                <datalist style="width:500px" id="addresses">
+                    <option style="width:500px" v-for="(element, index) in searchResults[0]" :key="index" :value="element.address.freeformAddress"></option>
+                </datalist>
                 <label for="rooms"></label>
                 <input type="number" min="1" max="255" placeholder="Stanze" v-model.number="rooms" id="rooms">
 
@@ -16,7 +20,9 @@
                 <div class="services_container" v-for="(service, index) in services" :key="index">
                     <button class="ms_btn_services" @click="addService(service.id)" :class="serviceFilter.includes(service.id) ? 'active' : ''">{{service.name}}</button>
                 </div>
-                <button @click="advancedSearch()" class="ms_btn_advance">Mostra appartamenti </button>
+                <router-link :to="{ name: 'search', params: { slug:search} }">
+                    <button @click="advancedSearch()" class="ms_btn_advance">Mostra appartamenti </button>
+                </router-link>
             </div>
             
         </div>
@@ -43,9 +49,14 @@ export default {
         return {
             apartments : [],
             lastPage : null,
+            searchResults: [],
             rooms: null,
             guests: null,
             distance: null,
+            lat: null,
+            lon: null,
+            search: "",
+            lastSearch: "",
             services: [],
             geo: {
                 lat: null,
@@ -56,7 +67,38 @@ export default {
     },
 
     methods: {
+        fetchResults(search) {
+            if(search != '') {
+                fetch('https://api.tomtom.com/search/2/geocode/'+ search +'.json?key=jXiFCoqvlFBNjmqBX4SuU1ehhUX1JF7t&language=it-IT')
+                .then(response => response.json())
+                .then(data =>{
+                    this.searchResults = [];
+                    this.searchResults.push(data.results);
+                })
+            }
+        },
+
         advancedSearch() {
+            if(this.search!=this.lastSearch&&this.search!=""){
+                setTimeout(() => {
+                    this.lastSearch=this.search;
+                    fetch('https://api.tomtom.com/search/2/geocode/'+ this.$route.params.slug +'.json?key=jXiFCoqvlFBNjmqBX4SuU1ehhUX1JF7t&language=it-IT')
+                    .then(response => response.json())
+                    .then(data=>{
+                        this.geo.lat=data.results[0].position.lat;
+                        this.geo.lon=data.results[0].position.lon;
+                        axios.get(`http://localhost:8000/api/apartments/search/&lat=${this.geo.lat}&lon=${this.geo.lon}&dist=25`)
+                        .then(response => {
+                            this.apartments = [];
+                            this.apartments = response.data.data.data;
+                            this.lastPage = response.data.lastPage;
+                        })
+                        .catch(error => {
+                            console.log(error)
+                        })
+                    });
+                }, 100);
+            }
             let servicesId = this.serviceFilter.join('-');
             axios.get(`http://localhost:8000/api/apartments/search/&lat=${this.geo.lat}&lon=${this.geo.lon}${this.distance ? '&dist=' + this.distance : ''}${this.rooms ? '&rooms=' + this.rooms : ''}${this.guests ? '&guests=' + this.guests : ''}${servicesId != "" ? '&services=' + servicesId : ''}`)
                 .then(response => {
@@ -106,9 +148,6 @@ export default {
                 console.log(response.data);
                 this.services = response.data.data;
             })
-
-            console.log($user.id)
-
         }
 }
 </script>
