@@ -29,6 +29,11 @@
                 <img width="100px" src="{{asset('./storage/' . $image->url)}}" alt="{{$apartment->title}}" class="mb-2 mt-2">                                              
             @endforeach
         @endif
+        <a href="{{route('admin.images.create', $apartment->id)}}">
+          <button type="button" class="btn btn-info mb-4">
+              Aggiungi altre immagini
+          </button>
+        </a>
     </div>
       <h3 class="pb-2">Sponsorizza</h3>
       <div class="pb-5">
@@ -48,7 +53,7 @@
         </thead>
         @if (count($messages) > 0)
           <tbody>
-            @foreach ($messages as $message)    
+            @foreach ($messages->reverse() as $message)    
             <tr>
               <td>{{$message->name}}</td>
               <td>{{$message->email}}</td>
