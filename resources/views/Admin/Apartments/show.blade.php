@@ -56,13 +56,13 @@
               <td>{{$message->created_at}}</td>
             </tr>
             @endforeach
-            <tbody>
-              <tr>
-                <td>Non hai ricevuto messaggi per questo appartamento.</td>
-              </tr>
-            </tbody>
-          </tbody>    
-        @else
+          </tbody>
+          @else
+          <tbody>
+            <tr>
+              <td>Non hai ricevuto messaggi per questo appartamento.</td>
+            </tr>
+          </tbody>
         @endif
         
       </table>
