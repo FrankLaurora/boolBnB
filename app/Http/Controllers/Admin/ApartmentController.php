@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Image;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -122,8 +123,9 @@ class ApartmentController extends Controller
         $this->checkLoggedUser($apartment);
 
         $services = Service::all();
+        $images = $apartment->images;
         
-        return view('admin.apartments.edit', compact('apartment','services'));
+        return view('admin.apartments.edit', compact('apartment','services', 'images'));
     }
 
     /**

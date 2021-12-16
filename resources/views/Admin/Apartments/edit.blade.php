@@ -80,6 +80,23 @@
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
             </div>
+
+            
+            {{-- VISUALIZZAZIONE IMMAGINI AGGIUNTIVE --}}
+            <h6>Galleria Immagini</h6>
+            @if(count($images) > 0)
+            <div class="mb-3">
+                @foreach ($images as $image)
+                    <img width="100px" src="{{asset('storage/' . $image->url)}}" alt="{{$apartment->title}}" class="mb-2 mt-2">                                              
+                @endforeach
+            </div>
+            @else
+            <div class="mb-3">
+            --> L'album non contiene nessuna immagine <--
+            </div>
+            @endif
+            
+
             {{-- immagini aggiuntive --}}
             <a href="{{route('admin.images.create', $apartment->id)}}">
                 <button type="button" class="btn btn-info mb-4">
