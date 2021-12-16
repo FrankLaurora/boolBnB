@@ -46,7 +46,7 @@
             <th scope="col">Data</th>
           </tr>
         </thead>
-        @if ($messages)
+        @if (count($messages) > 0)
           <tbody>
             @foreach ($messages as $message)    
             <tr>
