@@ -1,7 +1,7 @@
 <template>
     <nav>
         <div class="container-header">
-            <a href="/"><img src="https://fontmeme.com/permalink/211210/174b446b3d087f6e1ae24dd717a52eb2.png" alt="" id="logo"></a>
+            <a href="/"><img src="images/logo_small.png" alt="" id="logo"></a>
             <div>
                 <ul>
                     <li>
@@ -37,7 +37,7 @@ export default {
         flex-grow: 1;
         
         #logo{
-            width: 70%;
+            width: 17%;
         }
         ul{
             list-style-type: none;

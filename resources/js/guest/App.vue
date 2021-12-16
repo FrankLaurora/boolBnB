@@ -55,8 +55,8 @@ div{
     
     header{
     background: rgba(99, 93, 81, 0.753);
-    background: linear-gradient(180deg, rgba(95, 89, 78, 0.301) 40%, rgba(222,138,11,0) 99%);
-    height: 75px;
+    background: linear-gradient(180deg, rgba(95, 89, 78, 0.301) 35%, rgba(222,138,11,0) 99%);
+    height: 80px;
     display: flex;
     align-items: center;
     position:fixed;
