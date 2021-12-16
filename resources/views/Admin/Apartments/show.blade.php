@@ -41,17 +41,30 @@
         <thead>
           <tr>
             <th scope="col">Mittente</th>
+            <th scope="col">Email</th>
             <th scope="col">Messaggio</th>
             <th scope="col">Data</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>Franco</td>
-            <td>Ciao!Bello l'appartamento, è disponibile il bla bla bla?</td>
-            <td>07/12/2021</td>
-          </tr>
-        </tbody>
+        @if ($messages)
+          <tbody>
+            @foreach ($messages as $message)    
+            <tr>
+              <td>{{$message->name}}</td>
+              <td>{{$message->email}}</td>
+              <td>{{$message->content}}</td>
+              <td>{{$message->created_at}}</td>
+            </tr>
+            @endforeach
+            <tbody>
+              <tr>
+                <td>Non hai ricevuto messaggi per questo appartamento.</td>
+              </tr>
+            </tbody>
+          </tbody>    
+        @else
+        @endif
+        
       </table>
 
       <div class="pt-4">
