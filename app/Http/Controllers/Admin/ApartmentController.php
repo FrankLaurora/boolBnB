@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use App\Service;
+use App\Message;
 class ApartmentController extends Controller
 {
     /*validation rules*/
@@ -105,7 +106,8 @@ class ApartmentController extends Controller
     public function show(Apartment $apartment)
     {
         $services = Service::all();
-        return view('admin.apartments.show', compact('apartment','services'));
+        $messages = Message::all()->where('apartment_id', '=', $apartment->id);
+        return view('admin.apartments.show', compact('apartment', 'services', 'messages'));
     }
 
     /**
