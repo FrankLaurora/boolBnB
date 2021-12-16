@@ -1,9 +1,10 @@
 <template> 
+
     <div class="ms_col-12 ms_col-md-6 ms_col-lg-3">
         <router-link :to="{ name: 'apartment', params: { slug: apartment.slug } }">
             <div class="card">
                 <div v-if="apartment.cover" class="header">
-                    <img :src="`./storage/${apartment.cover}`" alt="">
+                    <img :src="`localhost:8000/storage/${apartment.cover}`" alt="">
                 </div>
                 <div v-else class="header">
                     <img src="../images/image_not_found.jpg" alt="">
@@ -63,40 +64,9 @@ export default {
 <style scoped lang="scss">
     
     @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
-   
-   * {
-       padding: 0px;
-       margin: 0px;
-       box-sizing: border-card;
-   }
 
-    .ms_container {
-        
-        max-width: 992px;
-        margin: 30px auto;
-    }
-
-    .ms_row {
-        display: flex;  
-        flex-wrap: wrap;
-        // in sospeso
-        align-items: center;
-    }
-
-    .ms_col-12 {
-        flex-basis: 100%;   
-    }
-
-    @media screen and (min-width: 768px) {
-        .ms_col-md-6 {
-            flex-basis: calc((100% / 12) * 6);
-        }
-    }
-
-    @media screen and (min-width: 992px) {
-        .ms_col-lg-3 {
-            flex-basis: calc((100% / 12) * 3);
-        }
+    .container-cards {
+        padding: 25px 0px 0px 0px;
     }
 
     .card-href {
@@ -105,7 +75,6 @@ export default {
 
     .card {
         background-color: white;
-        height: 300px;
         transition: 0.5s;
         font-family: Arial, Helvetica, sans-serif;
         overflow: hidden;

@@ -1,8 +1,12 @@
 <template>
-    <div class="container">
-        <p>
-            boolbnb.com © 2021-2021 Classe#40
-        </p>
+    <div class="footer-bottom ms_container">
+        <div class="ms_row">
+            <div class="ms_col-12">
+                 <p>
+                    boolbnb.com © 2021-2021 Classe#40
+                </p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -14,9 +18,11 @@ export default {
 
 
 <style lang="scss" scoped>
-    .container{
-        color:rgba(0,0,0,0.80);
-        display: flex;
-        justify-content: center;
+
+.footer-bottom {
+    padding: 10px 0px;
+    p {
+        text-align: center;
     }
+}
 </style>

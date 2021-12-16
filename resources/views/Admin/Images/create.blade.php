@@ -17,15 +17,10 @@
             @error('url')
                 <div class="alert alert-danger">{{$message}}</div>
             @enderror
+            
         </div>
             
-        <div class="mb-3">
-            @if ($apartment->images != [])
-                @foreach ($apartment->images as $image)
-                    <img width="100px" src="{{asset('./storage/' . $image->url)}}" alt="{{$apartment->title}}" class="mb-2 mt-2">                                              
-                @endforeach
-            @endif
-        </div>
+       
 
         <button type="submit" class="btn btn-dark">Aggiungi altre foto</button>
         
@@ -35,5 +30,51 @@
             </button>
         </a>
     </form>
+
+    <div class="mb-3">
+            
+        @if ($apartment->images != [])
+            @foreach ($apartment->images as $image)
+                <div class="image">
+                    <img width="100px" src="{{asset('./storage/' . $image->url)}}" alt="{{$apartment->title}}" class="mb-2 mt-2">
+                    <form action="{{route('admin.images.destroy', $image->id)}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Cancella</button>
+                    </form>  
+                </div>                                            
+            @endforeach
+        @endif
+    </div>
+
 </div>
+
+{{-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+    Elimina annuncio
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal">
+    <form action="{{route('admin.apartments.destroy', $apartment->id)}}" method="POST">
+        @csrf
+        @method('DELETE')
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Conferma Cancellazione Annuncio</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Vuoi cancellare definitivamente questo annuncio?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Si</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div> --}}
 @endsection

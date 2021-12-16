@@ -33,11 +33,12 @@
         </div>
         <div class="message">
             <h3>Scrivi a questo host</h3>
-            <form action="">
-                <input type="text" placeholder="Scrivi il tuo nome">
-                <input type="email" :value="email != null ? email : ''" placeholder="Inserisci la tua mail">
-                <textarea name="" id="" cols="30" rows="10" placeholder="Scrivi il messaggio"></textarea>
-                <button type="submit" class="ms_btn"> <a href=""> Invia messaggio</a></button>
+            <form :action="`http://localhost:8000/messages/store/${apartment.id}`" method="POST">
+                <input type="hidden" name="_token" :value="csrf">
+                <input type="text" name="name" placeholder="Scrivi il tuo nome">
+                <input type="email" name="email" :value="email != null ? email : ''" placeholder="Inserisci la tua mail">
+                <textarea name="content" cols="30" rows="10" placeholder="Scrivi il messaggio"></textarea>
+                <button type="submit" class="ms_btn">Invia messaggio</button>
             </form>
         </div>
     </div>    
@@ -58,7 +59,8 @@ export default {
             lon: null,
             map: null,
             marker: null,
-            email: null
+            email: null,
+            csrf: document.querySelector('meta[name="csrf-token"]').content
 		}
     },
 
