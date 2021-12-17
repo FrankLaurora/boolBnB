@@ -104,10 +104,11 @@ class ApartmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Apartment $apartment)
-    {
+    {   
+        $sponsorships = Sponsorship::all();
         $services = Service::all();
         $messages = Message::all()->where('apartment_id', '=', $apartment->id);
-        return view('admin.apartments.show', compact('apartment', 'services', 'messages'));
+        return view('admin.apartments.show', compact('apartment', 'services', 'messages', 'sponsorships'));
     }
 
     /**

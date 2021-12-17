@@ -4,6 +4,18 @@
 
 <div class="container">
     <div class="col-12 pt-4">
+      @if ($message = Session::get('success'))
+          <div class="alert alert-success alert-block">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+                  <strong>{{ $message }}</strong>
+          </div>
+      @endif
+      @if ($message = Session::get('error'))
+          <div class="alert alert-danger alert-block">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+                  <strong>{{ $message }}</strong>
+          </div>
+      @endif  
       <h2 class="pb-4">Il tuo appartamento</h2> 
       <h3>{{$apartment->title}}</h3>
       <img src="{{asset('storage/' . $apartment->cover)}}" class="img-fluid col-4 pt-4" alt="">
@@ -39,9 +51,13 @@
     </div>
       <h3 class="pb-2">Sponsorizza</h3>
       <div class="pb-5">
-        <button type="button" class="btn btn-secondary">Silver</button>
-        <button type="button" class="btn btn-warning">Gold</button>
-        <button type="button" class="btn btn-light">Platinum</button>
+        @foreach ($sponsorships as $sponsorship)
+          <a href="{{route('admin.sponsorships', ['apartment_id'=> $apartment->id, 'sponsorship_id' => $sponsorship->id])}}">
+            <button type="button" class="btn btn-secondary">{{$sponsorship->title}}</button>
+          </a>
+        @endforeach
+        {{-- <button type="button" class="btn btn-warning">Gold</button>
+        <button type="button" class="btn btn-light">Platinum</button> --}}
       </div>
       <h3 class="pb-2">Messaggi ricevuti</h3>
       <table class="table ">

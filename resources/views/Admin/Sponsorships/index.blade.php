@@ -16,15 +16,15 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="content">
-                    <form method="post" id="payment-form" action="{{route("admin.sponsorships.process")}}">
+                    <form method="post" id="payment-form" action="{{route("admin.sponsorships.process", ['apartment_id'=> $apartment->id, 'sponsorship_id' => $sponsorship->id])}}">
                         @csrf
                         <section>
                             <label for="amount">
-                                <span class="input-label">Amount</span>
-                                <div class="input-wrapper amount-wrapper">
-                                    <input id="amount" name="amount" type="tel" min="1" placeholder="Amount" value="10">
-                                </div>
+                              <span class="input-label">Amount</span>
                             </label>
+                            <div class="input-wrapper amount-wrapper">
+                                <input id="amount" name="amount" type="tel" min="1" placeholder="Amount" value="{{$sponsorship->price}}" readonly>
+                            </div>
 
                             <div class="bt-drop-in-wrapper">
                                 <div id="bt-dropin"></div>

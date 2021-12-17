@@ -31,8 +31,8 @@ Route::middleware('auth')->namespace('Admin')->name('admin.')->prefix('admin')->
     Route::post('/images/store/{id}', 'ImageController@store')->name('images.store');
     Route::delete('/images/{id}', 'ImageController@destroy')->name('images.destroy');
     //braintree
-    Route::get('/payment', 'PaymentsController@index')->name('sponsorships');
-    Route::post('/payment/process', 'PaymentsController@process')->name('sponsorships.process');
+    Route::get('/payment/{apartment_id}/{sponsorship_id}', 'PaymentsController@index')->name('sponsorships');
+    Route::post('/payment/process/{apartment_id}/{sponsorship_id}', 'PaymentsController@process')->name('sponsorships.process');
     // Route::get('/', 'ApartmentController@index')->name('apartments.index');
     //reindirizzo le rotte /post su /PostController
     // Route::resource("posts","PostController");

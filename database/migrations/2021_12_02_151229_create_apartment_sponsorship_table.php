@@ -18,7 +18,6 @@ class CreateApartmentSponsorshipTable extends Migration
             $table->foreignId('apartment_id')->constrained()->onDelete('cascade');
             $table->foreignId('sponsorship_id')->constrained()->onDelete('cascade');
             // $table->foreign('sponsorship_id')->references('id')->on('sponsorships')->onDelete('cascade');
-            $table->dateTime('expiration');
             $table->timestamps();
         });
     }
