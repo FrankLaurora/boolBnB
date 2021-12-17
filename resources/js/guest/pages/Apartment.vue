@@ -91,17 +91,32 @@ export default {
                     this.services.push(response.data.data.name);
                     })
                 });
-                    axios.get(`/api/pics/${this.$route.params.slug}`)
-                    .then(response =>{
-                        console.log(response.data.data);
-                        this.pics = response.data.data;
+
+                axios.get(`/api/pics/${this.$route.params.slug}`)
+                .then(response =>{
+                    console.log(response.data.data);
+                    this.pics = response.data.data;
+                })
+
+                fetch('https://api.ipify.org?format=json')
+                    .then(x => x.json())
+                    .then(({ ip }) => {
+                    console.log(ip);
+                    axios.get(`/api/statistics/${this.apartment.id}/${ip}`)
+                    .then(function (response) {
+                    console.log(response);
                     })
+                    .catch(function (error) {
+                    console.log(error);
+                    });
+                });
             
             })
 
         if(window.Laravel.isLoggedin) {
         this.email = window.Laravel.user.email;
-        }
+        };
+
     }
 }
 </script>
