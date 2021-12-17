@@ -22,7 +22,8 @@ class Apartment extends Model
     }
     public function sponsorships()
     {
-        return $this->belongsToMany('App\Sponsorship')->withPivot('created_at');
+        // return $this->belongsToMany('App\Sponsorship')->withPivot('created_at');
+        return $this->belongsToMany('App\Sponsorship');
     }
     public function images()
     {
