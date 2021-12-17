@@ -10042,6 +10042,10 @@ h3 {
   margin: 0 auto;
 }
 
+.user {
+  background-color: #ede7e3;
+}
+
 .ms_pb_4 {
   padding-bottom: 2.2rem !important;
 }

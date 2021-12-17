@@ -3,7 +3,7 @@
         <div class="ms_row">
             <div class="ms_col-12">
                  <p>
-                    boolbnb.com © 2021-2021 Classe#40
+                    boolbnb.com © 2021-2021 Classe#40 Team#2  🦐 
                 </p>
             </div>
         </div>

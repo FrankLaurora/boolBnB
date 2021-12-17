@@ -30,12 +30,12 @@ export default {
     .header {
         position: fixed;
         width: 100%;
-         background: rgba(97, 92, 82, 0.808);
-        background: linear-gradient(180deg, rgba(95, 89, 78, 0.301) 45%, rgba(222,138,11,0) 99%);
+        background: rgb(72,159,181);
+        background: linear-gradient(180deg, rgba(72, 159, 181, 0.623) 3%, rgba(22, 105, 122, 0) 100%);
         left: 0px;
         top: 0px;
         z-index: 10;
-        padding: 10px 20px;
+        padding: 10px 17px;
         display: flex;
         align-items: center;
         .left, .right {
@@ -44,7 +44,8 @@ export default {
 
         .left {
             img {
-                width: 150px;
+                width: 80px;
+                margin-left: 20px;
             }
         }
         .right {
@@ -55,21 +56,25 @@ export default {
                 list-style: none;
                 li {
                     margin-left: 15px;
+                    
                     .user {
-                        color: white;
-                        transition: 0.3s;
-                        font-size: 24px;
+                        color: #ede7e3;
+                        font-size: 27px;
+                        margin-right:18px;
                         &:hover {
-                            font-size: 25px;
-                            color: rgba(255, 255, 255, 0.836);
+                            color: #ffa628;
+                            transition: 0.2s;
+                            
                         }
                     }
                     .register {
-                        transition: 0.3s;
-                        color: white;
+                        font-size: 17px;
+                        color: #ede7e3;
+                        font-weight: 600;
                         &:hover {
+                            transition: 0.3s;
                             font-weight: 600;
-                            color: rgba(255, 255, 255, 0.836);
+                            color: #ffa628;
                         }
                     }
                 }

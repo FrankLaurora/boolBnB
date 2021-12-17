@@ -2,14 +2,14 @@
     <div>
         <div class="searchbar">
             <div class="input_bar">
-                <label for="rooms"></label>
-                <input type="number" min="1" max="255" placeholder="Stanze" v-model.number="rooms" id="rooms">
+                <label for="rooms">Stanze</label>
+                <input type="number" min="1" max="255" placeholder="2" v-model.number="rooms" id="rooms">
 
-                <label for="guests"></label>
-                <input type="number" min="1" max="255" placeholder="Ospiti" v-model.number="guests" id="guests">
+                <label for="guests">Ospiti</label>
+                <input type="number" min="1" max="255" placeholder="2" v-model.number="guests" id="guests">
 
-                <label for="distance"></label>
-                <input type="number" min="0" placeholder="Distanza km" v-model.number="distance" id="distance">
+                <label for="distance">Distanza</label>
+                <input type="number" min="0" placeholder="20 km" v-model.number="distance" id="distance">
             </div>
             
             <div class="service_row">
@@ -119,11 +119,11 @@ export default {
     // display: flex;
     justify-content: center;
     align-items: center;
-    height: 120px;
+    height: 130px;
     font-size: 15px;
     font-weight: 500;
-    border-bottom: 1px solid rgba(150, 147, 147, 0.253) ;
-    width: 80%;
+    border-bottom: 1px solid #0a333b9a;
+    width: 90%;
     margin:0 auto;
     .input_bar{
         display:flex;
@@ -131,6 +131,8 @@ export default {
         justify-content: center;
         flex-wrap: nowrap;
         margin-bottom: 0.9rem;
+        line-height:50px;
+        font-size:17px;
     }
 
     input {
@@ -140,8 +142,9 @@ export default {
         border: none;
         border-radius: 1rem;
         font-family: 'Raleway', sans-serif;
-        margin: 0.5rem 0.2rem;
-        font-size: 15px;
+        margin: 0.5rem 0.8rem 0.5rem 0.3rem;
+        font-size: 16px;
+        background-color: #ede7e3;
         &:focus{
                 outline:none;
             }
@@ -158,21 +161,21 @@ export default {
     width:100%;
     .ms_btn_services {
         min-width: 120px;
-        padding: 0.5rem 0.3rem;
+        padding: 0.6rem 0.3rem;
         margin: 0.5rem 0.2rem;
-        background-color: rgb(153, 149, 149);
+        background-color: #82c0cc;
         color: white;
         border: none;
         border-radius: 1rem;
         font-family: 'Raleway', sans-serif;
         &:hover{
             cursor:pointer;
-            background-color: rgba(59, 153, 133, 0.349);
+            background-color: #489fb5;
             color:white;
             
         }
         &.active {
-            background-color: rgb(59, 153, 133);
+            background-color: #ffa628;
             font-weight: bold;
             color:white;
             box-shadow: 1px 1px 2px rgba(150, 147, 147, 0.603);
@@ -181,12 +184,13 @@ export default {
 }
 
 .container-cards {
+        margin-top:30px;
         padding: 25px 0px 0px 0px;
     }
 
 .ms_btn_advance{
         min-width: 190px;
-        padding: 0.4rem 1.2rem;
+        padding: 0.6rem 1.2rem;
         border-radius: 1rem;
         background-color: rgb(26, 21, 21);
         color: white;

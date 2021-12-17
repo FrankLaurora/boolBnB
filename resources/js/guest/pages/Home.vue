@@ -115,7 +115,7 @@ export default {
 <style lang="scss" scoped>
     .search_bar{
         display: flex;
-        margin: 1.7rem 0;
+        margin: 1.9rem 0;
         justify-content: center;
         input{
             width: 100%;
@@ -127,6 +127,7 @@ export default {
             font-family: 'Raleway', sans-serif;
             font-size: 17px;
             text-align: center;
+            background-color: #ede7e3;
             &:focus{
                 outline:none;
             }
@@ -134,6 +135,7 @@ export default {
         .ms_btn{
             font-family: 'Raleway', sans-serif;
             font-size: 17px;
+            background-color: #ede7e3;
             .far{
                 margin-left:5px;
             }
@@ -164,6 +166,7 @@ export default {
         li {
             font-size: 1rem;
             padding: 0.8rem;
+            margin-bottom:5rem;
             &:hover {
                 cursor: pointer;
                 transform: scale(1.2);

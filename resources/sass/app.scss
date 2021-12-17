@@ -8,7 +8,13 @@
 @import '~bootstrap/scss/bootstrap';
 
 //common
-@import 'partials/common';
+@import './partials/common';
+
+//user
+@import './partials/user';
+
+//apartment
+@import './partials/apartment';
 
 
 .ms_pb_4 {

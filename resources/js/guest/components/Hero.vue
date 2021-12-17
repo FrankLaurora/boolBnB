@@ -1,5 +1,6 @@
 <template>
     <div>
+        <h2 class="suggestion"> Oppure lasciati ispirare...</h2>
         <div class="flex_container">
             <div class="prev_photo">
                 <i class="fas fa-chevron-left" @click="prevPhoto()"></i>
@@ -85,16 +86,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.suggestion{
+    text-align: center;
+    margin:18px 0;
+    font-size:34px;
+    color: #82c0cc ;
+    text-shadow:-4px 4px #113950;
+    font-family: 'Poppins', sans-serif;
+}
 .flex_container {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 40px;
 
     .prev_photo, .next_photo {
         margin-inline: 2rem;
     }
     .fa-chevron-left, .fa-chevron-right{
-        font-size:19px;
+        font-size:20px;
+        color:#82c0cc;
         }
     .fas:hover{
         cursor: pointer;
@@ -103,8 +114,8 @@ export default {
 
     .image_box {
         position: relative;
-        width: 650px;
-        height: 400px;
+        width: 820px;
+        height: 450px;
         border-radius:10px;
         overflow:hidden;
 
@@ -117,10 +128,11 @@ export default {
 
         .text_box {
             position: absolute;
-            top: 2rem;
+            top: 1.2rem;
             left: 2rem;
-            text-shadow: 0 0 4px white;
+            text-shadow: 0 0 4px #ede7e3 ;
             text-transform: capitalize;
+            color:#0d4f75;
         }
 
         .bullet_box {
@@ -129,12 +141,12 @@ export default {
             bottom: 20px;
             left: 50%;
             transform: translate(-50%);
-            background-color: #343a4088;
-            color: #343a40;
+            background-color: #11689a3b;
+            color: #0d4f75;
             text-shadow: 0px 0px 4px #fff;
             padding: 0.4rem;
             border-radius: 15px;
-            border: 2px solid #343a40;
+            border: 2px solid #0d4f75;
             }
 
         .bullet {

@@ -21,13 +21,13 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    BoolBnb
+        <nav class="navbar navbar-expand-md  pt-3 pb-3 mb-4 header_bar">
+            <div class="container col-10">
+                <a class="navbar-brand mr-5" href="{{ url('/') }}">
+                    <strong> BoolBnb </strong>
                 </a>
-                <a class="navbar-brand" href="{{ url('/admin/apartments') }}">
-                    Visualizza i tuoi appartamenti
+                <a class="navbar-brand mr-5" href="{{ url('/admin/apartments') }}">
+                    Visualizza gli appartamenti
                 </a>
                 <a class="navbar-brand" href="{{ route("admin.users.edit")}}">
                     Modifica profilo
