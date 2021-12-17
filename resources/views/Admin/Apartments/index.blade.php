@@ -2,11 +2,11 @@
 
 @section('content')
 
-<div class="container">
+<div class="container col-10">
     <table class="table">
-        <h1>I tuoi appartamenti</h1>
+        <h1 class="mb-4">I Tuoi Appartamenti</h1>
         <a href="{{route("admin.apartments.create")}}">
-            <button type="button" class="btn btn-success">Aggiungi nuovo appartamento</button>
+            <button type="button" class="btn btn-warning mt-2 mb-2">Aggiungi un nuovo appartamento</button>
         </a>
     </table> 
     @if ($message = Session::get('success'))
@@ -21,10 +21,10 @@
                 <strong>{{ $message }}</strong>
         </div>
     @endif   
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Appartamento</th>
+        <table class="table apartment_index">
+            <thead >
+                <tr >
+                    <th scope="col">Annuncio</th>
                     <th scope="col">Titolo</th>
                     <th scope="col">Indirizzo</th>
                     <th scope="col">N° civico</th>
@@ -32,19 +32,19 @@
                     <th>Visibilità</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="mt-3">
                 @foreach ($apartments as $apartment)
                     <tr>
                         <td>{{$apartment->id}}</td>
                         <td>{{$apartment->title}}</td>
-                        <td>{{$apartment->address}}</td>
+                        <td class="capitalize">{{$apartment->address}}</td>
                         <td>{{$apartment->number}}</td>
                         <td>
                             <a href="{{route("admin.apartments.update", $apartment['id'])}}">
-                                <button type="button" class="btn btn-dark">Visualizza</button>
+                                <button type="button" class="btn btn-warning">Visualizza</button>
                             </a>
                             <a href="{{route("admin.apartments.edit",$apartment['id'])}}">
-                                <button type="button" class="btn btn-dark">Modifica</button>
+                                <button type="button" class="btn btn-primary">Modifica</button>
                             </a>
                         </td>
                         <td>

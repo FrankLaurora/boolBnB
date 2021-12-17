@@ -2,8 +2,8 @@
 
 @section('content')
 
-<div class="container">
-    <div class="col-12 pt-4">
+<div class="container mb-5">
+    <div class="col-12 pt-2">
       @if ($message = Session::get('success'))
           <div class="alert alert-success alert-block">
               <button type="button" class="close" data-dismiss="alert">×</button>
@@ -16,29 +16,29 @@
                   <strong>{{ $message }}</strong>
           </div>
       @endif  
-      <h2 class="pb-4">Il tuo appartamento</h2> 
-      <h3>{{$apartment->title}}</h3>
-      <img src="{{asset('storage/' . $apartment->cover)}}" class="img-fluid col-4 pt-4" alt="">
-      <p class="pt-4">
+      <h2 class="pb-3 col-12">Il tuo appartamento</h2> 
+      <h3 class="col-12">{{$apartment->title}}</h3>
+      <img src="{{asset('storage/' . $apartment->cover)}}" class="img-fluid col-6 pt-4" alt="">
+      <p class="pt-5 col-9">
             {{$apartment->description}}
       </p>
-      <ul class="nav flex-column pb-4">
-          <li class="nav-item"> <strong> Indirizzo: </strong> {{$apartment->address}} {{$apartment->number}} {{$apartment->city}}</li>
-          <li class="nav-item"> <strong> Numero Stanze: </strong> {{$apartment->rooms}}</li>
-          <li class="nav-item"> <strong> Numero Ospiti: </strong> {{$apartment->guests_number}}</li> 
-          <li class="nav-item"> <strong> Mq: </strong> {{$apartment->sqm}}</li>
+      <ul class="nav flex-column pb-4 pt-2 col-12 capitalize">
+          <li class="nav-item col-12"> <strong>Indirizzo:  </strong> {{$apartment->address}} {{$apartment->number}} {{$apartment->city}}</li>
+          <li class="nav-item col-12"> <strong>Numero Stanze:  </strong> {{$apartment->rooms}}</li>
+          <li class="nav-item col-12"> <strong>Numero Ospiti:   </strong> {{$apartment->guests_number}}</li> 
+          <li class="nav-item col-12"> <strong>Mq:  </strong> {{$apartment->sqm}}</li>
       </ul>
       <ul class="nav flex-column pb-4">
-        <h3>Servizi disponibili</h3>
+        <h3 class="col-12">Servizi disponibili</h3>
           @foreach ($apartment->services as $service)
-            <li>{{$service->name}}</li>
+            <li class="col-12">{{$service->name}}</li>
           @endforeach
       </ul>
-      <div class="mb-3">
-        <h3>Immagini aggiuntive</h3>
+      <div class="mb-3 col-12">
+        <h3 >Immagini aggiuntive</h3>
         @if ($apartment->images != [])
             @foreach ($apartment->images as $image)
-                <img width="100px" src="{{asset('./storage/' . $image->url)}}" alt="{{$apartment->title}}" class="mb-2 mt-2">                                              
+                <img width="100px" src="{{asset('./storage/' . $image->url)}}" alt="{{$apartment->title}}" class="mb-2 mt-2 mr-2">                                              
             @endforeach
         @endif
         <div class="pt-4">
@@ -49,8 +49,8 @@
           </a>
         </div>
     </div>
-      <h3 class="pb-2">Sponsorizza</h3>
-      <div class="pb-5">
+      <h3 class="pb-2 col-12">Sponsorizza</h3>
+      <div class="pb-5 col-12">
         @foreach ($sponsorships as $sponsorship)
           <a href="{{route('admin.sponsorships', ['apartment_id'=> $apartment->id, 'sponsorship_id' => $sponsorship->id])}}">
             <button type="button" class="btn btn-secondary">{{$sponsorship->title}}</button>
@@ -59,11 +59,11 @@
         {{-- <button type="button" class="btn btn-warning">Gold</button>
         <button type="button" class="btn btn-light">Platinum</button> --}}
       </div>
-      <h3 class="pb-2">Messaggi ricevuti</h3>
-      <table class="table ">
-        <thead>
+      <h3 class="pb-2  col-12">Messaggi ricevuti</h3>
+      <table class="table  col-12 mb-5">
+        <thead class="col-12">
           <tr>
-            <th scope="col">Mittente</th>
+            <th scope="col ml-2">Mittente</th>
             <th scope="col">Email</th>
             <th scope="col">Messaggio</th>
             <th scope="col">Data</th>
@@ -90,21 +90,19 @@
         
       </table>
 
-      <div class="pt-4">
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+      <div class="pt-4 col-12">
+        <button type="button" class="btn btn-danger  mr-2" data-toggle="modal" data-target="#deleteModal">
             Elimina annuncio
         </button>
-        <a class="btn btn-dark" href="{{route("admin.apartments.edit",$apartment['id'])}}">
+        <a class="btn btn-dark mr-2 " href="{{route("admin.apartments.edit",$apartment['id'])}}">
           Modifica
         </a>
         <a href="{{route('admin.apartments.index')}}">
-            <button type="button" class="btn btn-primary">
+            <button type="button" class="btn btn-primary ">
                 Torna indietro
             </button>
         </a>
       </div>
-       
-
     </div>
 
     <!-- Modal -->

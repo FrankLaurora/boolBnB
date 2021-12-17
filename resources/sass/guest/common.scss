@@ -9,24 +9,40 @@
 // FONT => Caveat Brush
 @import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap');
 // font-family: 'Caveat Brush', cursive;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&family=Prompt:wght@300&display=swap');
+//font-family: 'Poppins', sans-serif;
 
 // Font-awesome
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 
 // TomTom
 @import "@tomtom-international/web-sdk-maps";
-
+//piu' scuro
+$darker:#113950;
+//blu scuro
+$peacock:#16697a;
+//blu medio
+$mediumblue : #489fb5;
+//azzurro
+$lightblue : #82c0cc;
+//arancione
+$orange:#ffa628;
+//beige
+$beige:#ede7e3;
 // Reset
 * {
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
 }
-
+html{
+    scroll-behavior: smooth;
+}
 // Font
 body {
     font-family: 'Raleway', sans-serif;
-    background-color: rgb(240, 232, 228);
+    background-color:$peacock;
+    color:$beige;
 }
 
 //button
@@ -34,7 +50,7 @@ body {
     padding:13px 20px;
     border-radius: 20px;
     border: none;
-    background-color: white;
+    background-color: $beige;
     &:hover{
         box-shadow: 1px 1px 2px rgba(150, 147, 147, 0.603);
         cursor: pointer;
@@ -45,3 +61,23 @@ a{
     text-decoration: none;
     color:black;
 }
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    height:20px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: $peacock; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: $mediumblue; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: $lightblue; 
+  }

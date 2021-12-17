@@ -54,7 +54,7 @@ export default {
 </script>
 
 
-<style lang="scss">
+<style lang="scss" >
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 div{
     
@@ -71,24 +71,12 @@ div{
     z-index: 2;
     }
 
-    // header{
-    // background: rgba(97, 92, 82, 0.808);
-    // background: linear-gradient(180deg, rgba(95, 89, 78, 0.301) 45%, rgba(222,138,11,0) 99%);
-    // // background-color: #685443a4;
-    // height: 80px;
-    // display: flex;
-    // align-items: center;
-    // position:fixed;
-    // width: 100%;
-    // top:0;
-    // left:0;
-    // z-index: 2;
-    // }
     main{
         // height: 70vh;
         // overflow: auto;
-        margin-top: 80px;
-        min-height: 800px;
+        margin-top: 85px;
+        min-height: 1100px;
+        
     }
     // footer{
     //     width: 100%;
