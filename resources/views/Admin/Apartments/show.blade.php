@@ -17,7 +17,7 @@
           </div>
       @endif  
       <h2 class="pb-3 col-12">Il tuo appartamento</h2> 
-      <h3 class="col-12 ms_orange">{{$apartment->title}}</h3>
+      <h3 class="col-12 ms_orange">"{{$apartment->title}}"</h3>
       <div class="col-12">
         <a href="{{route('admin.statistics', $apartment->id)}}">
             <button type="button" class="btn ms-button ">
@@ -29,11 +29,12 @@
       <p class="pt-5 col-9">
             {{$apartment->description}}
       </p>
+      <h3 class="col-12  pt-4 ms_orange">Dettagli dell'appartamento</h3>
       <ul class="nav flex-column pb-4 pt-2 col-12 capitalize">
-          <li class="nav-item col-12"> <strong>Indirizzo:  </strong> {{$apartment->address}} {{$apartment->number}} {{$apartment->city}}</li>
-          <li class="nav-item col-12"> <strong>Numero Stanze:  </strong> {{$apartment->rooms}}</li>
-          <li class="nav-item col-12"> <strong>Numero Ospiti:   </strong> {{$apartment->guests_number}}</li> 
-          <li class="nav-item col-12"> <strong>Mq:  </strong> {{$apartment->sqm}}</li>
+          <li class="nav-item col-12 ms_capitalize ms_fontweight"> <strong>Indirizzo:  </strong> <span class="ms_lightblue"> {{$apartment->address}} {{$apartment->number}} {{$apartment->city}}</span> </li>
+          <li class="nav-item col-12 ms_fontweight"> <strong>Numero Stanze:  </strong> <span  class="ms_lightblue"> {{$apartment->rooms}}</span></li>
+          <li class="nav-item col-12 ms_fontweight"> <strong>Numero Ospiti:   </strong><span class="ms_lightblue"> {{$apartment->guests_number}}</span> </li> 
+          <li class="nav-item col-12 ms_fontweight"> <strong>Mq:  </strong><span class="ms_lightblue"> {{$apartment->sqm}}</span></li>
       </ul>
       <ul class="nav flex-column pb-4">
         <h3 class="col-12 ms_orange">Servizi disponibili</h3>

@@ -89,8 +89,8 @@ export default {
 .suggestion{
     text-align: center;
     margin:18px 0;
-    font-size:34px;
-    color: #82c0cc ;
+    font-size:37px;
+    color: #ede7e3;
     text-shadow:-4px 4px #113950;
     font-family: 'Poppins', sans-serif;
 }
