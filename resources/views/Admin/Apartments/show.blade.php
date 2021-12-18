@@ -18,6 +18,13 @@
       @endif  
       <h2 class="pb-3 col-12">Il tuo appartamento</h2> 
       <h3 class="col-12">{{$apartment->title}}</h3>
+      <div>
+        <a href="{{route('admin.statistics', $apartment->id)}}">
+            <button type="button" class="btn btn-primary ">
+                Statistiche
+            </button>
+        </a>
+      </div>
       <img src="{{asset('storage/' . $apartment->cover)}}" class="img-fluid col-6 pt-4" alt="">
       <p class="pt-5 col-9">
             {{$apartment->description}}
