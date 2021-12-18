@@ -46,4 +46,7 @@ Route::get('/services/{id}', 'Api\ServiceController@getService')->name('api.get_
 Route::get('/pics/{id}', 'Api\PictureController@getApartmentImages')->name('api.get_images');
 
 //stores views statistics
-Route::get('/statistics/{id}/{ip}', 'Api\StatisticController@store');
+Route::get('/statistics/{id}/{ip}', 'Api\StatisticController@store')->name('api.store_views');
+
+//show views statistics
+Route::get('/show/statistics/{id}/{month}', 'Api\StatisticController@show')->name('api.show_views');
