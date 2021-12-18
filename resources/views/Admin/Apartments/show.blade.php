@@ -18,10 +18,10 @@
       @endif  
       <h2 class="pb-3 col-12">Il tuo appartamento</h2> 
       <h3 class="col-12 ms_orange">{{$apartment->title}}</h3>
-      <div>
+      <div class="col-12">
         <a href="{{route('admin.statistics', $apartment->id)}}">
             <button type="button" class="btn ms-button ">
-                Vai alle statistiche <i class="fas fa-long-arrow-alt-right"></i>
+                Vai alle statistiche   >>
             </button>
         </a>
       </div>

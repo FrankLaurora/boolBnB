@@ -10,7 +10,7 @@
             {{-- input per il titolo dell'appartamento --}}
             <div class="mb-3">
                 <label for="title" class="form-label"><h5>Titolo</h5></label>
-                <input type="text" name="title" class="ms_input form-control @error('title') is-invalid @enderror" id="title" value="{{old('title') ?? $apartment->title}}" placeholder="Inserisci il titolo">
+                <input type="text" name="title" class="ms_input pl-4 form-control @error('title') is-invalid @enderror" id="title" value="{{old('title') ?? $apartment->title}}" placeholder="Inserisci il titolo">
                 @error('title')
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
@@ -19,7 +19,7 @@
             {{-- input per il numero di stanze dell'appartamento --}}
             <div class="mb-3">
                 <label for="rooms" class="form-label"><h5>Stanze</h5></label>
-                <input type="number" name="rooms" class="ms_input form-control @error('rooms') is-invalid @enderror" id="rooms" value="{{old('rooms') ?? $apartment->rooms}}" placeholder="Seleziona il numero di stanze">
+                <input type="number" name="rooms" class="ms_input pl-4 form-control @error('rooms') is-invalid @enderror" id="rooms" value="{{old('rooms') ?? $apartment->rooms}}" placeholder="Seleziona il numero di stanze">
                 @error('rooms')
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
@@ -28,7 +28,7 @@
             {{-- input per posti letto dell'appartamento --}}
             <div class="mb-3">
                 <label for="guests_number" class="form-label"><h5>Posti letto</h5></label>
-                <input type="number" name="guests_number" class="ms_input form-control @error('guests_number') is-invalid @enderror" id="guests_number" value="{{old('guests_number') ?? $apartment->guests_number}}" placeholder="Posti letto">
+                <input type="number" name="guests_number" class="ms_input pl-4 form-control @error('guests_number') is-invalid @enderror" id="guests_number" value="{{old('guests_number') ?? $apartment->guests_number}}" placeholder="Posti letto">
                 @error('guests_number')
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
@@ -37,7 +37,7 @@
             {{-- input per il numero di bagni dell'appartamento --}}
             <div class="mb-3">
                 <label for="bathrooms" class="form-label"><h5>Bagni</h5></label>
-                <input type="number" name="bathrooms" class="ms_input form-control @error('bathrooms') is-invalid @enderror" id="bathrooms" value="{{old('bathrooms') ?? $apartment->bathrooms}}" placeholder="Bagni">
+                <input type="number" name="bathrooms" class="ms_input pl-4 form-control @error('bathrooms') is-invalid @enderror" id="bathrooms" value="{{old('bathrooms') ?? $apartment->bathrooms}}" placeholder="Bagni">
                 @error('bathrooms')
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
@@ -46,7 +46,7 @@
             {{-- input per l'estensione dell'appartamento --}}
             <div class="mb-3">
                 <label for="sqm" class="form-label"><h5>Metri quadrati</h5></label>
-                <input type="number" name="sqm" class="ms_input form-control @error('sqm') is-invalid @enderror" id="sqm" value="{{old('sqm') ?? $apartment->sqm}}" placeholder="Seleziona l'estensione">
+                <input type="number" name="sqm" class="ms_input pl-4 form-control @error('sqm') is-invalid @enderror" id="sqm" value="{{old('sqm') ?? $apartment->sqm}}" placeholder="Seleziona l'estensione">
                 @error('sqm')
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
@@ -55,8 +55,8 @@
             {{-- input per l'indirizzo dell'appartamento --}}
             <div class="mb-3">
                 <label for="addressoptions" class="form-label"><h5>Indirizzo</h5></label>
-                <input type="search" name="addressoptions" class="ms_input form-control @error('addressoptions') is-invalid @enderror" id="addressoptions" value="{{ old('addressoptions') ?? $apartment->address }}" placeholder="Es: Milano, corso como 10">
-                <select name="address" id="address">
+                <input type="search" name="addressoptions" class="ms_input pl-4 form-control @error('addressoptions') is-invalid @enderror" id="addressoptions" value="{{ old('addressoptions') ?? $apartment->address }}" placeholder="Es: Milano, corso como 10">
+                <select name="address" id="address" class="ml-4">
                     <option>
                         {{old('address') ?? $apartment->address}}
                     </option>
@@ -75,7 +75,7 @@
             {{-- input per l'immagine di copertina dell'appartamento --}}
             <div class="mb-3">
                 <label for="cover" class="form-label"><h5>Modifica copertina</h5></label>
-                <input type="file" name="cover" class="ms_input form-control ms_pb_4 @error('cover') is-invalid @enderror" id="cover" value="{{old('cover') ?? $apartment->cover}}">
+                <input type="file" name="cover" class="ms_input pl-3 form-control ms_pb_4 @error('cover') is-invalid @enderror" id="cover" value="{{old('cover') ?? $apartment->cover}}">
                 @error('cover')
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
@@ -100,7 +100,7 @@
             {{-- input per la descrizione dell'appartamento --}} 
             <div class="mb-3">
                 <label for="description" class="form-label"><h5>Descrizione</h5></label>
-                <textarea name="description" id="description" class="ms_input form-control @error('description') is-invalid @enderror" cols="30" rows="10" placeholder="Inserisci una descrizione. ">{{old('description') ?? $apartment->description}}</textarea>
+                <textarea name="description" id="description" class="ms_input p-4 form-control @error('description') is-invalid @enderror" cols="30" rows="10" placeholder="Inserisci una descrizione. ">{{old('description') ?? $apartment->description}}</textarea>
                 @error('description')
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
