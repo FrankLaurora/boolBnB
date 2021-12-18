@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "@tomtom-international/web-sdk-maps": "^6.15.0",
+        "chart.js": "^3.6.2",
         "vue-router": "^3.5.3"
     }
 }
