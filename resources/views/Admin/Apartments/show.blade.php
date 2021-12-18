@@ -16,8 +16,15 @@
                   <strong>{{ $message }}</strong>
           </div>
       @endif  
-      <h3 class="pb-3 col-12">Il tuo appartamento</h3> 
-      <h2 class="col-12 ms_orange">{{$apartment->title}}</h2>
+      <h2 class="pb-3 col-12">Il tuo appartamento</h2> 
+      <h3 class="col-12 ms_orange">{{$apartment->title}}</h3>
+      <div>
+        <a href="{{route('admin.statistics', $apartment->id)}}">
+            <button type="button" class="btn ms-button ">
+                Vai alle statistiche <i class="fas fa-long-arrow-alt-right"></i>
+            </button>
+        </a>
+      </div>
       <img src="{{asset('storage/' . $apartment->cover)}}" class="img-fluid col-6 pt-4" alt="">
       <p class="pt-5 col-9">
             {{$apartment->description}}
