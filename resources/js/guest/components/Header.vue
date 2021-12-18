@@ -1,6 +1,6 @@
 <template>
-    <header>
-        <div class="header ms_container-fluid">
+    <header :class="[scrollPosition > 20 ? 'ms_bg_white' : '']">
+        <div  class="header ms_container-fluid">
             <div class="left">
                 <a href="/">
                     <img src="images/logo_small.png" alt="">
@@ -9,10 +9,10 @@
             <nav class="right">
                 <ul>
                     <li>
-                        <a  class="register" href="/register">Diventa host</a>
+                        <a  class="register" :class="[scrollPosition > 20 ? 'register_scrolled' : '']" href="/register">Diventa host</a>
                     </li>
                     <li>
-                        <a class="user" href="/login"><i class="fas fa-user-circle"></i></a>
+                        <a class="user" :class="[scrollPosition > 20 ? 'user_scrolled' : '']" href="/login"><i class="fas fa-user-circle"></i></a>
                     </li>
                 </ul>
             </nav>
@@ -23,10 +23,28 @@
 <script>
 export default {
 	name: "HeaderLeo",
+    data(){
+        return {
+            scrollPosition: ''
+        }
+    },
+    methods: {
+        updateScroll() {
+                this.scrollPosition = window.scrollY
+            }
+    },
+    mounted() {
+        window.addEventListener('scroll', this.updateScroll);
+    }
 }
 </script>
 
 <style lang="scss" scoped>
+    
+    header {
+        transition: 1s;
+    }
+
     .header {
         position: fixed;
         width: 100%;
@@ -58,6 +76,7 @@ export default {
                     margin-left: 15px;
                     
                     .user {
+                        transition: 1s;
                         color: #ede7e3;
                         font-size: 27px;
                         margin-right:18px;
@@ -68,6 +87,7 @@ export default {
                         }
                     }
                     .register {
+                        transition: 1s;
                         font-size: 17px;
                         color: #ede7e3;
                         font-weight: 600;
@@ -81,5 +101,17 @@ export default {
             }
         }
     }
+
+    .ms_bg_white {
+        transition: 1s;
+        background-color: white;
+        .right {
+            .register_scrolled, .user_scrolled {
+                transition: 1s;
+                color: #171819 !important;
+            }
+        }
+    }
+
 
 </style>
