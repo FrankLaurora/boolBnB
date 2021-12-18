@@ -1,7 +1,58 @@
-.navbar-light{
-    background-color: rgb(184, 173, 173);
+//piu' scuro
+$darker:#113950;
+//blu scuro
+$peacock:#16697a;
+//blu medio
+$mediumblue : #489fb5;
+//azzurro
+$lightblue : #82c0cc;
+//arancione
+$orange:#ffa628;
+//beige
+$beige:#ede7e3;
+
+.ms_body{
+    font-family: 'Raleway', sans-serif;
+    background-color: #16697a;
+}
+.ms_navbar-light{
+    background-color: #16697a;
 }
 .container{
     width: 80%;
     margin: 0 auto;
+}
+.ms_capitalize{
+    text-transform: capitalize;
+}
+.ms-button{
+        padding:8px 20px;
+        border-radius: 20px;
+        border: none;
+        background-color:#ffa628;
+        color:#ede7e3;
+        &:hover{
+            box-shadow: 1px 1px 2px rgba(150, 147, 147, 0.603);
+            cursor: pointer;
+            transform:scale(1.02);
+        }
+}
+.ms_a{
+    color: #000;
+    text-decoration: none;
+    &:hover{
+        color: #113950;
+        text-decoration: none;
+    }
+}
+.ms_input{
+    border-radius: 1rem;
+}
+.ms_card{
+    border-radius: 1rem;
+    overflow: hidden;
+}
+.ms_card_header{
+    background-color: #82c0cc;
+    color:#ede7e3;
 }

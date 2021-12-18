@@ -27,7 +27,8 @@
             
         </div>
         <div class="container-cards ms_container">
-            <div class="ms_row ms_align-items-center">
+            <h1 v-if="apartments < 1">Non ci sono appartamenti che corrispondono alle tue richieste</h1>
+            <div v-else class="ms_row ms_align-items-center">
                 <Card v-for="(apartment, index) in apartments" :key="index" :apartment="apartment"/>
             </div>
         </div>
