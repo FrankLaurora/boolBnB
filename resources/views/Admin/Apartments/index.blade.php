@@ -21,7 +21,7 @@
                 <strong>{{ $message }}</strong>
         </div>
     @endif   
-        <table class="table apartment_index">
+        <table class="table apartment_index ms_capitalize">
             <thead >
                 <tr >
                     <th scope="col">Annuncio</th>

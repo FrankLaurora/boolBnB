@@ -15,14 +15,14 @@
                         </div>
                     @endif
 
-                   <h2 class="capitalize">Benvenut*  {{ Auth::user()->first_name }} !</h2>
+                   <h2 class="ms_capitalize">Benvenut*  {{ Auth::user()->first_name }} !</h2>
                    
                 </div>
                 <div class="card-body">
-                    <a href="{{route("admin.apartments.index")}}">Visualizza i tuoi appartamenti</a>
+                    <a href="{{route("admin.apartments.index")}}" class="ms_a">Visualizza i tuoi appartamenti</a>
                 </div>
                 <div class="card-body">
-                    <a href="{{ route("admin.users.edit") }}">Modifica il tuo profilo</a>
+                    <a href="{{ route("admin.users.edit") }}" class="ms_a">Modifica il tuo profilo</a>
                 </div>
             </div>
         </div>
