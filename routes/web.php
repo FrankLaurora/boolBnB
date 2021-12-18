@@ -30,6 +30,7 @@ Route::middleware('auth')->namespace('Admin')->name('admin.')->prefix('admin')->
     Route::get('/images/create/{id}', 'ImageController@create')->name('images.create');
     Route::post('/images/store/{id}', 'ImageController@store')->name('images.store');
     Route::delete('/images/{id}', 'ImageController@destroy')->name('images.destroy');
+    Route::get('/statistics/{id}', 'StatisticController@index')->name('statistics');
     //braintree
     Route::get('/payment/{apartment_id}/{sponsorship_id}', 'PaymentsController@index')->name('sponsorships');
     Route::post('/payment/process/{apartment_id}/{sponsorship_id}', 'PaymentsController@process')->name('sponsorships.process');
