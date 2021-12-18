@@ -12,7 +12,7 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Indirizzo e-mail') }}</label>
+                            <label for="email" class="ms_dark ms_fontweight col-md-4 col-form-label text-md-right">{{ __('Indirizzo e-mail') }}</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="ms_input form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                            <label for="password" class="ms_dark ms_fontweight col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="ms_input form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
@@ -42,9 +42,9 @@
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
-                                    <input class="form-check-input ms_input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                    <input class="form-check-input ms_input ms_dark" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                    <label class="form-check-label" for="remember">
+                                    <label class="form-check-label ms_dark" for="remember">
                                         {{ __('Ricordami') }}
                                     </label>
                                 </div>

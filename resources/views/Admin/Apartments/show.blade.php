@@ -16,8 +16,8 @@
                   <strong>{{ $message }}</strong>
           </div>
       @endif  
-      <h2 class="pb-3 col-12">Il tuo appartamento</h2> 
-      <h3 class="col-12">{{$apartment->title}}</h3>
+      <h3 class="pb-3 col-12">Il tuo appartamento</h3> 
+      <h2 class="col-12 ms_orange">{{$apartment->title}}</h2>
       <img src="{{asset('storage/' . $apartment->cover)}}" class="img-fluid col-6 pt-4" alt="">
       <p class="pt-5 col-9">
             {{$apartment->description}}
@@ -29,13 +29,13 @@
           <li class="nav-item col-12"> <strong>Mq:  </strong> {{$apartment->sqm}}</li>
       </ul>
       <ul class="nav flex-column pb-4">
-        <h3 class="col-12">Servizi disponibili</h3>
+        <h3 class="col-12 ms_orange">Servizi disponibili</h3>
           @foreach ($apartment->services as $service)
             <li class="col-12">{{$service->name}}</li>
           @endforeach
       </ul>
       <div class="mb-3 col-12">
-        <h3 >Immagini aggiuntive</h3>
+        <h3 class="ms_orange">Immagini aggiuntive</h3>
         @if ($apartment->images != [])
             @foreach ($apartment->images as $image)
                 <img width="100px" src="{{asset('./storage/' . $image->url)}}" alt="{{$apartment->title}}" class="mb-2 mt-2 mr-2">                                              
@@ -43,23 +43,23 @@
         @endif
         <div class="pt-4">
           <a href="{{route('admin.images.create', $apartment->id)}}">
-            <button type="button" class="btn btn-info mb-4">
+            <button type="button" class="btn ms-btn_white mb-4">
                 Aggiungi altre immagini
             </button>
           </a>
         </div>
     </div>
-      <h3 class="pb-2 col-12">Sponsorizza</h3>
+      <h3 class="pb-2 col-12 ms_orange">Sponsorizza</h3>
       <div class="pb-5 col-12">
         @foreach ($sponsorships as $sponsorship)
           <a href="{{route('admin.sponsorships', ['apartment_id'=> $apartment->id, 'sponsorship_id' => $sponsorship->id])}}">
-            <button type="button" class="btn btn-secondary">{{$sponsorship->title}}</button>
+            <button type="button" class="btn ms-btn_light mr-2">{{$sponsorship->title}}</button>
           </a>
         @endforeach
         {{-- <button type="button" class="btn btn-warning">Gold</button>
         <button type="button" class="btn btn-light">Platinum</button> --}}
       </div>
-      <h3 class="pb-2  col-12">Messaggi ricevuti</h3>
+      <h3 class="pb-2  col-12 ms_orange">Messaggi ricevuti</h3>
       <table class="table  col-12 mb-5">
         <thead class="col-12">
           <tr>
@@ -73,17 +73,17 @@
           <tbody>
             @foreach ($messages->reverse() as $message)    
             <tr>
-              <td>{{$message->name}}</td>
-              <td>{{$message->email}}</td>
-              <td>{{$message->content}}</td>
-              <td>{{$message->created_at}}</td>
+              <td class="ms_fontweight">{{$message->name}}</td>
+              <td class="ms_fontweight">{{$message->email}}</td>
+              <td class="ms_fontweight">{{$message->content}}</td>
+              <td class="ms_fontweight">{{$message->created_at}}</td>
             </tr>
             @endforeach
           </tbody>
           @else
           <tbody>
             <tr>
-              <td>Non hai ricevuto messaggi per questo appartamento.</td>
+              <td class="ms_fontweight">Non hai ricevuto messaggi per questo appartamento.</td>
             </tr>
           </tbody>
         @endif
@@ -91,14 +91,14 @@
       </table>
 
       <div class="pt-4 col-12">
-        <button type="button" class="btn btn-danger  mr-2" data-toggle="modal" data-target="#deleteModal">
+        <button type="button" class="btn ms-button  mr-2" data-toggle="modal" data-target="#deleteModal">
             Elimina annuncio
         </button>
-        <a class="btn btn-dark mr-2 " href="{{route("admin.apartments.edit",$apartment['id'])}}">
+        <a class="btn ms-btn_light mr-2 " href="{{route("admin.apartments.edit",$apartment['id'])}}">
           Modifica
         </a>
         <a href="{{route('admin.apartments.index')}}">
-            <button type="button" class="btn btn-primary ">
+            <button type="button" class="btn ms-btn_blu ">
                 Torna indietro
             </button>
         </a>

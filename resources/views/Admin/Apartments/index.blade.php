@@ -6,7 +6,7 @@
     <table class="table">
         <h1 class="mb-4">I Tuoi Appartamenti</h1>
         <a href="{{route("admin.apartments.create")}}">
-            <button type="button" class="btn btn-warning mt-2 mb-2">Aggiungi un nuovo appartamento</button>
+            <button type="button" class="btn ms-button mt-2 mb-3">Aggiungi un nuovo appartamento</button>
         </a>
     </table> 
     @if ($message = Session::get('success'))
@@ -32,19 +32,19 @@
                     <th>Visibilità</th>
                 </tr>
             </thead>
-            <tbody class="mt-3">
+            <tbody class="mt-3 ">
                 @foreach ($apartments as $apartment)
-                    <tr>
+                    <tr class="ms_fontweight">
                         <td>{{$apartment->id}}</td>
                         <td>{{$apartment->title}}</td>
                         <td class="capitalize">{{$apartment->address}}</td>
                         <td>{{$apartment->number}}</td>
                         <td>
                             <a href="{{route("admin.apartments.update", $apartment['id'])}}">
-                                <button type="button" class="btn btn-warning">Visualizza</button>
+                                <button type="button" class="btn ms-btn_white">Visualizza</button>
                             </a>
                             <a href="{{route("admin.apartments.edit",$apartment['id'])}}">
-                                <button type="button" class="btn btn-primary">Modifica</button>
+                                <button type="button" class="btn ms-btn_light">Modifica</button>
                             </a>
                         </td>
                         <td>
