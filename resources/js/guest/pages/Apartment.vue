@@ -1,5 +1,5 @@
 <template>
-    <div class="ms_containe">
+    <div class="ms_container">
         <h2>{{apartment.title}}</h2>
         <div class="address"> <span> <strong> {{apartment.city}} </strong></span>   {{apartment.address}} {{apartment.number}}</div> 
         <div class="row_map">
@@ -128,9 +128,8 @@ export default {
 <style lang="scss" scoped>
 
 @import '../../../sass/guest/common';
-.ms_containe{
-    margin-top:30px;
-    width:79%;
+.ms_container{
+    margin-top:30px;    
     margin:0 auto;
     
     h2{
@@ -184,8 +183,8 @@ export default {
     }
     .other_img{
         width:70%;
-        height: 120px;
-        overflow-y: hidden;
+        min-height: 120px;
+        overflow-x: auto;
         .pics{
             display: flex;
             list-style: none;

@@ -11,7 +11,7 @@
 // font-family: 'Caveat Brush', cursive;
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&family=Prompt:wght@300&display=swap');
 //font-family: 'Poppins', sans-serif;
-
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
 // Font-awesome
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 
@@ -64,17 +64,17 @@ a{
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
-    height:20px;
+    height:5px;
   }
   
   /* Track */
   ::-webkit-scrollbar-track {
-    background: $peacock; 
+    background:$mediumblue; 
   }
    
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: $mediumblue; 
+    background: $lightblue; 
   }
   
   /* Handle on hover */

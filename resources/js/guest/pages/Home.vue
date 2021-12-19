@@ -113,64 +113,55 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .search_bar{
-        display: flex;
-        margin: 2rem 0;
-        justify-content: center;
-        input{
-            width: 100%;
-            max-width: 25rem;
-            border: none;
-            border-radius:20px;
-            padding: 10px 20px;
-            margin-right:10px;
-            font-family: 'Raleway', sans-serif;
-            font-size: 17px;
-            text-align: center;
-            background-color: #ede7e3;
-            &:focus{
-                outline:none;
-            }
-        }
-        .ms_btn{
-            font-family: 'Raleway', sans-serif;
-            font-size: 17px;
-            background-color: #ede7e3;
-            .far{
-                margin-left:5px;
-            }
-        }
-
-        .container-cards {
-        padding: 25px 0px 0px 0px;
-        }
-        // button{
-        //     background-color: #343a40;
-        //     border-radius: 10px;
-        //     color: white;
-        //     text-align: center;
-        //     text-decoration: none;
-        //     font-size: 12px;
-        //     width: 70px;
-        //     height: 30px;
-        // }
-    }
-
-    ul {
-        display: flex;
-        list-style: none;
-        width: 25%;
-        margin: 1.5rem auto;
-        justify-content: center;
-
-        li {
-            font-size: 1rem;
-            padding: 0.8rem;
-            margin-bottom:5rem;
-            &:hover {
-                cursor: pointer;
-                transform: scale(1.2);
-            }
+.search_bar{
+    display: flex;
+    margin: 3rem 0 2rem 0;
+    justify-content: center;
+    input{
+        width: 100%;
+        max-width: 25rem;
+        border: none;
+        border-radius:20px;
+        padding: 10px 20px;
+        margin-right:10px;
+        font-family: 'Raleway', sans-serif;
+        font-size: 17px;
+        text-align: center;
+        background-color: #ede7e3;
+        &:focus{
+            outline:none;
         }
     }
+    .ms_btn{
+        font-family: 'Raleway', sans-serif;
+        font-size: 17px;
+        background-color: #ede7e3;
+        .far{
+            margin-left:5px;
+        }
+    }
+
+    .container-cards {
+    padding: 25px 0px 0px 0px;
+    }
+    
+}
+
+ul {
+    display: flex;
+    list-style: none;
+    width: 25%;
+    margin: 1.5rem auto;
+    justify-content: center;
+
+    li {
+        font-size: 1rem;
+        padding: 0.8rem;
+        margin-bottom:5rem;
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.2);
+        }
+    }
+}
 </style>

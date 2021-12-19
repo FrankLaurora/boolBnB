@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2 class="suggestion"> Oppure lasciati ispirare...</h2>
+        <h2 class="suggestion"><span>Oppure lasciati ispirare...</span></h2>
         <div class="flex_container">
             <div class="prev_photo">
                 <i class="fas fa-chevron-left" @click="prevPhoto()"></i>
@@ -92,7 +92,27 @@ export default {
     font-size:37px;
     color: #ede7e3;
     text-shadow:-4px 4px #113950;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Space Mono', monospace;
+    position:relative;  
+    display:flex;
+    justify-content: center; 
+}
+.suggestion::before, .suggestion::after{
+    content:'';
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    position:absolute;
+}
+.suggestion::before{
+    background-color:#16697a;
+    animation:typing 3s steps(33) forwards ;
+}
+@keyframes typing{
+    to{
+        left:100%;
+    }
 }
 .flex_container {
     display: flex;

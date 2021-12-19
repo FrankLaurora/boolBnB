@@ -72,9 +72,7 @@ div{
     }
 
     main{
-        // height: 70vh;
-        // overflow: auto;
-        margin-top: 85px;
+        margin-top: 100px;
         min-height: 1100px;
         
     }
