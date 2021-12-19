@@ -115,7 +115,7 @@ export default {
 <style lang="scss" scoped>
     .search_bar{
         display: flex;
-        margin: 1.9rem 0;
+        margin: 2rem 0;
         justify-content: center;
         input{
             width: 100%;

@@ -53,7 +53,7 @@ export default {
         left: 0px;
         top: 0px;
         z-index: 10;
-        padding: 10px 17px;
+        padding: 5px 17px;
         display: flex;
         align-items: center;
         .left, .right {
@@ -62,7 +62,7 @@ export default {
 
         .left {
             img {
-                width: 80px;
+                width: 92px;
                 margin-left: 20px;
             }
         }
@@ -104,7 +104,7 @@ export default {
 
     .ms_bg_white {
         transition: 1s;
-        background-color: white;
+        background-color: #82c0cc;
         .right {
             .register_scrolled, .user_scrolled {
                 transition: 1s;

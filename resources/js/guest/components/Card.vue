@@ -74,11 +74,11 @@ export default {
     }
 
     .card {
-        background-color: white;
+        background-color: #ede7e3;
         transition: 0.5s;
-        font-family: Arial, Helvetica, sans-serif;
+        // font-family: Arial, Helvetica, sans-serif;
         overflow: hidden;
-        border: 2px solid darkgrey;
+        font-family: 'Raleway', sans-serif;
         border-radius: 5px;
         margin: 5px;
         &:hover {
@@ -105,10 +105,14 @@ export default {
                 font-size: 14px;
                 text-transform: uppercase;
                 font-weight: bold;
+                text-overflow: ellipsis;
+                min-height: 40px;
             }
             .city {
                 font-size: 14px;
-                color:  darkgrey;
+                color:  #16697a;
+                text-transform: capitalize;
+                font-weight:500;
             }
         }
         .footer {
@@ -116,7 +120,7 @@ export default {
             border-top: 2px solid darkgrey;
             transition: 1s;
             .bathrooms, .guests_number {
-                color: darkgrey;
+                color: #16697a;
                 width: 50%;
                 font-size: 12px;
                 text-align: center;
