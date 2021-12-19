@@ -88,7 +88,7 @@ export default {
                     }
                     console.log(viewsData);
                     const ctx = document.getElementById('views-chart');
-                    ctx.innerHTML = '';
+                    window.chart.destroy();                        
                     if(this.month == 'all') {
                         let lables = [];
                         this.monthsSelect.forEach(element => {
@@ -98,8 +98,8 @@ export default {
                         viewsData.forEach(element => {
                             data.push(element.length);
                         });
-                        console.log(data);                        
-                        let chart = new Chart(ctx, {
+                        console.log(data);
+                        window.chart = new Chart(ctx, {
                         type: "line",
                         data: {
                             labels: lables,
@@ -135,7 +135,7 @@ export default {
                                 label = element.name;
                             }
                         });
-                        let chart = new Chart(ctx, {
+                        window.chart = new Chart(ctx, {
                             type: "line",
                             data: {
                                 labels: ["1^ Settimana", "2^ Settimana", "3^ Settimana", "4^ Settimana"],
@@ -192,7 +192,7 @@ export default {
                     data.push(element.length);
                 });
                 console.log(data);                        
-                let chart = new Chart(ctx, {
+                window.chart = new Chart(ctx, {
                     type: "line",
                     data: {
                         labels: lables,
