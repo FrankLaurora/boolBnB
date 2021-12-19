@@ -1,6 +1,6 @@
 <template> 
 
-    <div class="ms_col-12 ms_col-md-6 ms_col-lg-3">
+    <div class="ms_col-11 ms_col-md-6 ms_col-lg-3">
         <router-link :to="{ name: 'apartment', params: { slug: apartment.slug } }">
             <div class="card">
                 <div v-if="apartment.cover" class="header">
@@ -21,12 +21,12 @@
                     <div class="guests_number">
                         <i class="fas fa-bed"></i>
                         <span>{{apartment.guests_number}}</span> 
-                        Bedrooms
+                        Posti letto
                     </div>
                     <div class="bathrooms">
                         <i class="fas fa-bath"></i>
                         <span>{{apartment.bathrooms}}</span> 
-                        Bathrooms
+                        Bagni
                     </div>
                 </div>
             </div>
@@ -60,13 +60,13 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
     
     @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 
     .container-cards {
         padding: 25px 0px 0px 0px;
+        
     }
 
     .card-href {
@@ -76,17 +76,12 @@ export default {
     .card {
         background-color: #ede7e3;
         transition: 0.5s;
-        // font-family: Arial, Helvetica, sans-serif;
         overflow: hidden;
         font-family: 'Raleway', sans-serif;
         border-radius: 5px;
         margin: 5px;
         &:hover {
             transform: scale(1.025);
-            // border: 2px solid orange;
-            // .footer {
-            //     border-top: 2px solid orange;
-            // }
         }
         .header {
             img {
@@ -106,7 +101,7 @@ export default {
                 text-transform: uppercase;
                 font-weight: bold;
                 text-overflow: ellipsis;
-                min-height: 40px;
+                min-height: 50px;
             }
             .city {
                 font-size: 14px;
@@ -131,10 +126,5 @@ export default {
                 }
             }
         }
-    }
-
-
-    
-
-  
+    } 
 </style>
