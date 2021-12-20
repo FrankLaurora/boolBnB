@@ -43,6 +43,7 @@ class MessageController extends Controller
      */
     public function store(Request $request, $id)
     {
+        $request->validate($this->validationRules);
         $apartment = Apartment::all()->where('id', '=', $id)->first();
         $slug = $apartment->slug;
         $newMessage= new Message;

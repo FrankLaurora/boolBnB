@@ -81,6 +81,10 @@ $beige:#ede7e3;
     background-color:#ede7e3;
     color:#489fb5;
     font-weight:600;
+
+    .ms_a {
+        color:#489fb5;
+    }
     &:hover{
         color:#ede7e3 ;
         background-color: #ffa628;
@@ -88,6 +92,10 @@ $beige:#ede7e3;
         cursor: pointer;
         transform:scale(1.02);
         font-weight:600;
+        .ms_a{
+            text-decoration: none;
+            color:#ede7e3 ;
+        }
     }
 }
 .ms_a{

@@ -3,7 +3,7 @@
         <div  class="header ms_container-fluid">
             <div class="left">
                 <a href="/">
-                    <img src="images/logo_small.png" alt="">
+                    <img :src="'/'+'images/logo_small.png'" alt="logo">
                 </a>
             </div>
             <nav class="right">

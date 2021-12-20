@@ -27,7 +27,7 @@
             
         </div>
         <div class="container-cards ms_container">
-            <h1 v-if="apartments < 1">Non ci sono appartamenti che corrispondono alle tue richieste</h1>
+            <h1 v-if="noResults">Non ci sono appartamenti che corrispondono alle tue richieste</h1>
             <div v-else class="ms_row ms_align-items-center">
                 <Card v-for="(apartment, index) in apartments" :key="index" :apartment="apartment"/>
             </div>
@@ -63,7 +63,8 @@ export default {
                 lat: null,
                 lon: null
             },
-            serviceFilter : []
+            serviceFilter : [],
+            noResults : false
         }
     },
 
@@ -92,6 +93,10 @@ export default {
                         .then(response => {
                             this.apartments = [];
                             this.apartments = response.data.data.data;
+                            this.noResults = false;
+                            if(this.apartments.length < 1){
+                                this.noResults = true;
+                            }
                             this.lastPage = response.data.lastPage;
                         })
                         .catch(error => {
@@ -105,6 +110,10 @@ export default {
                 .then(response => {
                     this.apartments = [];
                     this.apartments = response.data.data.data;
+                    this.noResults = false;
+                    if(this.apartments.length < 1){
+                        this.noResults = true;
+                    }
                     this.lastPage = response.data.lastPage;
                 })
                 .catch(error => {
@@ -127,7 +136,7 @@ export default {
         }
     },
 
-    mounted() {
+    created() {
             fetch('https://api.tomtom.com/search/2/geocode/'+ this.$route.params.slug +'.json?key=jXiFCoqvlFBNjmqBX4SuU1ehhUX1JF7t&language=it-IT')
             .then(response => response.json())
             .then(data=>{
@@ -137,6 +146,10 @@ export default {
                 .then(response => {
                     this.apartments = [];
                     this.apartments = response.data.data.data;
+                    this.noResults = false;
+                    if(this.apartments.length < 1){
+                        this.noResults = true;
+                    }
                     this.lastPage = response.data.lastPage;
                 })
                 .catch(error => {

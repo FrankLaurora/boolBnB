@@ -18,10 +18,10 @@ class PaymentsController extends Controller
         $sponsorship = Sponsorship::where('id', '=', $sponsorship_id)->first();
 
         $gateway = new Gateway([
-            'environment' => 'sandbox',
-            'merchantId' => 'tztvrwyp3nd8psmg',
-            'publicKey' => 'kmtj4xck39tfwxgc',
-            'privateKey' => '395ddeb6d239f55621a2d6388fe76653'
+            'environment' => env('BRAINTREE_ENV'),
+            'merchantId' => env('BRAINTREE_MERCHANT_ID'),
+            'publicKey' => env('BRAINTREE_PUBLIC_KEY'),
+            'privateKey' => env('BRAINTREE_PRIVATE_KEY')
         ]);
     
         $token = $gateway->ClientToken()->generate();
@@ -39,10 +39,10 @@ class PaymentsController extends Controller
         $today = new DateTime('now');
         
         $gateway = new Gateway([
-            'environment' => 'sandbox',
-            'merchantId' => 'tztvrwyp3nd8psmg',
-            'publicKey' => 'kmtj4xck39tfwxgc',
-            'privateKey' => '395ddeb6d239f55621a2d6388fe76653'
+            'environment' => env('BRAINTREE_ENV'),
+            'merchantId' => env('BRAINTREE_MERCHANT_ID'),
+            'publicKey' => env('BRAINTREE_PUBLIC_KEY'),
+            'privateKey' => env('BRAINTREE_PRIVATE_KEY')
         ]);
         
         $amount = $request->amount;
