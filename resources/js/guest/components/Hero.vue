@@ -26,7 +26,7 @@
             </div> -->
             <div class="hero_img ms_container-fluid">
                 <div class=" ms_col-6">
-                    <router-link :to="{ name: 'search', params: { slug: roma } }"><!--
+                    <router-link :to="{ name: 'search', params: { slug: 'roma' } }"><!--
                     --><img src="images/michele-bitetto-2y6ojwauKJI-unsplash.jpg" alt="Roma"><!--
                     --><div><h2 class="overlay">ROMA</h2></div> 
                     </router-link>
@@ -35,20 +35,20 @@
                 <div class=" right_container ms_col-6">
                     <div class=" half_container ms_row ">
                         <div class="ms_col-6">
-                            <router-link :to="{ name: 'search', params: { slug: milano } }">
+                            <router-link :to="{ name: 'search', params: { slug: 'milano' } }">
                                 <img src="images/ouael-ben-salah-0xe2FGo7Vc0-unsplash.jpg" alt="Milano">
                                 <h2 class="overlay">MILANO</h2>
                             </router-link>   
                         </div>
                         <div class="ms_col-6">
-                            <router-link :to="{ name: 'search', params: { slug: bologna } }">
+                            <router-link :to="{ name: 'search', params: { slug: 'bologna' } }">
                                 <img src="images/bogdan-dada-vXpcpTl2Tt4-unsplash.jpg" alt="Bologna">
                                 <h2 class="overlay">BOLOGNA</h2>
                             </router-link>   
                         </div>
                     </div>
                     <div class="ms_col-12 ms_row row_bottom ">
-                        <router-link :to="{ name: 'search', params: { slug: napoli } }">
+                        <router-link :to="{ name: 'search', params: { slug: 'napoli' } }">
                             <img src="images/danilo-d-agostino-NjhHTNPkEDQ-unsplash.jpg" alt="Napoli">
                             <h2 class="overlay">NAPOLI</h2>
                         </router-link>

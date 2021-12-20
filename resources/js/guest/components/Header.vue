@@ -2,9 +2,9 @@
     <header :class="[scrollPosition > 20 ? 'ms_bg_white' : '']">
         <div  class="header ms_container-fluid">
             <div class="left">
-                <a href="/">
+                <router-link :to="{ name: 'home' }">
                     <img :src="'/'+'images/logo_small.png'" alt="logo">
-                </a>
+                </router-link>
             </div>
             <nav class="right">
                 <ul>

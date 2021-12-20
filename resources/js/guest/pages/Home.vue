@@ -99,6 +99,8 @@ export default {
         
 
     mounted () {
+        window.scrollTo(0, 0);
+   
         axios.get(`http://localhost:8000/api/apartments/?page=${this.page}`)
         .then(response => {
             console.log(response);

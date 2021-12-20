@@ -5,6 +5,9 @@
                 <div class="links ms_col-12 ms_col-md-3">
                     <p>BoolBnb</p>
                     <ul>
+                        <li>
+                            <router-link :to="{ name: 'home' }">Home</router-link>
+                        </li>
                         <li v-for="(link,index) in menu1" :key="index"><a :href="link.url">{{link.text}}</a></li>
                     </ul>
                 </div>
@@ -33,10 +36,10 @@ export default {
         data(){
         return{
                 menu1:[
-                    {
-                        text:"Home",
-                        url:"/"
-                    },
+                    // {
+                    //     text:"Home",
+                    //     url:"/"
+                    // },
                     {
                         text:"Accedi",
                         url:"/login"
