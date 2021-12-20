@@ -53,7 +53,7 @@
         <div class="ms_row gallery">
             <div class="ms_col-12 ms_col-md-8">
                 <h3>Altre immagini</h3>
-                <div v-if="pics.lenght > 0" class="pics">
+                <div v-if="pics.length > 0" class="pics">
                     <img v-for="(element,index) in pics" :key="index" :src="`http://localhost:8000/storage/${element.url}`" alt="">
                 </div>
                 <div v-else>
@@ -65,7 +65,7 @@
         <div class="ms_row services">
             <div class="ms_col-12">
                 <h3>Servizi disponibili</h3>
-                <ul v-if="services.lenght > 0" class="service_list">
+                <ul v-if="services.length > 0" class="service_list">
                     <li v-for="(element,index) in services" :key="index">
                         <a href="#">{{element}}</a>
                     </li>
@@ -156,7 +156,10 @@ export default {
                 axios.get(`/api/pics/${this.$route.params.slug}`)
                 .then(response =>{
                     console.log(response.data.data);
-                    this.pics = response.data.data;
+                    for (const key in response.data.data) {
+                        this.pics.push(response.data.data[key])
+                    }
+                    // this.pics = response.data.data;
                 })
 
                 fetch('https://api.ipify.org?format=json')
