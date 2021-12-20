@@ -46,14 +46,29 @@
                 </ul>
             </div>
         </div>
+        <div class="ms_row gallery">
+            <div class="ms_col-12 ms_col-md-8">
+                <h3>Altre immagini</h3>
+                <div v-if="pics.lenght > 0" class="pics">
+                    <img v-for="(element,index) in pics" :key="index" :src="`http://localhost:8000/storage/${element.url}`" alt="">
+                </div>
+                <div v-else>
+                    Nella galleria non sono presenti immagini.
+                </div>
+            </div>
+            
+        </div>
         <div class="ms_row services">
             <div class="ms_col-12">
                 <h3>Servizi disponibili</h3>
-                <ul class="service_list">
+                <ul v-if="services.lenght > 0" class="service_list">
                     <li v-for="(element,index) in services" :key="index">
                         <a href="#">{{element}}</a>
                     </li>
                 </ul>
+                <div v-else>
+                    Nessun servizio associato a questo appartamento.
+                </div>
             </div>
         </div>
         <div class="ms_row description">
@@ -64,7 +79,16 @@
         </div>
         <div class="ms_row form">
             <div class="ms_col-12 ms_col-md-8">
-                
+                <h3>Scrivi a questo host</h3>
+                <form :action="`http://localhost:8000/messages/store/${apartment.id}`" method="POST">
+                    <input type="hidden" name="_token" :value="csrf">
+                    <input type="text" name="name" placeholder="Scrivi il tuo nome">
+                    <input type="email" name="email" :value="email != null ? email : ''" placeholder="Inserisci la tua mail" required>
+                    <textarea name="content" cols="30" rows="10" placeholder="Scrivi il messaggio" required></textarea>
+                    <div class="container-button">
+                        <button type="submit" class="ms_btn">Invia messaggio</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -151,7 +175,7 @@ export default {
 
     @import '../../../sass/front';
 
-    .title, .container, .features, .services, .description {
+    .title, .container, .features, .services, .description, .form, .gallery {
         padding: 10px;
     }
 
@@ -214,6 +238,7 @@ export default {
         li {
             display: inline;
             a { 
+                transition: 1s;
                 margin: 5px 0px;
                 display: inline-block;   
                 color: #ede7e3;
@@ -226,10 +251,80 @@ export default {
                 min-width:80px;
                 text-align: center;
                 &:hover {
-                    background-color: $mediumblue;
+                    background-color: $darker;
                 }
             }
         } 
+    }
+
+    .form {
+        input {
+            display: block;
+            width:100%;
+            margin: 25px 0;
+            padding:12px 15px;
+            border-radius: 20px;
+            border:none;
+            background-color:$beige;
+            font-family: 'Raleway', sans-serif;
+            font-size:15px;
+            &:focus {
+                outline: none;
+            }
+        }
+        textarea{
+            width:100%;
+            padding: 15px;
+            border-radius: 15px;
+            border:none;
+            background-color: $beige;
+            resize: none;
+            font-family: 'Raleway', sans-serif;
+            font-size:15px;
+            &:focus {
+                outline: none;
+            }
+        }  
+    }
+
+    .ms_btn{
+        transition: 1s;
+        margin: 30px 0 70px 0;
+        padding:12px 15px;
+        border-radius: 20px;
+        border: none;
+        background-color: $lightblue;
+        font-family: 'Raleway', sans-serif;
+        font-size: 15px;
+        color: white;
+        font-weight: 600;
+        &:hover{
+            box-shadow: 1px 1px 2px #0d424d81;
+            cursor : pointer;
+            background-color: $mediumblue;
+        }
+    }
+
+    .pics {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .pics img {
+        display: block;
+        margin: 5px;
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    @media screen and (max-width: 768px) {
+        .container-button {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
     }
 
 

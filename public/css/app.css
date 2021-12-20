@@ -10171,6 +10171,32 @@ h3 {
   font-size: 16px;
 }
 
+.container-gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.image-of-gallery {
+  display: block;
+  margin: 5px;
+}
+.image-of-gallery img {
+  display: block;
+  height: 60px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+.image-of-gallery form {
+  display: flex;
+  justify-content: center;
+}
+.image-of-gallery form button {
+  width: 100%;
+  font-size: 10px;
+}
+
 .user {
   background-color: #ede7e3;
 }

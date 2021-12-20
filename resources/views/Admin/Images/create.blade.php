@@ -12,7 +12,7 @@
     <form action="{{route("admin.images.store", $apartment->id)}}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
-            <label for="url" class="form-label">Immagini appartamento</label>
+            <label for="url" class="form-label">Inserisci un'immagine nella Galleria Immagini</label>
             <input type="file" name="url" class="form-control ms_pb_4 @error('url') is-invalid @enderror" id="url" value="{{old('url')}}">
             @error('url')
                 <div class="alert alert-danger">{{$message}}</div>
@@ -31,18 +31,22 @@
         </a>
     </form>
 
-    <div class="mb-3">
+    <p class="my-2">Galleria Immagini</p>
+    <div class="container-gallery">
             
+          
         @if ($apartment->images != [])
             @foreach ($apartment->images as $image)
-                <div class="image">
-                    <img width="100px" src="{{asset('./storage/' . $image->url)}}" alt="{{$apartment->title}}" class="mb-2 mt-2">
-                    <form action="{{route('admin.images.destroy', $image->id)}}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Cancella</button>
-                    </form>  
-                </div>                                            
+                
+                    <div class="image-of-gallery">
+                        <img width="100px" src="{{asset('./storage/' . $image->url)}}" alt="{{$apartment->title}}" class="mb-2 mt-2">
+                        <form action="{{route('admin.images.destroy', $image->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Cancella</button>
+                        </form>  
+                    </div>                 
+                          
             @endforeach
         @endif
     </div>
