@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use App\Service;
 use App\Message;
+use Mockery\Undefined;
+
 class ApartmentController extends Controller
 {
     /*validation rules*/
@@ -70,13 +72,12 @@ class ApartmentController extends Controller
         }
 
         $newApartment->fill($request->all());
-
         //chiamata guzzle
         $client = new Client([ 'base_uri' => 'https://api.tomtom.com/search/2/geocode/', 'timeout'  => 2.0, 'verify' => false]); 
         $response = $client->get($request->address.'.json?key=lXA4qKasPyxqJxup4ikKlTFOL3Z89cp4');
         $results = json_decode($response->getBody());
         $results = $results->results;
-
+        $this->checkLocation($results,$request);
         //assegnazione parametri ottenuti da guzzle
         isset($results[0]->address->streetNumber) ? $newApartment->number = $results[0]->address->streetNumber:$newApartment->number =0;
         //numero civico 0 significa indirizzo senza numero civico (SNC)
@@ -162,7 +163,7 @@ class ApartmentController extends Controller
         $response = $client->get($request->address.'.json?key=lXA4qKasPyxqJxup4ikKlTFOL3Z89cp4');
         $results = json_decode($response->getBody());
         $results = $results->results;
-        
+        $this->checkLocation($results,$request);
         //assegnazione parametri ottenuti da guzzle
         isset($results[0]->address->streetNumber) ? $apartment->number = $results[0]->address->streetNumber:$apartment->number =0;
         //numero civico 0 significa indirizzo senza numero civico (SNC)
@@ -224,6 +225,14 @@ class ApartmentController extends Controller
             }
         }
         return $array;
+    }
+    protected function checkLocation($results,$request){
+        if(!isset($results[0]->address->streetName)){
+            $request->merge([
+                'address' => '',
+            ]);
+            $request->validate($this->validationRules);
+        }
     }
 
     protected function checkLoggedUser($apartment){
