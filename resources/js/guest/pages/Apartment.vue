@@ -40,8 +40,8 @@
             <form :action="`http://localhost:8000/messages/store/${apartment.id}`" method="POST">
                 <input type="hidden" name="_token" :value="csrf">
                 <input type="text" name="name" placeholder="Scrivi il tuo nome">
-                <input type="email" name="email" :value="email != null ? email : ''" placeholder="Inserisci la tua mail">
-                <textarea name="content" cols="30" rows="10" placeholder="Scrivi il messaggio"></textarea>
+                <input type="email" name="email" :value="email != null ? email : ''" placeholder="Inserisci la tua mail" required>
+                <textarea name="content" cols="30" rows="10" placeholder="Scrivi il messaggio" required></textarea>
                 <button type="submit" class="ms_btn">Invia messaggio</button>
             </form>
         </div>

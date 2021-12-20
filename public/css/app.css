@@ -10111,6 +10111,9 @@ h3 {
   color: #489fb5;
   font-weight: 600;
 }
+.ms-btn_white .ms_a {
+  color: #489fb5;
+}
 .ms-btn_white:hover {
   color: #ede7e3;
   background-color: #ffa628;
@@ -10118,6 +10121,10 @@ h3 {
   cursor: pointer;
   transform: scale(1.02);
   font-weight: 600;
+}
+.ms-btn_white:hover .ms_a {
+  text-decoration: none;
+  color: #ede7e3;
 }
 
 .ms_a {
@@ -10170,4 +10177,9 @@ h3 {
 
 .ms_pb_4 {
   padding-bottom: 2.2rem !important;
+}
+
+.ms_invisible {
+  color: #cecece80;
+  background-color: #489fb5;
 }
