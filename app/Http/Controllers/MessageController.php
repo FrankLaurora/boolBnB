@@ -10,9 +10,9 @@ class MessageController extends Controller
 {
     /*validation rules*/
     protected $validationRules = [
-        'name' => 'nullable|string|max:50',
-        'guests_number' => 'required|email',
-        'bathrooms' => 'required|string|min:50|max:2000',
+        'name' => 'nullable|string',
+        'email' => 'required|email',
+        'content' => 'required|string',
     ];
 
     /**

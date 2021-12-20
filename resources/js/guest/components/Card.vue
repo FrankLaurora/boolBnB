@@ -2,7 +2,7 @@
 
     <div class="ms_col-11 ms_col-md-6 ms_col-lg-3">
         <router-link :to="{ name: 'apartment', params: { slug: apartment.slug } }">
-            <div class="card">
+            <div class="card" :class="apartment.premium ? 'highlighted' : ''">
                 <div v-if="apartment.cover" class="header">
                     <img :src="`http://localhost:8000/storage/${apartment.cover}`" alt="">
                 </div>
@@ -74,6 +74,7 @@ export default {
     }
 
     .card {
+        position: relative;
         background-color: #ede7e3;
         transition: 0.5s;
         overflow: hidden;
@@ -82,6 +83,16 @@ export default {
         margin: 5px;
         &:hover {
             transform: scale(1.025);
+        }
+
+        &.highlighted::after {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            content: '\f005';
+            font-weight: 900;
+            font-family: 'Font Awesome 6 free';
+            color: #ffa628;
         }
         .header {
             img {
@@ -95,7 +106,7 @@ export default {
         .body {
             padding: 10px;
             .title {
-                margin-bottom: 2px;
+                margin-block: 0.8rem;
                 color: black;
                 font-size: 14px;
                 text-transform: uppercase;
