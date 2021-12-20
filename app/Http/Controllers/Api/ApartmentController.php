@@ -57,17 +57,32 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        $response = Apartment::paginate(12);
+        $response = Apartment::all();
         $apartments=[];
-
-        foreach($response as $apartment){
+        $premiumIndex=0;
+        foreach($response as $index=>$apartment){
             $apartments[]=$this->completeApartment($apartment);
+            //ordering apartments based on premium
+            if($apartment->premium){
+                $temp=$apartments[$premiumIndex];
+                $apartments[$premiumIndex]=$apartment;
+                $apartments[$index]=$temp;
+                $premiumIndex++;
+            }
         }
-        return response()->json([
+        //paginate here
+        $items = Collection::make($apartments);
+        $page=null;
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        // The total number of items. If the `$items` has all the data, you can do something like this:
+        $total = count($response);
+        // How many items do you want to display.
+        $perPage = 12;
+        //pagination magic!
+        $paginator= new LengthAwarePaginator($items->forPage($page, $perPage), $total, $perPage, $page);
+        return response()->json([           
             'success' => true,
-            'currentPage'=>$response->currentPage(),
-            'lastPage'=>$response->lastPage(),
-            'data' => $apartments
+            'data' => $paginator
         ]);
     }
 
@@ -179,7 +194,8 @@ class ApartmentController extends Controller
         }
         //checking time of sponsorship for premium true/false
         $today=new DateTime('now');
-        foreach($response as $element){
+        $premiumIndex=0;
+        foreach($response as $index=>$element){
             $element->services=$servicesArray;
             $sponsorResponse = DB::table('sponsorships')
                 ->join('apartment_sponsorship', 'sponsorships.id', '=', 'apartment_sponsorship.sponsorship_id')
@@ -192,11 +208,15 @@ class ApartmentController extends Controller
                 $hoursdiff=($today->diff($subscription_date)->h)+($today->diff($subscription_date)->d)*24 + ($today->diff($subscription_date)->y)*365;
                 if($hoursdiff<=$sponsor->duration){
                     $element->premium=true;
+                    $temp=$response[$premiumIndex];
+                    $response[$premiumIndex]=$element;
+                    $response[$index]=$temp;
+                    $premiumIndex++;
                 }
             }
         }
         //paginate here
-        $items = $response instanceof Collection ? $response : Collection::make($response);
+        $items = Collection::make($response);
         $page=null;
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
         // The total number of items. If the `$items` has all the data, you can do something like this:
