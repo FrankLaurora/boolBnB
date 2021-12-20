@@ -148,7 +148,8 @@ export default {
                 .then(response =>{
                 console.log(response.data);
                 this.services = response.data.data;
-            })
+            });
+            window.scrollTo(0, 0);
         }
 }
 </script>

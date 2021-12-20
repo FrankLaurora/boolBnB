@@ -1,27 +1,29 @@
 <template>
-    <div class="ms_container">
-        <div class="search_bar">
-            <!-- <input list="addresses" name="search" v-model="search" @keyup="fetchResults(search)" @keyup.enter.prevent="fetchApartments(search)" placeholder="Cerca una città"> -->
-            <input list="addresses" name="search" v-model="search" @keyup="fetchResults(search)" @keyup.enter.prevent="$emit('advancedSearch', search)" placeholder="Dove vuoi andare?">
-            <!-- <button @click="fetchApartments(search)">Cerca</button> -->
-            <router-link :to="{ name: 'search', params: { slug: search } }">
-                <button class="ms_btn">Cerca <i class="far fa-paper-plane"></i></button>
-            </router-link>
-            <datalist id="addresses">
-                <option v-for="(element, index) in searchResults[0]" :key="index" :value="element.address.freeformAddress"></option>
-            </datalist>
-        </div>
-        
-        <Hero :sponsored="sponsored" />
-        <div class="ms_container container-cards">
-            <div class="ms_row ms_align-items-center">
-                <Card v-for="(apartment, index) in apartments" :key="index" :apartment="apartment"/>
+    <div>
+        <div class="ms_container">
+            <div class="search_bar">
+                <!-- <input list="addresses" name="search" v-model="search" @keyup="fetchResults(search)" @keyup.enter.prevent="fetchApartments(search)" placeholder="Cerca una città"> -->
+                <input list="addresses" name="search" v-model="search" @keyup="fetchResults(search)" @keyup.enter.prevent="$emit('advancedSearch', search)" placeholder="Dove vuoi andare?">
+                <!-- <button @click="fetchApartments(search)">Cerca</button> -->
+                <router-link :to="{ name: 'search', params: { slug: search } }">
+                    <button class="ms_btn">Cerca <i class="far fa-paper-plane"></i></button>
+                </router-link>
+                <datalist id="addresses">
+                    <option v-for="(element, index) in searchResults[0]" :key="index" :value="element.address.freeformAddress"></option>
+                </datalist>
             </div>
+        </div>  
+        <div class="ms_container-fluid" > 
+            <Hero :sponsored="sponsored" />
+            <div class="ms_container container-cards">
+                <div class="ms_row ms_align-items-center">
+                    <Card v-for="(apartment, index) in apartments" :key="index" :apartment="apartment"/>
+                </div>
+            </div>
+            <ul>
+                <li v-for="index in lastPage" :key="index" @click="getPage(index), changePage()">{{index}}</li>
+            </ul>
         </div>
-
-        <ul>
-            <li v-for="index in lastPage" :key="index" @click="getPage(index), changePage()">{{index}}</li>
-        </ul>
     </div>
 </template>
 

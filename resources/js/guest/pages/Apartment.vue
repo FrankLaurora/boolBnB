@@ -120,7 +120,7 @@ export default {
         if(window.Laravel.isLoggedin) {
         this.email = window.Laravel.user.email;
         };
-
+        window.scrollTo(0, 0);
     }
 }
 </script>

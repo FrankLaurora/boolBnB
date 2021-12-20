@@ -4,10 +4,10 @@
         <router-link :to="{ name: 'apartment', params: { slug: apartment.slug } }">
             <div class="card">
                 <div v-if="apartment.cover" class="header">
-                    <img :src="`./storage/${apartment.cover}`" alt="">
+                    <img :src="`http://localhost:8000/storage/${apartment.cover}`" alt="">
                 </div>
                 <div v-else class="header">
-                    <img src="../images/image_not_found.jpg" alt="">
+                    <img src="/images/image_not_found.jpg" alt="">
                 </div>
                 <div class="body">
                     <div class="title">
@@ -119,7 +119,7 @@ export default {
                 width: 50%;
                 font-size: 12px;
                 text-align: center;
-                padding: 10px;
+                padding: 10px 5px;
                 span {
                     color: black;
                     font-weight: bold;

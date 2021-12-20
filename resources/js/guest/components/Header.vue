@@ -105,7 +105,7 @@ header {
 
 .ms_bg_white {
     transition: 1s;
-    background-color: #82c0cc96;
+    background-color: #82c0cc;
     .right {
         .register_scrolled, .user_scrolled {
             transition: 1s;
