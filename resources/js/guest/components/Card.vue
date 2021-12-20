@@ -101,7 +101,11 @@ export default {
                 text-transform: uppercase;
                 font-weight: bold;
                 text-overflow: ellipsis;
-                min-height: 50px;
+                height: 50px;
+                overflow-y: auto;
+            }
+            .title::-webkit-scrollbar{
+                width: 0px;
             }
             .city {
                 font-size: 14px;

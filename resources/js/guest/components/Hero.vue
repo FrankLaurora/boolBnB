@@ -147,7 +147,7 @@ export default {
     }
 }
 .hero_img{
-    max-width:100vh;
+    max-width:100vw;
     overflow:hidden;
     height:31.25rem;
     display: flex;
@@ -157,6 +157,9 @@ export default {
         width:100%;
         height:31.25rem;
         position:relative;
+        a{
+            width: 100%;
+        }
         img{
             height:100%;
             width:110%;
