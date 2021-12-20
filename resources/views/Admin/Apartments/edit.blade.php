@@ -54,6 +54,16 @@
 
             {{-- input per l'indirizzo dell'appartamento --}}
             <div class="mb-3">
+                <label for="addressoptions" class="form-label"><h5> Indirizzo</h5></label>
+                <input list="addressoptions" type="text" name="address" class="ms_input pl-4 form-control @error('address') is-invalid @enderror" id="address" value="{{ old('address') ?? $apartment->address }}" placeholder="Es: Milano, corso como 10">
+                <datalist name="addressoptions" id="addressoptions" class="ml-4">
+                    <option>{{old('addressoption') ?? $apartment->address}}</option>
+                </datalist>
+                @error('address')
+                    <div class="alert alert-danger">{{$message}}</div>
+                @enderror
+            </div>
+            {{-- <div class="mb-3">
                 <label for="addressoptions" class="form-label"><h5>Indirizzo</h5></label>
                 <input type="search" name="addressoptions" class="ms_input pl-4 form-control @error('addressoptions') is-invalid @enderror" id="addressoptions" value="{{ old('addressoptions') ?? $apartment->address }}" placeholder="Es: Milano, corso como 10">
                 <select name="address" id="address" class="ml-4">
@@ -64,7 +74,7 @@
                 @error('address')
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
-            </div>
+            </div> --}}
             
             {{-- Old Cover --}}
             @if ($apartment->cover)
