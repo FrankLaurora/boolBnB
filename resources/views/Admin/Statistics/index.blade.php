@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    
     <script>
-        window.Laravel = {!!json_encode([
+        window.Apartment = {!!json_encode([
             'id' => $id
         ])!!}
     </script>

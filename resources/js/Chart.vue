@@ -83,13 +83,17 @@ export default {
     methods: {
         getAllViews() {
             let viewsData = [];
+            let mailData = [];
             console.log(viewsData);
-            axios.get(`/api/show/statistics/${window.Laravel.id}/${this.month}`)
+            axios.get(`/api/show/statistics/${window.Apartment.id}/${this.month}`)
                 .then(response => {
                     console.log(response);
-                    for (const key in response.data.data) {
-                        viewsData.push(response.data.data[key]);
-                    }
+                    for (const key in response.data.data.views) {
+                        viewsData.push(response.data.data.views[key]);
+                    };
+                    for (const key in response.data.data.messages) {
+                    mailData.push(response.data.data.messages[key]);
+                    };
                     console.log(viewsData);
                     const ctx = document.getElementById('views-chart');
                     window.chart.destroy();                        
@@ -99,8 +103,12 @@ export default {
                             lables.push(element.name);
                         });
                         let data = [];
+                        let mail = [];
                         viewsData.forEach(element => {
                             data.push(element.length);
+                        });
+                        mailData.forEach(element => {
+                            mail.push(element.length);
                         });
                         console.log(data);
                         window.chart = new Chart(ctx, {
@@ -109,12 +117,19 @@ export default {
                             labels: lables,
                             datasets: [
                                 {
-                                    label: 'Tutte',
+                                    label: 'Visualizzazioni',
                                     data: data,
                                     backgroundColor: "#ffa62880",
                                     borderColor: "#ffa628",
                                     borderWidth: 3
                                 },
+                                {
+                                label: 'Messaggi',
+                                data: mail,
+                                backgroundColor: "#16697a80",
+                                borderColor: "#16697a",
+                                borderWidth: 3
+                                }
                             ]
                         },
                         options: {
@@ -151,6 +166,13 @@ export default {
                                         borderColor: "#ffa628",
                                         borderWidth: 3
                                     },
+                                    {
+                                        label: `Messaggi di ${label}`,
+                                        data: [mailData[0].length, mailData[1].length, mailData[2].length, mailData[3].length],
+                                        backgroundColor: "#16697a80",
+                                        borderColor: "#16697a",
+                                        borderWidth: 3
+                                    }
                                 ]
                             },
                             options: {
@@ -177,14 +199,18 @@ export default {
     },
 
     mounted() {
-        let viewsData = []
-        axios.get(`/api/show/statistics/${window.Laravel.id}/all`)
+        let viewsData = [];
+        let mailData = [];
+        axios.get(`/api/show/statistics/${window.Apartment.id}/all`)
             .then(response => {
-                console.log(response);
-                for (const key in response.data.data) {
-                    viewsData.push(response.data.data[key]);
-                }
-                console.log(viewsData);
+                console.log(response.data.data.views);
+                for (const key in response.data.data.views) {
+                    viewsData.push(response.data.data.views[key]);
+                };
+                for (const key in response.data.data.messages) {
+                    mailData.push(response.data.data.messages[key]);
+                };
+                console.log(mailData);
                 const ctx = document.getElementById('views-chart');
                 ctx.innerHTML = '';
                 let lables = [];
@@ -192,8 +218,12 @@ export default {
                     lables.push(element.name);
                 });
                 let data = [];
+                let mail = [];
                 viewsData.forEach(element => {
                     data.push(element.length);
+                });
+                mailData.forEach(element => {
+                    mail.push(element.length);
                 });
                 console.log(data);                        
                 window.chart = new Chart(ctx, {
@@ -202,12 +232,19 @@ export default {
                         labels: lables,
                         datasets: [
                             {
-                                label: 'Tutte',
+                                label: 'Visualizzazioni',
                                 data: data,
                                 backgroundColor: "#ffa62880",
                                 borderColor: "#ffa628",
                                 borderWidth: 3
                             },
+                            {
+                                label: 'Messaggi',
+                                data: mail,
+                                backgroundColor: "#16697a80",
+                                borderColor: "#16697a",
+                                borderWidth: 3
+                            }
                         ]
                     },
                     options: {
