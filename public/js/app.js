@@ -37351,9 +37351,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 __webpack_require__(/*! C:\MAMP\htdocs\php\boolBnB\resources\js\app.js */"./resources/js/app.js");
 __webpack_require__(/*! C:\MAMP\htdocs\php\boolBnB\resources\sass\app.scss */"./resources/sass/app.scss");
 module.exports = __webpack_require__(/*! C:\MAMP\htdocs\php\boolBnB\resources\sass\front.scss */"./resources/sass/front.scss");
+=======
+__webpack_require__(/*! C:\Users\User\wa\boolean\progetto_finale\boolBnB\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\Users\User\wa\boolean\progetto_finale\boolBnB\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! C:\Users\User\wa\boolean\progetto_finale\boolBnB\resources\sass\front.scss */"./resources/sass/front.scss");
+>>>>>>> leonardo
 
 
 /***/ })

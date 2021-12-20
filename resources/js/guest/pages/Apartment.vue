@@ -1,51 +1,97 @@
 <template>
     <div class="ms_container">
-        <h2>{{apartment.title}}</h2>
-        <div class="address"> <span> <strong> {{apartment.city}} </strong></span>   {{apartment.address}} {{apartment.number}}</div> 
-        <div class="row_map">
-            <div  class="coverimg" >
-                <img :src="`http://localhost:8000/storage/${apartment.cover}`" alt="">
+        <div class="ms_row title">
+            <div class="ms_col-12">
+                <h2>{{apartment.title}}</h2>
+                <div class="city">
+                    {{apartment.city}}
+                </div>
+                <div class="address">
+                    {{apartment.address}} {{apartment.number}}
+                </div> 
             </div>
-            <div class="ms_map_container">
-                <div id="map" style="width: 100%; height: 100%;"></div>
+        </div>
+        <div class="ms_row">
+            <div class="ms_col-12 ms_col-md-8">
+                <div class="container">
+                    <img class="img" :src="`http://localhost:8000/storage/${apartment.cover}`" alt="">
+                </div>
+            </div>
+            <div class="ms_col-12 ms_col-md-4">
+                <div class="container">
+                    <div id="map"></div>              
+                </div>
             </div>
         </div>
-        
-        <div class="other_img">
-            <ul class="pics">
-                <li v-for="(element,index) in pics" :key="index">
-                    <img :src="`http://localhost:8000/storage/${element.url}`" alt="">
-                </li>
-            </ul>
+        <div class="ms_row features">
+            <div class="ms_col-12">
+                <h3>Dettagli dell'appartamento</h3>
+                <ul>
+                    <li>
+                        <span>Numero di stanze: {{apartment.rooms}}</span>
+                        <i class="fas fa-campground"></i>
+                    </li>
+                    <li>
+                        <span>Ospiti: {{apartment.guests_number}}</span>
+                        <i class="fas fa-user-astronaut"></i>
+                    </li>
+                    <li>
+                        <span>Numero di bagni: {{apartment.bathrooms}}</span>
+                        <i class="fas fa-sink"></i>
+                    </li>
+                    <li>
+                        <span>Mq: {{apartment.sqm}}</span>
+                        <i class="fas fa-ruler"></i>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="features">
-            <h3>Dettagli dell'appartamento</h3>
-                <span>  Numero di stanze: {{apartment.rooms}} <i class="fas fa-campground"></i> </span>
-                <span>  Ospiti: {{apartment.guests_number}}  <i class="fas fa-user-astronaut"></i> </span>
-                <span>  Numero di bagni: {{apartment.bathrooms}} <i class="fas fa-sink"></i> </span>
-                <span>  Mq: {{apartment.sqm}}  <i class="fas fa-ruler"></i></span>
+        <div class="ms_row gallery">
+            <div class="ms_col-12 ms_col-md-8">
+                <h3>Altre immagini</h3>
+                <div v-if="pics.lenght > 0" class="pics">
+                    <img v-for="(element,index) in pics" :key="index" :src="`http://localhost:8000/storage/${element.url}`" alt="">
+                </div>
+                <div v-else>
+                    Nella galleria non sono presenti immagini.
+                </div>
+            </div>
+            
         </div>
-        <div class="services" >
-            <h3>Servizi disponibili</h3>
-            <ul class="service_list">
-                <li v-for="(element,index) in services" :key="index">{{element}}</li>
-            </ul>
+        <div class="ms_row services">
+            <div class="ms_col-12">
+                <h3>Servizi disponibili</h3>
+                <ul v-if="services.lenght > 0" class="service_list">
+                    <li v-for="(element,index) in services" :key="index">
+                        <a href="#">{{element}}</a>
+                    </li>
+                </ul>
+                <div v-else>
+                    Nessun servizio associato a questo appartamento.
+                </div>
+            </div>
         </div>
-        <div class="description">
-            {{apartment.description}}
+        <div class="ms_row description">
+            <div class="ms_col-12 ms_col-md-8">
+                <h3>Descrizione</h3>
+                {{apartment.description}}
+            </div>
         </div>
-        
-        <div class="message">
-            <h3>Scrivi a questo host</h3>
-            <form :action="`http://localhost:8000/messages/store/${apartment.id}`" method="POST">
-                <input type="hidden" name="_token" :value="csrf">
-                <input type="text" name="name" placeholder="Scrivi il tuo nome">
-                <input type="email" name="email" :value="email != null ? email : ''" placeholder="Inserisci la tua mail" required>
-                <textarea name="content" cols="30" rows="10" placeholder="Scrivi il messaggio" required></textarea>
-                <button type="submit" class="ms_btn">Invia messaggio</button>
-            </form>
+        <div class="ms_row form">
+            <div class="ms_col-12 ms_col-md-8">
+                <h3>Scrivi a questo host</h3>
+                <form :action="`http://localhost:8000/messages/store/${apartment.id}`" method="POST">
+                    <input type="hidden" name="_token" :value="csrf">
+                    <input type="text" name="name" placeholder="Scrivi il tuo nome">
+                    <input type="email" name="email" :value="email != null ? email : ''" placeholder="Inserisci la tua mail" required>
+                    <textarea name="content" cols="30" rows="10" placeholder="Scrivi il messaggio" required></textarea>
+                    <div class="container-button">
+                        <button type="submit" class="ms_btn">Invia messaggio</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>    
+    </div>
 </template> 
 
 <script>
@@ -127,117 +173,95 @@ export default {
 
 <style lang="scss" scoped>
 
-@import '../../../sass/guest/common';
-.ms_container{
-    margin-top:30px;    
-    margin:0 auto;
-    
+    @import '../../../sass/front';
+
+    .title, .container, .features, .services, .description, .form, .gallery {
+        padding: 10px;
+    }
+
     h2{
         padding: 15px 0;
-        text-transform: capitalize;
         font-size: 30px;
-        text-shadow:-2px 2px $darker;
+        text-shadow:-2px 2px #113950;
         font-family: 'Poppins', sans-serif; 
-        
     }
+
+    .city, .address {
+        text-transform: capitalize;
+        font-size:18px;
+    }
+    
+    .city{
+        font-weight: bold;
+        color:$orange;
+    }
+    
+    .address{
+        color:$lightblue;
+    }
+
+    .img {
+        display: block;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .img, #map {
+        border-radius: 7px;
+        width: 100%;
+        height: 350px;
+    }
+
     h3{
         color:$orange;
         font-size:20px;
+        margin-bottom: 15px;
     }
-    .address{
-        text-transform: capitalize;
-        color:$lightblue;
-        font-size:18px;
-        span{
-            color:$orange;
-            margin-right:10px;
-            font-size:19px;
-        }
-    }
-    .row_map{
-        display:flex;
-        
-    }
-    .ms_map_container {
-        width: 440px;
-        height: 450px;
-        margin: 1.8rem;
-        overflow:hidden;
-        #map{
-            border-radius: 7px;
-        }
-    }
-    .coverimg{
-        width: 70vw;
-        height: 45vw;
-        max-width: 700px;
-        max-height: 450px;
-        border-radius: 7px;
-        overflow: hidden;
-        margin-block: 1.8rem;
-            img{
-                width:100%;
-                height: 100%;
-                object-fit: cover;    
-            }
-    }
-    .other_img{
-        width:70%;
-        min-height: 120px;
-        overflow-x: auto;
-        .pics{
-            display: flex;
-            list-style: none;
-            img{
-                height:120px;
-                margin-right: 20px;
-                border-radius: 7px;
-                // &:hover{
-                    
-                // }
-            }
-        }
-    }
+
     .features{
-        margin:28px 0 40px 0;
-        span{
-            padding-right:15px;
-            font-size: 17px;
-            font-weight:500;
-            .fas{
+        margin-top: 10px;
+        ul {
+            list-style: none;
+            span {
+                font-size: 18px;
+                font-weight:500;
+            }
+            .fas {
+                margin-left: 5px;
                 color:$lightblue;
             }
         }
-        h3{
-            margin-bottom: 20px;
-        }
     }
-    .service_list{
-        display: flex;
+
+    .service_list {
         list-style: none;
-        margin:20px 0;
-        li{
-            margin-right: 10px;
-            background-color: $mediumblue;
-            color:$beige;
-            padding:7px 12px;
-            border-radius:15px;
-            font-weight:500;
-            min-width:80px;
-            text-align: center;
-        }
+        li {
+            display: inline;
+            a { 
+                transition: 1s;
+                margin: 5px 0px;
+                display: inline-block;   
+                color: #ede7e3;
+                font-weight:500;
+                margin-right: 10px;
+                background-color: $mediumblue;
+                color:$beige;
+                padding:7px 12px;
+                border-radius:15px;
+                min-width:80px;
+                text-align: center;
+                &:hover {
+                    background-color: $darker;
+                }
+            }
+        } 
     }
-    .description{
-            margin: 45px 0;
-            width:70%;   
-        }
-    .message{
-        width:650px;
-        margin:45px 0;
-        input{
+
+    .form {
+        input {
+            display: block;
             width:100%;
             margin: 25px 0;
-            display:block;
             padding:12px 15px;
             border-radius: 20px;
             border:none;
@@ -260,9 +284,11 @@ export default {
             &:focus {
                 outline: none;
             }
-        }
+        }  
     }
+
     .ms_btn{
+        transition: 1s;
         margin: 30px 0 70px 0;
         padding:12px 15px;
         border-radius: 20px;
@@ -270,15 +296,37 @@ export default {
         background-color: $lightblue;
         font-family: 'Raleway', sans-serif;
         font-size: 15px;
-        color: #0d4f75;
+        color: white;
         font-weight: 600;
         &:hover{
             box-shadow: 1px 1px 2px #0d424d81;
             cursor : pointer;
             background-color: $mediumblue;
-            color:$beige;
         }
     }
-   
-}
+
+    .pics {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .pics img {
+        display: block;
+        margin: 5px;
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    @media screen and (max-width: 768px) {
+        .container-button {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+
+
 </style>
