@@ -2,7 +2,7 @@
     <div class="ms_container">
         <div v-if="message != null" class="ms_message">
             {{message}}
-            <span @click="close()">X</span>
+            <span @click="close()">x</span>
         </div>
         <div class="ms_row title">
             <div class="ms_col-12">
@@ -181,6 +181,9 @@ export default {
 
         if(window.Redirect){
             this.message = window.Redirect.success;
+            console.log(window.Redirect.success);
+            window.Redirect.success = null;
+            console.log(window.Redirect.success)
         }
     },
 }

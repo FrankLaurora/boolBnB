@@ -10,7 +10,13 @@
         <title>BoolBNB</title>
     </head>
     <body>
-        @if ($message = Session::get('success'))
+        @php            
+            if (Session::get('success') != null ){
+                $message = Session::get('success');
+            }
+        @endphp
+
+        @if (Session::get('success') != null )
             <script>
                 window.Redirect = {!!json_encode([
                 'success' => $message
