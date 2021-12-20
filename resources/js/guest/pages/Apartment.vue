@@ -1,5 +1,9 @@
 <template>
     <div class="ms_container">
+        <div v-if="message != null" class="ms_message">
+            {{message}}
+            <span @click="close()">X</span>
+        </div>
         <h2>{{apartment.title}}</h2>
         <div class="address"> <span> <strong> {{apartment.city}} </strong></span>   {{apartment.address}} {{apartment.number}}</div> 
         <div class="row_map">
@@ -64,8 +68,15 @@ export default {
             map: null,
             marker: null,
             email: null,
-            csrf: document.querySelector('meta[name="csrf-token"]').content
+            csrf: document.querySelector('meta[name="csrf-token"]').content,
+            message: null
 		}
+    },
+
+    methods: {
+        close() {
+            this.message = null
+        }
     },
 
     mounted(){
@@ -121,7 +132,11 @@ export default {
         this.email = window.Laravel.user.email;
         };
         window.scrollTo(0, 0);
-    }
+
+        if(window.Redirect){
+            this.message = window.Redirect.success;
+        }
+    },
 }
 </script>
 
@@ -280,5 +295,24 @@ export default {
         }
     }
    
+   .ms_message {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 1.5rem;
+        background-color: $beige;
+        border: 2px solid rgb(133, 216, 145);
+        border-radius: 0.5rem;
+        color: #0d4f75;
+        font-weight: bold;
+
+        span {
+            font-size: 1.3rem;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+   }
 }
 </style>

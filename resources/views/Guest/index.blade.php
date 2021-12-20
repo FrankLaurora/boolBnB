@@ -10,6 +10,14 @@
         <title>BoolBNB</title>
     </head>
     <body>
+        @if ($message = Session::get('success'))
+            <script>
+                window.Redirect = {!!json_encode([
+                'success' => $message
+            ])!!}
+            </script>
+        @endif
+        
         @if (Auth::check())
             <script>
                 window.Laravel = {!!json_encode([

@@ -51,7 +51,7 @@ class MessageController extends Controller
         $newMessage->apartment_id = $id;
         $newMessage->save();
 
-        return redirect()->route("guest", ['any' => 'apartment/' . $slug] );
+        return redirect()->route("guest", ['any' => 'apartment/' . $slug] )->with('success', 'Messaggio inviato.');
     }
 
     /**

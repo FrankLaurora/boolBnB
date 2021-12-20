@@ -185,6 +185,8 @@ export default {
                 to { opacity: 1; }
         }
     }
+
+
     .right_container{
         display:flex;
         width:100%;
@@ -227,7 +229,7 @@ export default {
                 }
         }
         .ms_row{
-                height:50%;
+            height:50%;
                 position:relative;
                 img{
                     display:block;
