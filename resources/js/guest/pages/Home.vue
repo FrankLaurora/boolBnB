@@ -87,7 +87,7 @@ export default {
         changePage() {
                 axios.get(`http://localhost:8000/api/apartments/?page=${this.page}`)
             .then(response => {
-                this.apartments = response.data.data;
+                this.apartments = response.data.data.data;
             })
             .catch(error => {
                 console.log(error)
@@ -99,8 +99,9 @@ export default {
     mounted () {
         axios.get(`http://localhost:8000/api/apartments/?page=${this.page}`)
         .then(response => {
-            this.lastPage = response.data.lastPage;
-            this.apartments = response.data.data;
+            console.log(response);
+            this.lastPage = response.data.data.last_page;
+            this.apartments = response.data.data.data;
             for (let index = 6; index < 9; index++) {
                 this.sponsored.push(this.apartments[index])
             }
