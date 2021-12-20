@@ -108,11 +108,11 @@
             
 
             {{-- immagini aggiuntive --}}
-            <a href="{{route('admin.images.create', $apartment->id)}}">
-                <button type="button " class="btn ms-btn_white mb-4">
+            <button type="button " class="btn ms-btn_white mb-4">
+                    <a class="ms_a" href="{{route('admin.images.create', $apartment->id)}}">
                     Aggiungi altre immagini
-                </button>
-            </a>
+                    </a>
+            </button>
 
 
             {{-- input toogle per la visibilità --}}
