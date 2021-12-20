@@ -59,11 +59,31 @@
     </div>
       <h3 class="pb-2 col-12 ms_orange">Sponsorizza</h3>
       <div class="pb-5 col-12">
-        @foreach ($sponsorships as $sponsorship)
-          <a href="{{route('admin.sponsorships', ['apartment_id'=> $apartment->id, 'sponsorship_id' => $sponsorship->id])}}">
-            <button type="button" class="btn ms-btn_light mr-2">{{$sponsorship->title}}</button>
-          </a>
-        @endforeach
+
+        @php
+          $today=new DateTime('now');
+          $apartment->premium=false;
+          foreach ($apartment->sponsorships as $check){
+            if ($check->pivot->apartment_id == $apartment->id){
+              $starting_date = new DateTime($check->pivot->created_at);
+              $expiration_date = date_add($starting_date, date_interval_create_from_date_string(strval($check->duration) . ' hours'));
+              if($expiration_date > $today){
+                $apartment->premium = true;
+              }
+            }
+          }
+        @endphp
+
+        @if ($apartment->premium)
+          <h4>Questo appartamento ha già una sponsorizzazione attiva.</h4>
+        @else    
+          @foreach ($sponsorships as $sponsorship)
+            <a href="{{route('admin.sponsorships', ['apartment_id'=> $apartment->id, 'sponsorship_id' => $sponsorship->id])}}">
+              <button type="button" class="btn ms-btn_light mr-2">{{$sponsorship->title}}</button>
+            </a>
+          @endforeach
+        @endif
+
         {{-- <button type="button" class="btn btn-warning">Gold</button>
         <button type="button" class="btn btn-light">Platinum</button> --}}
       </div>
