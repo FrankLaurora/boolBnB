@@ -55,7 +55,8 @@ export default {
 //   }
 
  mounted() {
-     console.log(this.apartment)
+     console.log(this.apartment);
+     window.scrollTo(0, 0);
  }
 }
 </script>

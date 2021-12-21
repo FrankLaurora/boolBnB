@@ -205,6 +205,7 @@ export default {
         font-size: 30px;
         text-shadow:-2px 2px #113950;
         font-family: 'Poppins', sans-serif; 
+        text-transform: capitalize;
     }
 
     .city, .address {
@@ -346,8 +347,8 @@ export default {
         align-items: center;
         padding: 0.5rem 1.5rem;
         background-color: $beige;
-        border: 2px solid rgb(133, 216, 145);
-        border-radius: 0.5rem;
+        border: 2px solid $lightblue;
+        border-radius: 1.3rem;
         color: #0d4f75;
         font-weight: bold;
 

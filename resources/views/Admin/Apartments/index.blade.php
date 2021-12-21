@@ -31,26 +31,22 @@
                     <th scope="col">Cosa vuoi fare?</th>
                 </tr>
             </thead>
+            @if (count($apartments) > 0)
             <tbody class="mt-3 ">
                 @foreach ($apartments as $apartment)
                     @if ($apartment->visibility == 0)
                     <tr class="ms_fontweight ms_invisible">
-                        
                     @else
-
                     <tr class="ms_fontweight">
-                        
                     @endif
                         <td>{{$apartment->id}}</td>
                         <td>{{$apartment->title}}</td>
                         <td class="capitalize">{{$apartment->address}}</td>
                         <td>{{$apartment->number}}</td>
                         <td>
-                            
                                 <button type="button" class="btn ms-btn_white">
                                     <a class="ms_a" href="{{route("admin.apartments.update", $apartment['id'])}}">Visualizza</a>
                                 </button>
-                            
                             <a href="{{route("admin.apartments.edit",$apartment['id'])}}">
                                 <button type="button" class="btn ms-btn_light">Modifica</button>
                             </a>
@@ -58,6 +54,14 @@
                     </tr>
                 @endforeach
             </tbody>
+        @else
+        <tbody>
+            <tr>
+              <td class="ms_fontweight ms_lightblue pt-5">Pubblica il tuo primo annuncio!</td>
+            </tr>
+          </tbody>
+        @endif
         </table>
+    
     </div>  
 @endsection
