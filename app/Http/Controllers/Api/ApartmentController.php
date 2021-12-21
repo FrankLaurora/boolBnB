@@ -215,15 +215,15 @@ class ApartmentController extends Controller
                 }
             }
         }
-        foreach($response as $index=>$element){            
-            if(!$element->premium){
-                $min=$this->calcHypotenuse($lat,$lon,$element->latitude,$element->longitude);
-                for($t=$index+1 ; $t<count($response)-1 ; $t++){
+        for($index=0;$index<count($response)-1;$index++){   
+            if(!$response[$index]->premium){
+                $min=$this->calcHypotenuse($lat,$lon,$response[$index]->latitude,$response[$index]->longitude);
+                for($t=$index+1 ; $t<count($response); $t++){
                     $elementMin=$this->calcHypotenuse($lat,$lon,$response[$t]->latitude,$response[$t]->longitude);
                     if($elementMin<$min){
                         $min=$elementMin;
-                        $temp=$element;
-                        $element=$response[$t];
+                        $temp=$response[$index];
+                        $response[$index]=$response[$t];
                         $response[$t]=$temp;
                     }
                 }
