@@ -31,6 +31,9 @@
             <div v-else class="ms_row ms_align-items-center">
                 <Card v-for="(apartment, index) in apartments" :key="index" :apartment="apartment"/>
             </div>
+            <ul>
+                <li v-for="index in lastPage" :key="index" @click="getPage(index), changePage()">{{index}}</li>
+            </ul>
         </div>
     </div>
 </template>
@@ -64,7 +67,8 @@ export default {
                 lon: null
             },
             serviceFilter : [],
-            noResults : false
+            noResults : false,
+            page: 1
         }
     },
 
@@ -97,7 +101,8 @@ export default {
                             if(this.apartments.length < 1){
                                 this.noResults = true;
                             }
-                            this.lastPage = response.data.lastPage;
+                            this.lastPage = response.data.data.last_page;
+                            console.log('prova 3', response.data.data)
                         })
                         .catch(error => {
                             console.log(error)
@@ -114,7 +119,8 @@ export default {
                     if(this.apartments.length < 1){
                         this.noResults = true;
                     }
-                    this.lastPage = response.data.lastPage;
+                    
+                    this.lastPage = response.data.data.last_page;
                 })
                 .catch(error => {
                     console.log(error)
@@ -133,6 +139,52 @@ export default {
 
         serviceToString(array) {
             array.join('-')
+        },
+
+        getPage(index) {
+            this.page = index;
+        },
+
+        changePage() {
+            if(this.search!=this.lastSearch&&this.search!=""){
+                setTimeout(() => {
+                    this.lastSearch=this.search;
+                    fetch('https://api.tomtom.com/search/2/geocode/'+ this.$route.params.slug +'.json?key=jXiFCoqvlFBNjmqBX4SuU1ehhUX1JF7t&language=it-IT')
+                    .then(response => response.json())
+                    .then(data=>{
+                        this.geo.lat=data.results[0].position.lat;
+                        this.geo.lon=data.results[0].position.lon;
+                        axios.get(`http://localhost:8000/api/apartments/search/&lat=${this.geo.lat}&lon=${this.geo.lon}&dist=25`)
+                        .then(response => {
+                            this.apartments = [];
+                            this.apartments = response.data.data.data;
+                            this.noResults = false;
+                            if(this.apartments.length < 1){
+                                this.noResults = true;
+                            }
+                            console.log('prova 2', response.data.data)
+                            this.lastPage = response.data.data.last_page;
+                        })
+                        .catch(error => {
+                            console.log(error)
+                        })
+                    });
+                }, 100);
+            }
+            let servicesId = this.serviceFilter.join('-');
+            axios.get(`http://localhost:8000/api/apartments/search/&lat=${this.geo.lat}&lon=${this.geo.lon}${this.distance ? '&dist=' + this.distance : ''}${this.rooms ? '&rooms=' + this.rooms : ''}${this.guests ? '&guests=' + this.guests : ''}${servicesId != "" ? '&services=' + servicesId : ''}/?page=${this.page}`)
+                .then(response => {
+                    this.apartments = [];
+                    this.apartments = response.data.data.data;
+                    this.noResults = false;
+                    if(this.apartments.length < 1){
+                        this.noResults = true;
+                    }
+                    this.lastPage = response.data.data.last_page;
+                })
+                .catch(error => {
+                    console.log(error)
+                })
         }
     },
 
@@ -150,7 +202,8 @@ export default {
                     if(this.apartments.length < 1){
                         this.noResults = true;
                     }
-                    this.lastPage = response.data.lastPage;
+                    this.lastPage = response.data.data.last_page;
+                    console.log('prova', response.data);
                 })
                 .catch(error => {
                     console.log(error)
@@ -240,6 +293,23 @@ export default {
 .container-cards {
         margin-top:30px;
         padding: 25px 0px 0px 0px;
+
+        ul {
+            display: flex;
+            list-style: none;
+            width: 25%;
+            margin: 1.5rem auto;
+            justify-content: center;
+
+            li {
+                font-size: 1rem;
+                padding: 0.8rem;
+                &:hover {
+                    cursor: pointer;
+                    transform: scale(1.2);
+                }
+            }
+        }
     }
 
 .ms_btn_advance{

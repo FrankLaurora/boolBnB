@@ -99,6 +99,7 @@ export default {
     padding: 50px 0px;
     color: white;
     text-align: center;
+    margin-top: 4rem;
     .links, .info, .social {
         margin: 10px 0px;
     }

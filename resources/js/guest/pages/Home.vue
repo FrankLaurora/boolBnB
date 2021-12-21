@@ -163,7 +163,6 @@ ul {
     li {
         font-size: 1rem;
         padding: 0.8rem;
-        margin-bottom:5rem;
         &:hover {
             cursor: pointer;
             transform: scale(1.2);
