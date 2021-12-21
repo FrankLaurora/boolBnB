@@ -8,10 +8,12 @@
                     <form method="post" id="payment-form" action="{{route("admin.sponsorships.process", ['apartment_id'=> $apartment->id, 'sponsorship_id' => $sponsorship->id])}}">
                         @csrf
                         <section>
+                            <h2>{{$sponsorship->title}}</h2>
+                            <h4 class="ms_lightblue">Durata: {{$sponsorship->duration}} ore dalla ricezione del pagamento</h4>
                             <label for="amount">
-                              <span class="input-label">Amount</span>
+                              <span class="input-label ms_lightblue">Amount</span>
                             </label>
-                            <div class="input-wrapper amount-wrapper">
+                            <div class="input-wrapper amount-wrapper mb-4">
                                 <input id="amount" name="amount" type="tel" min="1" placeholder="Amount" value="{{$sponsorship->price}}" readonly>
                             </div>
 
@@ -21,7 +23,7 @@
                         </section>
 
                         <input id="nonce" name="payment_method_nonce" type="hidden" />
-                        <button class="button" type="submit"><span>Test Transaction</span></button>
+                        <button class="ms-button mt-4 button" type="submit"><span>Test Transaction</span></button>
                     </form>
                 </div>
             </div>
