@@ -32,20 +32,20 @@
                 <h3>Dettagli dell'appartamento</h3>
                 <ul>
                     <li>
-                        <span>Numero di stanze: {{apartment.rooms}}</span>
                         <i class="fas fa-campground"></i>
+                        <span>Numero di stanze: <h4> {{apartment.rooms}}</h4></span>
                     </li>
                     <li>
-                        <span>Ospiti: {{apartment.guests_number}}</span>
                         <i class="fas fa-user-astronaut"></i>
+                        <span>Ospiti: <h4> {{apartment.guests_number}}</h4></span>
                     </li>
                     <li>
-                        <span>Numero di bagni: {{apartment.bathrooms}}</span>
                         <i class="fas fa-sink"></i>
+                        <span>Numero di bagni: <h4> {{apartment.bathrooms}}</h4></span>
                     </li>
                     <li>
-                        <span>Mq: {{apartment.sqm}}</span>
                         <i class="fas fa-ruler"></i>
+                        <span>Mq: <h4> {{apartment.sqm}}</h4></span>
                     </li>
                 </ul>
             </div>
@@ -197,7 +197,7 @@ export default {
     @import '../../../sass/front';
 
     .title, .container, .features, .services, .description, .form, .gallery {
-        padding: 10px;
+        padding: 20px ;
     }
 
     h2{
@@ -215,10 +215,13 @@ export default {
     .city{
         font-weight: bold;
         color:$orange;
+        font-size:21px;
+        margin-top:15px;
     }
     
     .address{
         color:$lightblue;
+        margin-top:8px;
     }
 
     .img {
@@ -230,26 +233,37 @@ export default {
     .img, #map {
         border-radius: 7px;
         width: 100%;
-        height: 350px;
+        height: 400px;
     }
 
     h3{
         color:$orange;
         font-size:20px;
-        margin-bottom: 15px;
+        margin-bottom: 18px;
     }
 
     .features{
         margin-top: 10px;
         ul {
             list-style: none;
+            li{
+                margin:8px 0;
+            }
             span {
-                font-size: 18px;
+                font-size: 17px;
                 font-weight:500;
+                
+                h4{
+                    display:inline;
+                    margin-left:4px;
+                    color:$beige;
+                    text-shadow:-1px 2px $darker;
+                }
             }
             .fas {
-                margin-left: 5px;
+                margin-right: 9px;
                 color:$lightblue;
+                font-size:18px;
             }
         }
     }
@@ -356,10 +370,11 @@ export default {
     .pics img {
         display: block;
         margin: 5px;
-        width: 100px;
+        width: 150px;
         height: 100px;
         object-fit: cover;
         object-position: center;
+        border-radius:5px;
     }
 
     @media screen and (max-width: 768px) {
