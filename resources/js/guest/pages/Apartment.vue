@@ -6,7 +6,7 @@
         </div>
         <div class="ms_row title">
             <div class="ms_col-12">
-                <h2>{{apartment.title}}</h2>
+                <h2>{{apartment.title}} </h2>
                 <div class="city">
                     {{apartment.city}}
                 </div>

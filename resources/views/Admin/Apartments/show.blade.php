@@ -17,7 +17,7 @@
           </div>
       @endif  
       <h2 class="pb-3 col-12">Il tuo appartamento</h2> 
-      <h3 class="col-12 ms_orange">"{{$apartment->title}}"</h3>
+      <h3 class="col-12 ms_orange">" {{$apartment->title}} "</h3>
       <div class="col-12">
         <a href="{{route('admin.statistics', $apartment->id)}}">
             <button type="button" class="btn ms-button ">
@@ -101,17 +101,17 @@
           <tbody>
             @foreach ($messages->reverse() as $message)    
             <tr>
-              <td class="ms_fontweight">{{$message->name}}</td>
-              <td class="ms_fontweight">{{$message->email}}</td>
-              <td class="ms_fontweight">{{$message->content}}</td>
-              <td class="ms_fontweight">{{$message->created_at}}</td>
+              <td class="ms_fontweight ms_lightblue">{{$message->name}}</td>
+              <td class="ms_fontweight ms_lightblue">{{$message->email}}</td>
+              <td class="ms_fontweight ms_lightblue">{{$message->content}}</td>
+              <td class="ms_fontweight ms_lightblue">{{$message->created_at}}</td>
             </tr>
             @endforeach
           </tbody>
           @else
           <tbody>
             <tr>
-              <td class="ms_fontweight">Non hai ricevuto messaggi per questo appartamento.</td>
+              <td class="ms_fontweight ms_lightblue">Non hai ricevuto messaggi per questo appartamento.</td>
             </tr>
           </tbody>
         @endif
