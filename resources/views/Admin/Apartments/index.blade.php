@@ -57,7 +57,7 @@
         @else
         <tbody>
             <tr>
-              <td class="ms_fontweight ms_lightblue pt-5">Pubblica il tuo primo annuncio!</td>
+              <td class="pt-5"><a  class="ms_a ms_orange" href="{{route("admin.apartments.create")}}"><h3 class=""> Pubblica il tuo primo annuncio!</h3></a></td>
             </tr>
           </tbody>
         @endif
