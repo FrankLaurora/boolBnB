@@ -12,8 +12,8 @@
     <form action="{{route("admin.images.store", $apartment->id)}}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
-            <label for="url" class="form-label">Inserisci un'immagine nella Galleria Immagini</label>
-            <input type="file" name="url" class="form-control ms_pb_4 @error('url') is-invalid @enderror" id="url" value="{{old('url')}}">
+            <label for="url" class="form-label"><h4>Inserisci un'immagine nella Galleria Immagini</h4></label>
+            <input type="file" name="url" class="ms_input form-control ms_pb_4 @error('url') is-invalid @enderror" id="url" value="{{old('url')}}">
             @error('url')
                 <div class="alert alert-danger">{{$message}}</div>
             @enderror
@@ -22,16 +22,16 @@
             
        
 
-        <button type="submit" class="btn btn-dark">Aggiungi altre foto</button>
+        <button type="submit" class="ms-btn_white mr-2 btn btn-dark">Aggiungi / Conferma</button>
         
         <a href="{{route('admin.apartments.edit', $apartment->id)}}">
-            <button type="button" class="btn btn-info">
+            <button type="button" class="ms-btn_light btn btn-info">
                 Torna indietro
             </button>
         </a>
     </form>
 
-    <p class="my-2">Galleria Immagini</p>
+    <h4 class="my-2 ms_orange mt-5">Galleria Immagini</h4>
     <div class="container-gallery">
             
           
@@ -43,7 +43,7 @@
                         <form action="{{route('admin.images.destroy', $image->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Cancella</button>
+                            <button type="submit" class="ms-button btn btn-danger">Cancella</button>
                         </form>  
                     </div>                 
                           
