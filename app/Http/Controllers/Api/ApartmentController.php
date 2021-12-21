@@ -215,6 +215,22 @@ class ApartmentController extends Controller
                 }
             }
         }
+        foreach($response as $index=>$element){            
+            if(!$element->premium){
+                $min=$this->calcHypotenuse($lat,$lon,$element->latitude,$element->longitude);
+                for($t=$index+1 ; $t<count($response)-1 ; $t++){
+                    $elementMin=$this->calcHypotenuse($lat,$lon,$response[$t]->latitude,$response[$t]->longitude);
+                    if($elementMin<$min){
+                        $min=$elementMin;
+                        $temp=$element;
+                        $element=$response[$t];
+                        $response[$t]=$temp;
+                    }
+                }
+            }
+        }
+        // dd($response);
+        // dd('ciclo concluso');
         //paginate here
         $items = Collection::make($response);
         $page=null;
@@ -230,7 +246,9 @@ class ApartmentController extends Controller
             'data' => $paginator
         ]);
     }
-
+    protected function calcHypotenuse($lat,$lon,$elementLat,$elementLon){
+        return  sqrt(pow(($lat-$elementLat),2)+pow(($lon-$elementLon),2));
+    }
     public function paramCheck($name,$value){
         if(!is_numeric($value)){
             return false;
