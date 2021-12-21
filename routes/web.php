@@ -37,6 +37,9 @@ Route::middleware('auth')->namespace('Admin')->name('admin.')->prefix('admin')->
     // Route::get('/', 'ApartmentController@index')->name('apartments.index');
     //reindirizzo le rotte /post su /PostController
     // Route::resource("posts","PostController");
+
+    //show views statistics
+    Route::get('/statistics/show/{id}/{month}', 'StatisticController@show')->name('statistics.show');
 });
 
 // rotte pubbliche
