@@ -39,10 +39,10 @@
                     @else
                     <tr class="ms_fontweight">
                     @endif
-                        <td>{{$apartment->id}}</td>
-                        <td>{{$apartment->title}}</td>
-                        <td class="capitalize">{{$apartment->address}}</td>
-                        <td>{{$apartment->number}}</td>
+                        <td class="ms_lightblue">{{$apartment->id}}</td>
+                        <td class="ms_lightblue">{{$apartment->title}}</td>
+                        <td class="capitalize ms_lightblue">{{$apartment->address}}</td>
+                        <td class="ms_lightblue">{{$apartment->number}}</td>
                         <td>
                                 <button type="button" class="btn ms-btn_white">
                                     <a class="ms_a" href="{{route("admin.apartments.update", $apartment['id'])}}">Visualizza</a>

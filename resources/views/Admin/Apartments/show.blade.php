@@ -17,7 +17,7 @@
           </div>
       @endif  
       <h2 class="pb-3 col-12">Il tuo appartamento</h2> 
-      <h3 class="col-12 ms_orange">" {{$apartment->title}} "</h3>
+      <h3 class="col-12 pb-2 ms_orange">" {{$apartment->title}} "</h3>
       <div class="col-12">
         <a href="{{route('admin.statistics', $apartment->id)}}">
             <button type="button" class="btn ms-button ">
@@ -58,7 +58,11 @@
         </div>
     </div>
       <h3 class="pb-2 col-12 ms_orange">Sponsorizza</h3>
-      <div class="pb-5 col-12">
+      <p class="col-8 pb-2">Gli appartamenti sponsorizzati sono gli annunci che vengono mostrati prima sul nostro sito</p>
+      <h6 class="col-8"><strong class="ms_orange">Silver :</strong> 1 giorno / € 2.99 </h6>
+      <h6 class="col-8"><strong class="ms_orange">Gold :</strong> 3 giorni / € 5.99 </h6>
+      <h6 class="col-8"><strong class="ms_orange">Platinum :</strong> 6 giorni / € 9.99 </h6>
+      <div class="pb-5 pt-4 col-12">
 
         @php
           $today=new DateTime('now');
@@ -91,17 +95,17 @@
       <table class="table  col-12 mb-5">
         <thead class="col-12">
           <tr>
-            <th scope="col ml-2">Mittente</th>
-            <th scope="col">Email</th>
-            <th scope="col">Messaggio</th>
-            <th scope="col">Data</th>
+            <th class="col-2" scope="col-2 ml-2">Mittente</th>
+            <th class="col-3" scope="col-3">Email</th>
+            <th class="col-5"  scope="col-5">Messaggio</th>
+            <th class="col-2"  scope="col-2">Data</th>
           </tr>
         </thead>
         @if (count($messages) > 0)
           <tbody>
             @foreach ($messages->reverse() as $message)    
             <tr>
-              <td class="ms_fontweight ms_lightblue">{{$message->name}}</td>
+              <td class="ms_fontweight ms_lightblue ms_capitalize"><strong>{{$message->name}}</strong> </td>
               <td class="ms_fontweight ms_lightblue">{{$message->email}}</td>
               <td class="ms_fontweight ms_lightblue">{{$message->content}}</td>
               <td class="ms_fontweight ms_lightblue">{{$message->created_at}}</td>
