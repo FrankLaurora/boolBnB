@@ -85,7 +85,7 @@ export default {
             let viewsData = [];
             let mailData = [];
             console.log(viewsData);
-            axios.get(`/api/show/statistics/${window.Apartment.id}/${this.month}`)
+            axios.get(`/admin/statistics/show/${window.Apartment.id}/${this.month}`)
                 .then(response => {
                     console.log(response);
                     for (const key in response.data.data.views) {
@@ -201,7 +201,7 @@ export default {
     mounted() {
         let viewsData = [];
         let mailData = [];
-        axios.get(`/api/show/statistics/${window.Apartment.id}/all`)
+        axios.get(`/admin/statistics/show/${window.Apartment.id}/all`)
             .then(response => {
                 console.log(response.data.data.views);
                 for (const key in response.data.data.views) {
