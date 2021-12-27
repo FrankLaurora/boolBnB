@@ -95,10 +95,10 @@
       <table class="table  col-12 mb-5">
         <thead class="col-12">
           <tr>
-            <th class="col-2" scope="col-2 ml-2">Mittente</th>
-            <th class="col-3" scope="col-3">Email</th>
-            <th class="col-5"  scope="col-5">Messaggio</th>
-            <th class="col-2"  scope="col-2">Data</th>
+            <th  scope="col ml-2">Mittente</th>
+            <th  scope="col">Email</th>
+            <th   scope="col">Messaggio</th>
+            <th   scope="col">Data</th>
           </tr>
         </thead>
         @if (count($messages) > 0)
