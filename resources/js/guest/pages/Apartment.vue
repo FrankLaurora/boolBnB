@@ -166,7 +166,7 @@ export default {
                     .then(x => x.json())
                     .then(({ ip }) => {
                     console.log(ip);
-                    axios.get(`/api/statistics/${this.apartment.id}/${ip}`)
+                    axios.post(`/api/statistics/${this.apartment.id}/${ip}`)
                     .then(function (response) {
                     console.log(response);
                     })

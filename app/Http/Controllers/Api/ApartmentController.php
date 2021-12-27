@@ -98,8 +98,6 @@ class ApartmentController extends Controller
     */
     // /api/apartments/search/&lat=41.846020&lon=12.535800&dist=25
     public function search($query){
-        // $response = Apartment::all();
-        // $apartments=[];
         $distanceRadius=20;//km
         $lat=null;
         $lon=null;
@@ -166,32 +164,34 @@ class ApartmentController extends Controller
         $services_number=count($services);
         $servicesArray=$services;
         $services=implode(',', $services);
+
         if($services_number>0){
-            $response = DB::select( DB::raw("SELECT 
-            apartment_id AS id ,rooms,bathrooms,guests_number,sqm,visibility,user_id,title,region,city,address,number,latitude,longitude,cover,slug,description, apartments.created_at, apartments.updated_at, COUNT(*) AS servicesNumber 
-            FROM apartments 
-            JOIN apartment_service ON apartments.id=apartment_service.apartment_id
-            WHERE rooms>=$rooms AND
-            longitude BETWEEN ($lon-$deltaLon) AND ($lon+$deltaLon) AND
-            latitude BETWEEN ($lat-$deltaLat) AND ($lat+$deltaLat) AND
-            bathrooms>=$bathrooms AND
-            guests_number>=$guests AND
-            sqm>=$sqm AND
-            visibility=1 AND
-            service_id IN ($services) GROUP BY apartment_id
-            HAVING COUNT(*)>=$services_number"));
+            $response = DB::table('apartments')
+            ->select(DB::raw('apartment_id AS id ,rooms,bathrooms,guests_number,sqm,visibility,user_id,title,region,city,address,number,latitude,longitude,cover,slug,description, apartments.created_at, apartments.updated_at, COUNT(*) AS servicesNumber '))
+            ->join('apartment_service','apartment_service.apartment_id','=','apartments.id')
+            ->where('rooms', '>=', $rooms)
+            ->where('bathrooms', '>=', $bathrooms)
+            ->where('guests_number', '>=', $guests)
+            ->where('sqm', '>=', $sqm)
+            ->where('visibility', '=', 1)
+            ->whereBetween('longitude',array($lon-$deltaLon,$lon+$deltaLon))
+            ->whereBetween('latitude',array($lat-$deltaLat,$lat+$deltaLat))
+            ->whereIn('service_id',$servicesArray)
+            ->groupBy('apartment_id')
+            ->having('servicesNumber','>=',$services_number)
+            ->get();
         }else{
-            $response = DB::select(DB::raw("SELECT 
-            id ,rooms,bathrooms,guests_number,sqm,visibility,user_id,title,region,city,address,number,latitude,longitude,cover,slug,description, created_at, updated_at
-            FROM apartments 
-            WHERE rooms>$rooms AND
-            longitude BETWEEN ($lon-$deltaLon) AND ($lon+$deltaLon) AND
-            latitude BETWEEN ($lat-$deltaLat) AND ($lat+$deltaLat) AND
-            bathrooms>$bathrooms AND
-            guests_number>$guests AND
-            sqm>$sqm AND
-            visibility=1"));
+            $response = DB::table('apartments')
+            ->select('id' ,'rooms','bathrooms','guests_number','sqm','visibility','user_id','title','region','city','address','number','latitude','longitude','cover','slug','description', 'created_at', 'updated_at')
+            ->where('rooms', '>=', $rooms)
+            ->where('bathrooms', '>=', $bathrooms)
+            ->where('guests_number', '>=', $guests)
+            ->where('sqm', '>=', $sqm)
+            ->whereBetween('longitude',array($lon-$deltaLon,$lon+$deltaLon))
+            ->whereBetween('latitude',array($lat-$deltaLat,$lat+$deltaLat))
+            ->get();
         }
+        
         //checking time of sponsorship for premium true/false
         $today=new DateTime('now');
         $premiumIndex=0;
@@ -228,9 +228,7 @@ class ApartmentController extends Controller
                     }
                 }
             }
-        }
-        // dd($response);
-        // dd('ciclo concluso');
+        }       
         //paginate here
         $items = Collection::make($response);
         $page=null;
