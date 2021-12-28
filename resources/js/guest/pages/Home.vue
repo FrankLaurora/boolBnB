@@ -6,7 +6,7 @@
                 <input list="addresses" name="search" v-model="search" @keyup="fetchResults(search)" @change="fetchResults(search)" placeholder="Dove vuoi andare?">
                 <!-- il ":to" ridireziona al componente advancedSearch passando lo slug 'search' come parametro dell'URI -->
                 <div v-if="this.longitude!=undefined && this.latitude!=undefined">
-                    <router-link :to="{ name: 'search', params: { slug: query } }">
+                    <router-link :to="{ name: 'search', params:{slug:this.query,lat:this.latitude,lon:this.longitude}}">
                         <button class="ms_btn">Cerca<i class="far fa-paper-plane"></i></button>
                     </router-link>
                 </div>
@@ -83,25 +83,7 @@ export default {
             }
         },
 
-        //non utilizzata
-        // fetchApartments(search) {
-        //     fetch('https://api.tomtom.com/search/2/geocode/'+ search +'.json?key=jXiFCoqvlFBNjmqBX4SuU1ehhUX1JF7t&language=it-IT')
-        //     .then(response => response.json())
-        //     .then(data=>{
-        //         let lat=data.results[0].position.lat;
-        //         let lon=data.results[0].position.lon;
-        //         axios.get(`http://localhost:8000/api/apartments/search/&lat=${lat}&lon=${lon}&dist=25`)
-        //         .then(response => {
-        //             this.apartments = [];
-        //             this.apartments = response.data.data;
-        //             this.lastPage = response.data.lastPage;
-        //         })
-        //         .catch(error => {
-        //             console.log(error)
-        //         })
-        //     });
-        // },
-
+        //al click sulla pagina cambia la richiesta degli appartamenti paginati
         getPage(index) {
             this.page = index;
         },
@@ -124,7 +106,6 @@ export default {
    
         axios.get(`http://localhost:8000/api/apartments/?page=${this.page}`)
         .then(response => {
-            console.log(response);
             this.lastPage = response.data.data.last_page;
             this.apartments = response.data.data.data;
         })

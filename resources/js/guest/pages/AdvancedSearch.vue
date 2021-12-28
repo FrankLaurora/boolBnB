@@ -23,7 +23,8 @@
                 <div class="services_container" v-for="(service, index) in services" :key="index">
                     <button class="ms_btn_services" @click="addService(service.id)" :class="serviceFilter.includes(service.id) ? 'active' : ''">{{service.name}}</button>
                 </div>
-                <router-link :to="{ name: 'search', params: { slug:search} }">
+                <!-- riscrivo la query ogni qualvolta clicco su mostra appartamenti -->
+                <router-link :to="{ name: 'search', params: { slug:query} }">
                     <button @click="advancedSearch()" class="ms_btn_advance">Mostra appartamenti </button>
                 </router-link>
             </div>
@@ -69,6 +70,7 @@ export default {
                 lat: null,
                 lon: null
             },
+            query:'',
             serviceFilter : [],
             noResults : false,
             page: 1
@@ -194,34 +196,36 @@ export default {
     },
 
     created() {
-            fetch('https://api.tomtom.com/search/2/geocode/'+ this.$route.params.slug +'.json?key=jXiFCoqvlFBNjmqBX4SuU1ehhUX1JF7t&language=it-IT')
-            .then(response => response.json())
-            .then(data=>{
-                this.geo.lat=data.results[0].position.lat;
-                this.geo.lon=data.results[0].position.lon;
-                axios.get(`http://localhost:8000/api/apartments/search/&lat=${this.geo.lat}&lon=${this.geo.lon}&dist=25`)
-                .then(response => {
-                    this.apartments = [];
-                    this.apartments = response.data.data.data;
-                    this.noResults = false;
-                    if(this.apartments.length < 1){
-                        this.noResults = true;
-                    }
-                    this.lastPage = response.data.data.last_page;
-                    console.log('prova', response.data);
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-            });
+            //???????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
+            // fetch('https://api.tomtom.com/search/2/geocode/'+ this.$route.params.slug +'.json?key=jXiFCoqvlFBNjmqBX4SuU1ehhUX1JF7t&language=it-IT')
+            // .then(response => response.json())
+            // .then(data=>{
+            //     this.geo.lat=data.results[0].position.lat;
+            //     this.geo.lon=data.results[0].position.lon;
+        this.lat=this.$route.params.lat;
+        this.lon=this.$route.params.lon;
+        this.query=this.$route.params.slug;
+        axios.get(`http://localhost:8000/api/apartments/search/${this.query}&dist=25`)
+        .then(response => {
+            this.apartments = [];
+            this.apartments = response.data.data.data;
+            this.noResults = false;
+            if(this.apartments.length < 1){
+                this.noResults = true;
+            }
+            this.lastPage = response.data.data.last_page;
+        })
+        .catch(error => {
+            console.log(error)
+        })
+        // });
 
-            axios.get(`/api/services`)
-                .then(response =>{
-                console.log(response.data);
-                this.services = response.data.data;
-            });
-            window.scrollTo(0, 0);
-        }
+        axios.get(`/api/services`)
+            .then(response =>{
+            this.services = response.data.data;
+        });
+        window.scrollTo(0, 0);
+    }
 }
 </script>
 
