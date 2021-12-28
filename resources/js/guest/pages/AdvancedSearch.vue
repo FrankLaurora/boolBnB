@@ -2,15 +2,18 @@
     <div>
         <div class="searchbar">
             <div class="input_bar">
+
+                <!--DATALIST keyup non funziona -->
                 <input list="addresses" id="addressInput" style="width:500px" name="search" v-model="search" @keyup="fetchResults(search)" @keyup.enter.prevent="$emit('advancedSearch', search)" placeholder="Dove vuoi andare?">
                 <datalist style="width:500px" id="addresses">
                     <option style="width:500px" v-for="(element, index) in searchResults[0]" :key="index" :value="element.address.freeformAddress"></option>
                 </datalist>
+
                 <label for="rooms">Stanze</label>
-                <input type="number" min="1" max="255" placeholder="2" v-model.number="rooms" id="rooms">
+                <input type="number" min="1" max="255" placeholder="1" v-model.number="rooms" id="rooms">
 
                 <label for="guests">Ospiti</label>
-                <input type="number" min="1" max="255" placeholder="2" v-model.number="guests" id="guests">
+                <input type="number" min="1" max="255" placeholder="1" v-model.number="guests" id="guests">
 
                 <label for="distance">Distanza</label>
                 <input type="number" min="0" placeholder="20 km" v-model.number="distance" id="distance">
@@ -73,6 +76,8 @@ export default {
     },
 
     methods: {
+
+        //compilazione automatica della datalist su chiamata tomtom
         fetchResults(search) {
             if(search != '') {
                 fetch('https://api.tomtom.com/search/2/geocode/'+ search +'.json?key=jXiFCoqvlFBNjmqBX4SuU1ehhUX1JF7t&language=it-IT')
