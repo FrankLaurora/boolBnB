@@ -2,9 +2,7 @@
     <div>
         <div class="ms_container">
             <div class="search_bar">
-                <!-- <input list="addresses" name="search" v-model="search" @keyup="fetchResults(search)" @keyup.enter.prevent="fetchApartments(search)" placeholder="Cerca una città"> -->
                 <input list="addresses" name="search" v-model="search" @keyup="fetchResults(search)" @keyup.enter.prevent="$emit('advancedSearch', search)" placeholder="Dove vuoi andare?">
-                <!-- <button @click="fetchApartments(search)">Cerca</button> -->
                 <router-link :to="{ name: 'search', params: { slug: search } }">
                     <button class="ms_btn">Cerca <i class="far fa-paper-plane"></i></button>
                 </router-link>
@@ -21,6 +19,7 @@
                 </div>
             </div>
             <ul>
+                <!-- creo i numeri delle pagine in base alla ricerca effettuata -->
                 <li v-for="index in lastPage" :key="index" @click="getPage(index), changePage()">{{index}}</li>
             </ul>
         </div>
@@ -42,17 +41,19 @@ export default {
 
     data() {
         return {
-            apartments: [],
-            searchResults: [],
-            search: "",
-            query: {},
-            page: 1,
-            lastPage: null,
-            sponsored: []
+            apartments: [],//salvo gli appartamenti
+            searchResults: [],//risultati che ritornano dalla chiamata api di tomtom
+            search: "",//stringa in cui salvo i valori contenuti nella input della località
+            //query: {},non usata
+            page: 1,//la pagina, come standard 1 prima che l'utente la modifichi
+            lastPage: null,//viene assegnata alla richiesta axios degli appartamenti
+            sponsored: []//appartamenti sponsorizzati? a cosa serve? dovrebbe essere una feature implementata nella card
         }
     },
 
     methods: {
+
+        //ogni volta che scrivo un carattere nella barra di ricerca chiamo l'api di tomtom per chiedere eventuali risultati
         fetchResults(search) {
             if(search != '') {
                 fetch('https://api.tomtom.com/search/2/geocode/'+ search +'.json?key=jXiFCoqvlFBNjmqBX4SuU1ehhUX1JF7t&language=it-IT')
@@ -63,29 +64,31 @@ export default {
                 })
             }
         },
-    
-        fetchApartments(search) {
-            fetch('https://api.tomtom.com/search/2/geocode/'+ search +'.json?key=jXiFCoqvlFBNjmqBX4SuU1ehhUX1JF7t&language=it-IT')
-            .then(response => response.json())
-            .then(data=>{
-                let lat=data.results[0].position.lat;
-                let lon=data.results[0].position.lon;
-                axios.get(`http://localhost:8000/api/apartments/search/&lat=${lat}&lon=${lon}&dist=25`)
-                .then(response => {
-                    this.apartments = [];
-                    this.apartments = response.data.data;
-                    this.lastPage = response.data.lastPage;
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-            });
-        },
+
+        //non utilizzata
+        // fetchApartments(search) {
+        //     fetch('https://api.tomtom.com/search/2/geocode/'+ search +'.json?key=jXiFCoqvlFBNjmqBX4SuU1ehhUX1JF7t&language=it-IT')
+        //     .then(response => response.json())
+        //     .then(data=>{
+        //         let lat=data.results[0].position.lat;
+        //         let lon=data.results[0].position.lon;
+        //         axios.get(`http://localhost:8000/api/apartments/search/&lat=${lat}&lon=${lon}&dist=25`)
+        //         .then(response => {
+        //             this.apartments = [];
+        //             this.apartments = response.data.data;
+        //             this.lastPage = response.data.lastPage;
+        //         })
+        //         .catch(error => {
+        //             console.log(error)
+        //         })
+        //     });
+        // },
 
         getPage(index) {
             this.page = index;
         },
 
+        //al cambio pagina richiamo l'api impaginata
         changePage() {
                 axios.get(`http://localhost:8000/api/apartments/?page=${this.page}`)
             .then(response => {
@@ -97,7 +100,7 @@ export default {
         }
     },
         
-
+    //apppena monta la pagina chiamo i dati degli appartamenti e salvo 3 appartamenti sponsorizzati?
     mounted () {
         window.scrollTo(0, 0);
    
@@ -106,9 +109,10 @@ export default {
             console.log(response);
             this.lastPage = response.data.data.last_page;
             this.apartments = response.data.data.data;
-            for (let index = 6; index < 9; index++) {
-                this.sponsored.push(this.apartments[index])
-            }
+//?????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
+            // for (let index = 6; index < 9; index++) {
+            //     this.sponsored.push(this.apartments[index])
+            // }
         })
         .catch(error => {
             console.log(error)
