@@ -25,7 +25,7 @@
                 </div>
                 <!-- riscrivo la query ogni qualvolta clicco su mostra appartamenti -->
                 <router-link id="routerlink" :to="{ name: 'search', params: { slug:query, location:search} }">
-                    <button id="button" @click="getApartments()" class="ms_btn_advance">Filtra appartamenti </button>
+                    <button id="button" @click="getPage(1),getApartments()" class="ms_btn_advance">Filtra appartamenti </button>
                 </router-link>
             </div>
             
@@ -36,7 +36,7 @@
                 <Card v-for="(apartment, index) in apartments" :key="index" :apartment="apartment"/>
             </div>
             <ul>
-                <li v-for="index in lastPage" :key="index" @click="getPage(index), changePage()">{{index}}</li>
+                <li v-for="index in lastPage" :key="index" @click="getPage(index)">{{index}}</li>
             </ul>
         </div>
     </div>
@@ -58,7 +58,7 @@ export default {
         return {
             apartments : [],
             lastPage : null,
-            start:true,
+            // start:true, //no longer used
             searchResults: [],
             rooms: 1,
             guests: 1,
@@ -66,18 +66,18 @@ export default {
             lat: null,
             lon: null,
             search: this.$route.params.location,
-            lastSearch: "",
-            services: [],
-            query:'',
-            serviceFilter : [],
-            noResults : false,
+            // lastSearch: "", //no longer used
+            services: [],//services asked by query
+            query:'',//query for requests
+            serviceFilter : [],//actual services selected
+            noResults : false,//used fot the message 'no apartments'
             page: 1
         }
     },
 
     methods: {
 
-        //compilazione automatica della datalist su chiamata tomtom
+        //compilazione automatica della datalist su chiamata tomtom e aggiornamento query
         fetchResults(search) {
             this.lat=undefined;
             this.lon=undefined;
@@ -94,6 +94,7 @@ export default {
             }
         },
 
+        //makes the services toggle works
         addService(id) {
             if(this.serviceFilter.includes(id)) {
                 let index = this.serviceFilter.indexOf(id);
@@ -101,59 +102,16 @@ export default {
             } else {
                 this.serviceFilter.push(id)
             }
-            console.log(this.serviceFilter)
         },
 
-        // serviceToString(array) {
-        //     array.join('-')
-        // },
+        //get the page selected by clicking on the page number, add it to the query and refresh apartments pagination
+        getPage(index) {
+            this.page = index;
+            this.mountSlug();
+            this.getApartments();
+        },
 
-        // getPage(index) {
-        //     this.page = index;
-        // },
-
-        // changePage() {
-        //     if(this.search!=this.lastSearch&&this.search!=""){
-        //         setTimeout(() => {
-        //             this.lastSearch=this.search;
-        //             fetch('https://api.tomtom.com/search/2/geocode/'+ this.$route.params.slug +'.json?key=jXiFCoqvlFBNjmqBX4SuU1ehhUX1JF7t&language=it-IT')
-        //             .then(response => response.json())
-        //             .then(data=>{
-        //                 this.geo.lat=data.results[0].position.lat;
-        //                 this.geo.lon=data.results[0].position.lon;
-        //                 axios.get(`http://localhost:8000/api/apartments/search/&lat=${this.geo.lat}&lon=${this.geo.lon}&dist=25`)
-        //                 .then(response => {
-        //                     this.apartments = [];
-        //                     this.apartments = response.data.data.data;
-        //                     this.noResults = false;
-        //                     if(this.apartments.length < 1){
-        //                         this.noResults = true;
-        //                     }
-        //                     console.log('prova 2', response.data.data)
-        //                     this.lastPage = response.data.data.last_page;
-        //                 })
-        //                 .catch(error => {
-        //                     console.log(error)
-        //                 })
-        //             });
-        //         }, 100);
-        //     }
-        //     let servicesId = this.serviceFilter.join('-');
-        //     axios.get(`http://localhost:8000/api/apartments/search/&lat=${this.geo.lat}&lon=${this.geo.lon}${this.distance ? '&dist=' + this.distance : ''}${this.rooms ? '&rooms=' + this.rooms : ''}${this.guests ? '&guests=' + this.guests : ''}${servicesId != "" ? '&services=' + servicesId : ''}/?page=${this.page}`)
-        //         .then(response => {
-        //             this.apartments = [];
-        //             this.apartments = response.data.data.data;
-        //             this.noResults = false;
-        //             if(this.apartments.length < 1){
-        //                 this.noResults = true;
-        //             }
-        //             this.lastPage = response.data.data.last_page;
-        //         })
-        //         .catch(error => {
-        //             console.log(error)
-        //         })
-        // },
-
+        //exoplode te slug received to renew the data values so if a address it's passed it can recover all the information required
         explodeSlug(){
             let slug=this.$route.params.slug;
             slug=slug.substr(1);
@@ -163,6 +121,7 @@ export default {
                 switch (element[0]) {
                     case 'lon':
                         this.lon=parseFloat(element[1]);
+                        this.page=1;
                     break;
                     case 'lat':
                         this.lat=parseFloat(element[1]);
@@ -190,6 +149,7 @@ export default {
         //mounts the query
         mountSlug(){
             let query='';
+            // let changedServices=false;
             if(this.lat!=undefined){
                 query+='&lat='+this.lat;
             }
@@ -207,17 +167,21 @@ export default {
             }
             if(this.serviceFilter.length>0){
                 query+='&services='+this.serviceFilter.join('-');
+                // changedServices=true;
+                // this.page=1;
             }
+            query+='/?page='+this.page;
             this.query=query;
             this.$route.params.slug=query;
-            console.log(this.$route.params.slug);
+            // if(changedServices){
+            //     this.getApartments();
+            // }
         },
 
         //get apartments function
         getApartments(){
             axios.get(`http://localhost:8000/api/apartments/search/${this.query}`)
             .then(response => {
-                console.log(response);
                 this.apartments = [];
                 this.apartments = response.data.data.data;
                 this.noResults = false;
