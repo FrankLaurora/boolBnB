@@ -10,22 +10,22 @@
                 </datalist>
 
                 <label for="rooms">Stanze</label>
-                <input type="number" min="1" max="255" placeholder="1" v-model.number="rooms" id="rooms">
+                <input @change="mountSlug()" type="number" min="1" max="255" placeholder="1" v-model.number="rooms" id="rooms">
 
                 <label for="guests">Ospiti</label>
-                <input type="number" min="1" max="255" placeholder="1" v-model.number="guests" id="guests">
+                <input @change="mountSlug()" type="number" min="1" max="255" placeholder="1" v-model.number="guests" id="guests">
 
                 <label for="distance">Distanza</label>
-                <input type="number" min="0" placeholder="20 km" v-model.number="distance" id="distance">
+                <input @change="mountSlug()" type="number" min="0" placeholder="20 km" v-model.number="distance" id="distance">
             </div>
             
             <div class="service_row">
                 <div class="services_container" v-for="(service, index) in services" :key="index">
-                    <button class="ms_btn_services" @click="addService(service.id)" :class="serviceFilter.includes(service.id) ? 'active' : ''">{{service.name}}</button>
+                    <button class="ms_btn_services" @click="addService(service.id),mountSlug()" :class="serviceFilter.includes(service.id) ? 'active' : ''">{{service.name}}</button>
                 </div>
                 <!-- riscrivo la query ogni qualvolta clicco su mostra appartamenti -->
-                <router-link :to="{ name: 'search', params: { slug:query} }">
-                    <button @click="advancedSearch()" class="ms_btn_advance">Filtra appartamenti </button>
+                <router-link id="routerlink" :to="{ name: 'search', params: { slug:query, location:search} }">
+                    <button id="button" @click="getApartments()" class="ms_btn_advance">Filtra appartamenti </button>
                 </router-link>
             </div>
             
@@ -44,6 +44,7 @@
 
 <script>
 import Card from '../components/Card.vue';
+import router from '../router';
 
 export default {
     name: 'AdvancedSearch',
@@ -57,6 +58,7 @@ export default {
         return {
             apartments : [],
             lastPage : null,
+            start:true,
             searchResults: [],
             rooms: 1,
             guests: 1,
@@ -87,52 +89,9 @@ export default {
                     this.searchResults.push(data.results);
                     this.lat=this.searchResults[0][0].position.lat;
                     this.lon=this.searchResults[0][0].position.lon;
-                        // this.query='&lat='+this.latitude+'&lon='+this.longitude;
+                    this.mountSlug();
                 })
             }
-        },
-
-        advancedSearch() {
-            if(this.search!=this.lastSearch&&this.search!=""){
-                setTimeout(() => {
-                    this.lastSearch=this.search;
-                    fetch('https://api.tomtom.com/search/2/geocode/'+ this.$route.params.slug +'.json?key=jXiFCoqvlFBNjmqBX4SuU1ehhUX1JF7t&language=it-IT')
-                    .then(response => response.json())
-                    .then(data=>{
-                        this.geo.lat=data.results[0].position.lat;
-                        this.geo.lon=data.results[0].position.lon;
-                        axios.get(`http://localhost:8000/api/apartments/search/&lat=${this.geo.lat}&lon=${this.geo.lon}&dist=25`)
-                        .then(response => {
-                            this.apartments = [];
-                            this.apartments = response.data.data.data;
-                            this.noResults = false;
-                            if(this.apartments.length < 1){
-                                this.noResults = true;
-                            }
-                            this.lastPage = response.data.data.last_page;
-                            console.log('prova 3', response.data.data)
-                        })
-                        .catch(error => {
-                            console.log(error)
-                        })
-                    });
-                }, 100);
-            }
-            let servicesId = this.serviceFilter.join('-');
-            axios.get(`http://localhost:8000/api/apartments/search/&lat=${this.geo.lat}&lon=${this.geo.lon}${this.distance ? '&dist=' + this.distance : ''}${this.rooms ? '&rooms=' + this.rooms : ''}${this.guests ? '&guests=' + this.guests : ''}${servicesId != "" ? '&services=' + servicesId : ''}`)
-                .then(response => {
-                    this.apartments = [];
-                    this.apartments = response.data.data.data;
-                    this.noResults = false;
-                    if(this.apartments.length < 1){
-                        this.noResults = true;
-                    }
-                    
-                    this.lastPage = response.data.data.last_page;
-                })
-                .catch(error => {
-                    console.log(error)
-                })
         },
 
         addService(id) {
@@ -145,55 +104,55 @@ export default {
             console.log(this.serviceFilter)
         },
 
-        serviceToString(array) {
-            array.join('-')
-        },
+        // serviceToString(array) {
+        //     array.join('-')
+        // },
 
-        getPage(index) {
-            this.page = index;
-        },
+        // getPage(index) {
+        //     this.page = index;
+        // },
 
-        changePage() {
-            if(this.search!=this.lastSearch&&this.search!=""){
-                setTimeout(() => {
-                    this.lastSearch=this.search;
-                    fetch('https://api.tomtom.com/search/2/geocode/'+ this.$route.params.slug +'.json?key=jXiFCoqvlFBNjmqBX4SuU1ehhUX1JF7t&language=it-IT')
-                    .then(response => response.json())
-                    .then(data=>{
-                        this.geo.lat=data.results[0].position.lat;
-                        this.geo.lon=data.results[0].position.lon;
-                        axios.get(`http://localhost:8000/api/apartments/search/&lat=${this.geo.lat}&lon=${this.geo.lon}&dist=25`)
-                        .then(response => {
-                            this.apartments = [];
-                            this.apartments = response.data.data.data;
-                            this.noResults = false;
-                            if(this.apartments.length < 1){
-                                this.noResults = true;
-                            }
-                            console.log('prova 2', response.data.data)
-                            this.lastPage = response.data.data.last_page;
-                        })
-                        .catch(error => {
-                            console.log(error)
-                        })
-                    });
-                }, 100);
-            }
-            let servicesId = this.serviceFilter.join('-');
-            axios.get(`http://localhost:8000/api/apartments/search/&lat=${this.geo.lat}&lon=${this.geo.lon}${this.distance ? '&dist=' + this.distance : ''}${this.rooms ? '&rooms=' + this.rooms : ''}${this.guests ? '&guests=' + this.guests : ''}${servicesId != "" ? '&services=' + servicesId : ''}/?page=${this.page}`)
-                .then(response => {
-                    this.apartments = [];
-                    this.apartments = response.data.data.data;
-                    this.noResults = false;
-                    if(this.apartments.length < 1){
-                        this.noResults = true;
-                    }
-                    this.lastPage = response.data.data.last_page;
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-        },
+        // changePage() {
+        //     if(this.search!=this.lastSearch&&this.search!=""){
+        //         setTimeout(() => {
+        //             this.lastSearch=this.search;
+        //             fetch('https://api.tomtom.com/search/2/geocode/'+ this.$route.params.slug +'.json?key=jXiFCoqvlFBNjmqBX4SuU1ehhUX1JF7t&language=it-IT')
+        //             .then(response => response.json())
+        //             .then(data=>{
+        //                 this.geo.lat=data.results[0].position.lat;
+        //                 this.geo.lon=data.results[0].position.lon;
+        //                 axios.get(`http://localhost:8000/api/apartments/search/&lat=${this.geo.lat}&lon=${this.geo.lon}&dist=25`)
+        //                 .then(response => {
+        //                     this.apartments = [];
+        //                     this.apartments = response.data.data.data;
+        //                     this.noResults = false;
+        //                     if(this.apartments.length < 1){
+        //                         this.noResults = true;
+        //                     }
+        //                     console.log('prova 2', response.data.data)
+        //                     this.lastPage = response.data.data.last_page;
+        //                 })
+        //                 .catch(error => {
+        //                     console.log(error)
+        //                 })
+        //             });
+        //         }, 100);
+        //     }
+        //     let servicesId = this.serviceFilter.join('-');
+        //     axios.get(`http://localhost:8000/api/apartments/search/&lat=${this.geo.lat}&lon=${this.geo.lon}${this.distance ? '&dist=' + this.distance : ''}${this.rooms ? '&rooms=' + this.rooms : ''}${this.guests ? '&guests=' + this.guests : ''}${servicesId != "" ? '&services=' + servicesId : ''}/?page=${this.page}`)
+        //         .then(response => {
+        //             this.apartments = [];
+        //             this.apartments = response.data.data.data;
+        //             this.noResults = false;
+        //             if(this.apartments.length < 1){
+        //                 this.noResults = true;
+        //             }
+        //             this.lastPage = response.data.data.last_page;
+        //         })
+        //         .catch(error => {
+        //             console.log(error)
+        //         })
+        // },
 
         explodeSlug(){
             let slug=this.$route.params.slug;
@@ -230,45 +189,60 @@ export default {
 
         //mounts the query
         mountSlug(){
-            this.query='';
-            this.query=`&lat=${this.lat}&lon=${this.lon}`
-            // ${this.distance ? '&dist=' + this.distance : ''}${this.rooms ? '&rooms=' + this.rooms : ''}${this.guests ? '&guests=' + this.guests : ''}${this.servicesId != "" ? '&services=' + servicesId : ''}/?page=${this.page}`;
-            this.$rounte.params.slug=this.query;
+            let query='';
+            if(this.lat!=undefined){
+                query+='&lat='+this.lat;
+            }
+            if(this.lon!=undefined){
+                query+='&lon='+this.lon;
+            }
+            if(this.distance>0){
+                query+='&dist='+this.distance;
+            }
+            if(this.rooms>0){
+                query+='&rooms='+this.rooms;
+            }
+            if(this.guests>0){
+                query+='&guests='+this.guests;
+            }
+            if(this.serviceFilter.length>0){
+                query+='&services='+this.serviceFilter.join('-');
+            }
+            this.query=query;
+            this.$route.params.slug=query;
             console.log(this.$route.params.slug);
-            console.log(this.query);
-            alert('uscito');
         },
 
         //get apartments function
         getApartments(){
-            axios.get(`http://localhost:8000/api/apartments/search/${this.$route.params.slug}`)
+            axios.get(`http://localhost:8000/api/apartments/search/${this.query}`)
             .then(response => {
+                console.log(response);
                 this.apartments = [];
                 this.apartments = response.data.data.data;
                 this.noResults = false;
                 if(this.apartments.length < 1){
                     this.noResults = true;
-                }else{
-                    if(this.apartments[0].city!=undefined){
-                        this.search=this.apartments[0].city;
-                    }
                 }
                 this.lastPage = response.data.data.last_page;
             })
             .catch(error => {
                 console.log(error)
             })
-            axios.get(`/api/services`)
-                .then(response =>{
-                this.services = response.data.data;
-            });
             window.scrollTo(0, 0);
         }
     },
+
     //on mounted i get parameters passed from home and get apartments
     created() {
+        this.search=this.$route.params.location;
+        this.query=this.$route.params.slug;
         this.explodeSlug();
         this.getApartments();
+        axios.get(`/api/services`)
+            .then(response =>{
+            this.services = response.data.data;
+        });
     },
 }
 </script>
