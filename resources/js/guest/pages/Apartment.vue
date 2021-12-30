@@ -99,6 +99,7 @@
 </template> 
 
 <script>
+
 import tt from '@tomtom-international/web-sdk-maps';
 
 export default {
@@ -139,11 +140,25 @@ export default {
                         center: [this.lon, this.lat]
                     });
                 this.map.addControl(new tt.NavigationControl);
+                var markerHeight = 35, markerRadius = 10, linearOffset = 25;
+                var popupOffsets = {
+                    'top': [0, 0],
+                    'top-left': [0,0],
+                    'top-right': [0,0],
+                    'bottom': [0, -markerHeight],
+                    'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+                    'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+                    'left': [markerRadius, (markerHeight - markerRadius) * -1],
+                    'right': [-markerRadius, (markerHeight - markerRadius) * -1]
+                };
+                var popup = new tt.Popup({offset: popupOffsets, className: 'popup-frame'})
+                .setHTML(`<p class="popup">${this.apartment.title}</p>`);
                 this.marker = new tt.Marker({
                     color: '#ffa628',
                     width: '27',
-                    height: '35'
-                }).setLngLat([this.lon, this.lat]).addTo(this.map);
+                    height: '35',
+                }).setLngLat([this.lon, this.lat]).setPopup(popup).addTo(this.map);
+                console.log(this.apartment);
                 console.log(this.marker);
                 this.apartment.services.forEach(id => {
                     axios.get(`/api/services/${id}`)
@@ -235,6 +250,9 @@ export default {
         border-radius: 7px;
         width: 100%;
         height: 400px;
+        .popup{
+            color: black !important;
+        }
     }
 
     h3{

@@ -16,14 +16,16 @@ class PaymentsController extends Controller
     public function index($apartment_id, $sponsorship_id) {
         $apartment = Apartment::where('id', '=', $apartment_id)->first();
         $sponsorship = Sponsorship::where('id', '=', $sponsorship_id)->first();
-
+        
+        //parametri salvati nel file .ENV
         $gateway = new Gateway([
             'environment' => env('BRAINTREE_ENV'),
             'merchantId' => env('BRAINTREE_MERCHANT_ID'),
             'publicKey' => env('BRAINTREE_PUBLIC_KEY'),
             'privateKey' => env('BRAINTREE_PRIVATE_KEY')
         ]);
-    
+        
+        //token transazione da girare alla view del pagamento
         $token = $gateway->ClientToken()->generate();
     
         return view('admin.sponsorships.index', compact('apartment', 'sponsorship'), [

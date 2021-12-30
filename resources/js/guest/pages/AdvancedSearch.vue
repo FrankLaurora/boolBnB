@@ -30,6 +30,13 @@
             </div>
             
         </div>
+        <div class="ms_container">
+            <div class="ms_col-12 ms_col-md-4">
+                <div class="container">
+                    <div id="map"></div>              
+                </div>
+            </div>
+        </div>
         <div class="container-cards ms_container">
             <h1 v-if="noResults">Non ci sono appartamenti che corrispondono alle tue richieste</h1>
             <div v-else class="ms_row ms_align-items-center">
@@ -44,7 +51,7 @@
 
 <script>
 import Card from '../components/Card.vue';
-import router from '../router';
+import tt from '@tomtom-international/web-sdk-maps';
 
 export default {
     name: 'AdvancedSearch',
@@ -62,6 +69,7 @@ export default {
             searchResults: [],
             rooms: 1,
             guests: 1,
+            map: null,
             distance: null,
             lat: null,
             lon: null,
@@ -152,12 +160,15 @@ export default {
             // let changedServices=false;
             if(this.lat!=undefined){
                 query+='&lat='+this.lat;
+                // this.changeMapCenter();
             }
             if(this.lon!=undefined){
                 query+='&lon='+this.lon;
+                // this.changeMapCenter();
             }
             if(this.distance>0){
                 query+='&dist='+this.distance;
+                // this.changeMapZoom();
             }
             if(this.rooms>0){
                 query+='&rooms='+this.rooms;
@@ -194,6 +205,19 @@ export default {
                 console.log(error)
             })
             window.scrollTo(0, 0);
+            if(this.map!=null){
+                this.changeMapCenter();
+                this.changeMapZoom();   
+            }
+        },
+
+        changeMapCenter(){
+            this.map.setCenter([this.lon, this.lat]);
+        },
+
+        changeMapZoom(){
+            //156543= max meters per pixel, 350 map height
+            this.map.setZoom(Math.ceil(Math.log2((156.543*350)/this.distance)));
         }
     },
 
@@ -208,11 +232,21 @@ export default {
             this.services = response.data.data;
         });
     },
+    mounted(){
+        this.map = tt.map({
+            key: 'lXA4qKasPyxqJxup4ikKlTFOL3Z89cp4',
+            container: 'map',
+        });
+        this.map.addControl(new tt.NavigationControl);
+    }
 }
 </script>
 
 <style lang="scss" scoped>
-
+#map{
+    height: 350px;
+    border-radius: 15px;
+}
 .searchbar {
     // display: flex;
     justify-content: center;
