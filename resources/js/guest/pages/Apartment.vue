@@ -158,8 +158,8 @@ export default {
                     width: '27',
                     height: '35',
                 }).setLngLat([this.lon, this.lat]).setPopup(popup).addTo(this.map);
-                console.log(this.apartment);
-                console.log(this.marker);
+                // console.log(this.apartment);
+                // console.log(this.marker);
                 this.apartment.services.forEach(id => {
                     axios.get(`/api/services/${id}`)
                     .then(response =>{

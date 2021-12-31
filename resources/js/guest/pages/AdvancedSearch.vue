@@ -64,12 +64,14 @@ export default {
     data() {
         return {
             apartments : [],
+            marker:null,
             lastPage : null,
             // start:true, //no longer used
             searchResults: [],
             rooms: 1,
             guests: 1,
             map: null,
+            originalMap: null,
             distance: null,
             lat: null,
             lon: null,
@@ -200,15 +202,52 @@ export default {
                     this.noResults = true;
                 }
                 this.lastPage = response.data.data.last_page;
+                this.changeMapCenter();
+                this.changeMapZoom();
+                this.setApartmentsPOI();
             })
             .catch(error => {
-                console.log(error)
+                console.log(error);
             })
             window.scrollTo(0, 0);
-            if(this.map!=null){
-                this.changeMapCenter();
-                this.changeMapZoom();   
-            }
+        },
+
+        setApartmentsPOI(){
+            this.apartments.forEach((apartment,index)=>{
+                let markerHeight = 35, markerRadius = 10, linearOffset = 25;
+                let popupOffsets = {
+                    'top': [0, 0],
+                    'top-left': [0,0],
+                    'top-right': [0,0],
+                    'bottom': [0, -markerHeight],
+                    'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+                    'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+                    'left': [markerRadius, (markerHeight - markerRadius) * -1],
+                    'right': [-markerRadius, (markerHeight - markerRadius) * -1]
+                };
+                let popup = new tt.Popup({offset: popupOffsets, className: 'popup-frame'})
+                .setHTML(`
+                    <p class="popup" style="color:black">${apartment.title}</p>
+                `);
+                this.marker = new tt.Marker({
+                    color: '#ffa628',
+                    width: '27',
+                    height: '35'
+                    // className: 'button__apartments--details'
+                }).setLngLat([apartment.longitude, apartment.latitude]).setPopup(popup).addTo(this.map);
+                document.getElementsByClassName('mapboxgl-marker-anchor-bottom')[index].addEventListener("click", (e) => {this.myFunction(apartment.slug)});
+            });
+        },
+
+        myFunction(slug){
+            this.$router.push({ name: 'apartment', params: { slug: slug } });
+        },
+
+        generateNewMap(){
+            this.map = tt.map({
+                key: 'lXA4qKasPyxqJxup4ikKlTFOL3Z89cp4',
+                container: 'map',
+            });
         },
 
         changeMapCenter(){
@@ -217,27 +256,28 @@ export default {
 
         changeMapZoom(){
             //156543= max meters per pixel, 350 map height
-            this.map.setZoom(Math.ceil(Math.log2((156.543*350)/this.distance)));
+            this.map.setZoom(Math.ceil(Math.log2((156.543*350)/this.distance))-3);
         }
     },
 
-    //on mounted i get parameters passed from home and get apartments
-    created() {
+    mounted(){
         this.search=this.$route.params.location;
         this.query=this.$route.params.slug;
         this.explodeSlug();
-        this.getApartments();
         axios.get(`/api/services`)
             .then(response =>{
             this.services = response.data.data;
         });
-    },
-    mounted(){
-        this.map = tt.map({
-            key: 'lXA4qKasPyxqJxup4ikKlTFOL3Z89cp4',
-            container: 'map',
-        });
+        this.generateNewMap();
+        // this.map = tt.map({
+        //     key: 'lXA4qKasPyxqJxup4ikKlTFOL3Z89cp4',
+        //     container: 'map',
+        // });
+        this.originalMap=this.map;
         this.map.addControl(new tt.NavigationControl);
+        this.getApartments();
+        // this.changeMapCenter();
+        // this.changeMapZoom();  
     }
 }
 </script>
