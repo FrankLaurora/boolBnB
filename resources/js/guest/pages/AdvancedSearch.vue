@@ -208,11 +208,7 @@ export default {
                 this.lastPage = response.data.data.last_page;
                 this.changeMapCenter();
                 this.changeMapZoom();
-                // if(this.apartments.length!=0){
-                    this.setApartmentsPOI();
-                // }else{
-                    this.noResults=true;
-                // }
+                this.setApartmentsPOI();
             })
             .catch(error => {
                 console.log(error);
