@@ -73,6 +73,7 @@ export default {
             map: null,
             originalMap: null,
             distance: null,
+            lastDistance: null,
             lat: null,
             lon: null,
             search: this.$route.params.location,
@@ -193,6 +194,9 @@ export default {
 
         //get apartments function
         getApartments(){
+            if(this.distance!=this.lastDistance){
+                this.generateNewMap();
+            }
             axios.get(`http://localhost:8000/api/apartments/search/${this.query}`)
             .then(response => {
                 this.apartments = [];
@@ -216,11 +220,11 @@ export default {
         //adding mouse eneter and leave for popup
         //adding mouseclick for route to the selected apartment
         setApartmentsPOI(){
-            let centralMapMarker = new tt.Marker({
-                    color: '#ff0000',
-                    width: '22',
-                    height: '27'
-                }).setLngLat([this.lon, this.lat]).addTo(this.map);
+            // let centralMapMarker = new tt.Marker({
+            //         color: '#ff0000',
+            //         width: '22',
+            //         height: '27'
+            //     }).setLngLat([this.lon, this.lat]).addTo(this.map);
             this.apartments.forEach((apartment,index)=>{
                 console.log(apartment);
                 let markerHeight = 35, markerRadius = 10, linearOffset = 25;
@@ -267,10 +271,14 @@ export default {
         },
 
         generateNewMap(){
+            this.lastDistance=this.distance;
+            this.map='';
             this.map = tt.map({
                 key: 'lXA4qKasPyxqJxup4ikKlTFOL3Z89cp4',
                 container: 'map',
             });
+            this.originalMap=this.map;
+            this.map.addControl(new tt.NavigationControl); 
         },
 
         changeMapCenter(){
