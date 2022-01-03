@@ -6,7 +6,7 @@
                 <input list="addresses" name="search" v-model="search" @keyup="fetchResults(search)" @change="fetchResults(search)" placeholder="Dove vuoi andare?">
                 <!-- il ":to" ridireziona al componente advancedSearch passando lo slug 'search' come parametro dell'URI -->
                 <div v-if="this.longitude!=undefined && this.latitude!=undefined">
-                    <router-link :to="{ name: 'search', params:{slug:(this.query+'&dist=20'),location:search}}">
+                    <router-link :to="{ name: 'search', params:{slug:(this.query+'&dist=10'),location:search}}">
                         <button class="ms_btn">Cerca<i class="far fa-paper-plane"></i></button>
                     </router-link>
                 </div>

@@ -16,7 +16,7 @@
                 <input @change="mountSlug()" type="number" min="1" max="255" placeholder="1" v-model.number="guests" id="guests">
 
                 <label for="distance">Distanza</label>
-                <input @change="mountSlug()" type="number" min="0" placeholder="20 km" v-model.number="distance" id="distance">
+                <input @change="mountSlug()" type="number" min="0" placeholder="10 km" v-model.number="distance" id="distance">
             </div>
             
             <div class="service_row">
@@ -212,8 +212,17 @@ export default {
             window.scrollTo(0, 0);
         },
 
+        //se apartaments as Point Of Intrests on the map and 
+        //adding mouse eneter and leave for popup
+        //adding mouseclick for route to the selected apartment
         setApartmentsPOI(){
+            let centralMapMarker = new tt.Marker({
+                    color: '#ff0000',
+                    width: '22',
+                    height: '27'
+                }).setLngLat([this.lon, this.lat]).addTo(this.map);
             this.apartments.forEach((apartment,index)=>{
+                console.log(apartment);
                 let markerHeight = 35, markerRadius = 10, linearOffset = 25;
                 let popupOffsets = {
                     'top': [0, 0],
@@ -225,18 +234,32 @@ export default {
                     'left': [markerRadius, (markerHeight - markerRadius) * -1],
                     'right': [-markerRadius, (markerHeight - markerRadius) * -1]
                 };
-                let popup = new tt.Popup({offset: popupOffsets, className: 'popup-frame'})
-                .setHTML(`
-                    <p class="popup" style="color:black">${apartment.title}</p>
+                let popup = new tt.Popup({offset: popupOffsets, className: apartment.slug}).setLngLat([apartment.longitude, apartment.latitude]).setHTML(`
+                    <div style="color:black">
+                        <h4 >${apartment.title}</h4>
+                        <p>Distanza:    ${apartment.distance.toFixed(1)} km</p>
+                        <p>Posti letto: ${apartment.guests_number}</p>
+                        <p>Stanze:      ${apartment.rooms}</p>
+                    </div>
                 `);
-                this.marker = new tt.Marker({
+                let marker = new tt.Marker({
                     color: '#ffa628',
                     width: '27',
                     height: '35'
-                    // className: 'button__apartments--details'
                 }).setLngLat([apartment.longitude, apartment.latitude]).setPopup(popup).addTo(this.map);
+                //adding events
+                document.getElementsByClassName('mapboxgl-marker-anchor-bottom')[index].addEventListener("mouseenter", (e) => {this.showPopup(this.map,marker)});
+                document.getElementsByClassName('mapboxgl-marker-anchor-bottom')[index].addEventListener("mouseleave", (e) => {this.hidePopup(this.map,marker)});
                 document.getElementsByClassName('mapboxgl-marker-anchor-bottom')[index].addEventListener("click", (e) => {this.myFunction(apartment.slug)});
             });
+        },
+
+        showPopup(map,marker){
+            marker.getPopup().addTo(map);
+        },
+
+        hidePopup(map,marker){
+            marker.getPopup().remove(map);
         },
 
         myFunction(slug){
@@ -256,7 +279,7 @@ export default {
 
         changeMapZoom(){
             //156543= max meters per pixel, 350 map height
-            this.map.setZoom(Math.ceil(Math.log2((156.543*350)/this.distance))-3);
+            this.map.setZoom(Math.ceil(Math.log2((156.543*350)/this.distance))-2);
         }
     },
 
@@ -269,20 +292,17 @@ export default {
             this.services = response.data.data;
         });
         this.generateNewMap();
-        // this.map = tt.map({
-        //     key: 'lXA4qKasPyxqJxup4ikKlTFOL3Z89cp4',
-        //     container: 'map',
-        // });
         this.originalMap=this.map;
         this.map.addControl(new tt.NavigationControl);
         this.getApartments();
-        // this.changeMapCenter();
-        // this.changeMapZoom();  
     }
 }
 </script>
 
 <style lang="scss" scoped>
+.d-none{
+    display: none;
+}
 #map{
     height: 350px;
     border-radius: 15px;

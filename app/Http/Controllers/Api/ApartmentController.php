@@ -202,6 +202,7 @@ class ApartmentController extends Controller
                 ->where('apartment_id' ,'=', $element->id )
             ->get();
             $element->premium=false;
+            $element->distance=$this->calcRadius($lat,$lon,$element->latitude,$element->longitude);
             foreach($sponsorResponse as $sponsor){
                 $hoursdiff=false;
                 $subscription_date=new DateTime($sponsor->created_at);
@@ -214,21 +215,12 @@ class ApartmentController extends Controller
                     $premiumIndex++;
                 }
             }
-        }
-        for($index=0;$index<count($response)-1;$index++){   
-            if(!$response[$index]->premium){
-                $min=$this->calcHypotenuse($lat,$lon,$response[$index]->latitude,$response[$index]->longitude);
-                for($t=$index+1 ; $t<count($response); $t++){
-                    $elementMin=$this->calcHypotenuse($lat,$lon,$response[$t]->latitude,$response[$t]->longitude);
-                    if($elementMin<$min){
-                        $min=$elementMin;
-                        $temp=$response[$index];
-                        $response[$index]=$response[$t];
-                        $response[$t]=$temp;
-                    }
-                }
+            if($element->distance<$distanceRadius){
+                $temp[]=$element;
             }
-        }       
+        }
+        $response=$temp;//return the array filtered on distance
+        $response=$this->orderResultsFromDistance($response);
         //paginate here
         $items = Collection::make($response);
         $page=null;
@@ -244,6 +236,25 @@ class ApartmentController extends Controller
             'data' => $paginator
         ]);
     }
+
+    protected function orderResultsFromDistance($response){
+        for($index=0;$index<count($response)-1;$index++){   
+            if(!$response[$index]->premium){
+                $min=$response[$index]->distance;
+                for($t=$index+1 ; $t<count($response); $t++){
+                    $elementMin=$response[$t]->distance;
+                    if($elementMin<$min){
+                        $min=$elementMin;
+                        $temp=$response[$index];
+                        $response[$index]=$response[$t];
+                        $response[$t]=$temp;
+                    }
+                }
+            }
+        }        
+        return $response;
+    }
+
     protected function calcHypotenuse($lat,$lon,$elementLat,$elementLon){
         return  sqrt(pow(($lat-$elementLat),2)+pow(($lon-$elementLon),2));
     }
@@ -295,18 +306,18 @@ class ApartmentController extends Controller
     * passing two cordinates as @param lat1,lon1,lat2,lon2 @return the distance between those two points
     * for test 41.846020,13.535800,40.846020,12.535800
      */
-    // public function calcDistance($lat1,$lon1,$lat2,$lon2)
-    // {
-    //     $earthRay=6371;
-    //     $radius1=pi()*$lat2/180;
-    //     $radius2=pi()*$lat1/180;
-    //     $distanceLat=($lat1-$lat2)*pi()/180;
-    //     $distanceLon=($lon1-$lon2)*pi()/180;
-    //     $a=sin($distanceLat/2)*sin($distanceLat/2)+cos($radius1)*cos($radius2)*sin($distanceLon/2)*sin($distanceLon/2);
-    //     $c=2*atan2(sqrt($a),sqrt(1-$a));
-    //     $distance = $earthRay*$c;
-    //     return $distance;
-    // }
+    public function calcRadius($lat1,$lon1,$lat2,$lon2)
+    {
+        $earthRay=6371;
+        $radius1=pi()*$lat2/180;
+        $radius2=pi()*$lat1/180;
+        $distanceLat=($lat1-$lat2)*pi()/180;
+        $distanceLon=($lon1-$lon2)*pi()/180;
+        $a=sin($distanceLat/2)*sin($distanceLat/2)+cos($radius1)*cos($radius2)*sin($distanceLon/2)*sin($distanceLon/2);
+        $c=2*atan2(sqrt($a),sqrt(1-$a));
+        $distance = $earthRay*$c;
+        return $distance;
+    }
 
     // given the latitude, returns the longitude difference (Delta Longitude) corresponding the given distance
     public function calcDistance($lat,$dist)
