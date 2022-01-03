@@ -60,14 +60,16 @@ class ApartmentController extends Controller
         $response = Apartment::all();
         $apartments=[];
         $premiumIndex=0;
-        foreach($response as $index=>$apartment){
-            $apartments[]=$this->completeApartment($apartment);
-            //ordering apartments based on premium
-            if($apartment->premium){
-                $temp=$apartments[$premiumIndex];
-                $apartments[$premiumIndex]=$apartment;
-                $apartments[$index]=$temp;
-                $premiumIndex++;
+        if(count($response)>0){
+            foreach($response as $index=>$apartment){
+                $apartments[]=$this->completeApartment($apartment);
+                //ordering apartments based on premium
+                if($apartment->premium){
+                    $temp=$apartments[$premiumIndex];
+                    $apartments[$premiumIndex]=$apartment;
+                    $apartments[$index]=$temp;
+                    $premiumIndex++;
+                }
             }
         }
         //paginate here
@@ -98,7 +100,7 @@ class ApartmentController extends Controller
     */
     // /api/apartments/search/&lat=41.846020&lon=12.535800&dist=25
     public function search($query){
-        $distanceRadius=20;//km
+        $distanceRadius=10;//km
         $lat=null;
         $lon=null;
         $rooms=1;
@@ -195,32 +197,34 @@ class ApartmentController extends Controller
         //checking time of sponsorship for premium true/false
         $today=new DateTime('now');
         $premiumIndex=0;
-        foreach($response as $index=>$element){
-            $element->services=$servicesArray;
-            $sponsorResponse = DB::table('sponsorships')
-                ->join('apartment_sponsorship', 'sponsorships.id', '=', 'apartment_sponsorship.sponsorship_id')
-                ->where('apartment_id' ,'=', $element->id )
-            ->get();
-            $element->premium=false;
-            $element->distance=$this->calcRadius($lat,$lon,$element->latitude,$element->longitude);
-            foreach($sponsorResponse as $sponsor){
-                $hoursdiff=false;
-                $subscription_date=new DateTime($sponsor->created_at);
-                $hoursdiff=($today->diff($subscription_date)->h)+($today->diff($subscription_date)->d)*24 + ($today->diff($subscription_date)->y)*365;
-                if($hoursdiff<=$sponsor->duration){
-                    $element->premium=true;
-                    $temp=$response[$premiumIndex];
-                    $response[$premiumIndex]=$element;
-                    $response[$index]=$temp;
-                    $premiumIndex++;
+        if(count($response)>0){
+            foreach($response as $index=>$element){
+                $element->services=$servicesArray;
+                $sponsorResponse = DB::table('sponsorships')
+                    ->join('apartment_sponsorship', 'sponsorships.id', '=', 'apartment_sponsorship.sponsorship_id')
+                    ->where('apartment_id' ,'=', $element->id )
+                ->get();
+                $element->premium=false;
+                $element->distance=$this->calcRadius($lat,$lon,$element->latitude,$element->longitude);
+                foreach($sponsorResponse as $sponsor){
+                    $hoursdiff=false;
+                    $subscription_date=new DateTime($sponsor->created_at);
+                    $hoursdiff=($today->diff($subscription_date)->h)+($today->diff($subscription_date)->d)*24 + ($today->diff($subscription_date)->y)*365;
+                    if($hoursdiff<=$sponsor->duration){
+                        $element->premium=true;
+                        $temp=$response[$premiumIndex];
+                        $response[$premiumIndex]=$element;
+                        $response[$index]=$temp;
+                        $premiumIndex++;
+                    }
+                }
+                if($element->distance<$distanceRadius){
+                    $temp[]=$element;
                 }
             }
-            if($element->distance<$distanceRadius){
-                $temp[]=$element;
-            }
+            $response=$temp;//return the array filtered on distance
+            $response=$this->orderResultsFromDistance($response);
         }
-        $response=$temp;//return the array filtered on distance
-        $response=$this->orderResultsFromDistance($response);
         //paginate here
         $items = Collection::make($response);
         $page=null;
