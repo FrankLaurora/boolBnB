@@ -26,29 +26,29 @@
             </div> -->
             <div class="hero_img ms_container-fluid">
                 <div class=" ms_col-6">
-                    <router-link :to="{ name: 'search', params: { slug: 'roma' } }"><!--
-                    --><img src="images/small-michele-bitetto-2y6ojwauKJI-unsplash.jpg" alt="Roma"><!--
-                    --><div><h2 class="overlay">ROMA</h2></div> 
+                    <router-link :to="{ name: 'search', params: { slug: '&lat=41.89056&lon=12.49427&dist=10' , location: 'Roma' } }">
+                    <img src="images/small-michele-bitetto-2y6ojwauKJI-unsplash.jpg" alt="Roma">
+                    <div><h2 class="overlay">ROMA</h2></div> 
                     </router-link>
                     
                 </div>
                 <div class=" right_container ms_col-6">
                     <div class=" half_container ms_row ">
                         <div class="ms_col-6">
-                            <router-link :to="{ name: 'search', params: { slug: 'milano' } }">
+                            <router-link :to="{ name: 'search', params: { slug: '&lat=45.46362&lon=9.18812&dist=10' , location: 'Milano' } }">
                                 <img src="images/small-ouael-ben-salah-0xe2FGo7Vc0-unsplash.jpg" alt="Milano">
                                 <h2 class="overlay">MILANO</h2>
                             </router-link>   
                         </div>
                         <div class="ms_col-6">
-                            <router-link :to="{ name: 'search', params: { slug: 'bologna' } }">
+                            <router-link :to="{ name: 'search', params: { slug: '&lat=44.49419&lon=11.34652&dist=10' , location: 'Bologna' } }">
                                 <img src="images/small-bogdan-dada-vXpcpTl2Tt4-unsplash.jpg" alt="Bologna">
                                 <h2 class="overlay">BOLOGNA</h2>
                             </router-link>   
                         </div>
                     </div>
                     <div class="ms_col-12 ms_row row_bottom ">
-                        <router-link :to="{ name: 'search', params: { slug: 'napoli' } }">
+                        <router-link :to="{ name: 'search', params: { slug: '&lat=40.83998&lon=14.25254&dist=10' , location: 'Napoli' } }">
                             <img src="images/small-danilo-d-agostino-NjhHTNPkEDQ-unsplash.jpg" alt="Napoli">
                             <h2 class="overlay">NAPOLI</h2>
                         </router-link>
